@@ -1,0 +1,83 @@
+
+SQL*Loader: Release 12.2.0.1.0 - Production on Mon Jan 28 16:47:34 2019
+
+Copyright (c) 1982, 2017, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   users.ctl
+Data File:      csvdocument/20181224-TEST.csv
+  Bad File:     20181224-TEST.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 1
+Errors allowed: 50
+Bind array:     128 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table TEST_USER, loaded from every logical record.
+Insert option in effect for this table: TRUNCATE
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+VIRTUAL_COLUM                       FIRST     *      O(") CHARACTER            
+  (FILLER FIELD)
+    Terminator string : '&#&'
+USER_ID                              NEXT     *      O(") CHARACTER            
+    Terminator string : '&#&'
+    SQL string for column : "to_number(:user_id)"
+USER_NAME                            NEXT     *      O(") CHARACTER            
+    Terminator string : '&#&'
+    SQL string for column : "replace(:user_name,chr(10),''))"
+LOGIN_TIMES                          NEXT     *      O(") CHARACTER            
+    Terminator string : '&#&'
+LAST_LOGIN                           NEXT     *      O(") DATE YYYY-MM-DD HH24:MI:SS
+    Terminator string : '&#&'
+TIMES                                NEXT     *      O(") CHARACTER            
+    Terminator string : '&#&'
+    SQL string for column : "sysdate"
+ID                                   NEXT     *      O(") CHARACTER            
+    Terminator string : '&#&'
+    SQL string for column : "test_user_s.nextval"
+
+Record 1: Rejected - Error on table TEST_USER, column USER_NAME.
+second enclosure string not present
+Record 2: Rejected - Error on table TEST_USER.
+ORA-00947: not enough values
+
+Record 3: Rejected - Error on table TEST_USER.
+ORA-00947: not enough values
+
+Record 4: Rejected - Error on table TEST_USER.
+ORA-00947: not enough values
+
+Record 5: Rejected - Error on table TEST_USER.
+ORA-00947: not enough values
+
+Record 6: Rejected - Error on table TEST_USER.
+ORA-00947: not enough values
+
+
+Table TEST_USER:
+  0 Rows successfully loaded.
+  6 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 198144 bytes(128 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          1
+Total logical records read:             6
+Total logical records rejected:         6
+Total logical records discarded:        0
+
+Run began on Mon Jan 28 16:47:34 2019
+Run ended on Mon Jan 28 16:47:34 2019
+
+Elapsed time was:     00:00:00.05
+CPU time was:         00:00:00.02

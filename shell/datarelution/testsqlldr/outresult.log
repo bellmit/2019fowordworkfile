@@ -1,0 +1,11 @@
+SQL> select * from test_user;
+
+   USER_ID USER_NAME                                                                                            LOGIN_TIMES LAST_LOGIN                                                                  
+---------- ---------------------------------------------------------------------------------------------------- ----------- ------------                                                                
+         1 unim                                                                                                           3 04-JAN-09                                                                   
+         2                                                                                                                2 21-OCT-08                                                                   
+         3 ssss                                                                                                           1 03-FEB-10                                                                   
+         4 ssssww                                                                                                         3 08-MAY-10                                                                   
+         5 ddddd                                                                                                          4                                                                             
+
+SQL> spool off
