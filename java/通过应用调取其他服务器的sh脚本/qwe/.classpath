@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/gytz-kaif1/Desktop/jsch-0.1.50.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gytz-kaif1/Desktop/ganymed-ssh2-build210.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-accumulator-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-activator-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-core-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-datasource-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-decision-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-decision-report-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-report-engine-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-schedule-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-schedule-report-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-swift-log-adaptor-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-third-10.0.jar"/>
+	<classpathentry kind="lib" path="C:/FineReport_10.0/webapps/webroot/WEB-INF/lib/fine-webui-10.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
