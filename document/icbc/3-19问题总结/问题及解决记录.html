@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>工银投资项目待解决问题</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <div style="height:50px">
+    <img src="logo.jpg" alt="logo" align="right">
+</div>
+<h1 id="工银投资项目待解决问题">工银投资项目待解决问题</h1>
+<ul>
+<li><a href="#%E5%B7%A5%E9%93%B6%E6%8A%95%E8%B5%84%E9%A1%B9%E7%9B%AE%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98">工银投资项目待解决问题</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F">数据质量</a></li>
+<li><a href="#%E7%BC%BA%E5%A4%B1%E4%BF%A1%E6%81%AF">缺失信息</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%A7%84%E8%8C%83">数据规范</a></li>
+<li><a href="#%E9%80%BB%E8%BE%91">逻辑</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据质量">数据质量</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">问题说明</th>
+<th style="text-align:left">YN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left"><code>tasset_guaranteecontract</code>表中字段重复，重复字段为<code>disposalmony</code>,<code>guaranteecontractno</code></td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left"><code>tasset_pawn_info</code>中字段重复，重复字段为<code>currentbalance</code>,<code>deductionten</code>,<code>lasttimeloss</code>,<br><code>lastbalance</code>,<code>disposalmoney</code>,<code>recoverablebalance</code></td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left"><code>trepay_confirm</code>中字段重复，重复字段为<code>associated_asset_id</code></td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">文档中丢失<code>tasset_loanaccount</code>表的相关资料</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">3.7的csv文件中 <code>securty_position_his</code> 中，按照文档部分数值的类型为小数点后8位，<br> csv中的文件导入时出现长度不够用的情况,是否修改类型位 <code>number</code> 类型</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">3.7版本的数据，数据大量重复，详情参照邮件，已给出相关重复问题信息</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">3.7版本的数据中 <code>asset_creditorcontract</code>表数据中顺序与文档不一致</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left">3.7版本中 <code>asset_guaranteecontract</code>表中，第五列中的某条数据超出限制长度</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:left">3.7版本中 <code>backinfo</code>，<code>customer</code>及<code>invest_contract</code>表中时间格式错误</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:left"><code>project_info</code>在clob字段中，需要去掉clob中的<code>&quot;</code>,否则出现冲突无法使用</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>备注:</strong> <br></p>
+<ol>
+<li>2问题中字段重复的问题是给的数据字典及csv文件中都重复了此列<br></li>
+<li>3.7的问题处理结果一需要为一个全量数据的tar文件包，管会需要测试所写shell<br>脚本是否正确执行，及是否有遗漏</li>
+</ol>
+</blockquote>
+<h2 id="缺失信息">缺失信息</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">问题说明</th>
+<th style="text-align:left">YN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">3.7的文件中缺失<code>despositsloansdeal</code>,<code>investplandetail</code>,<code>paymentreceipt</code>,<code>repodeal</code>, <br> <code>securitydeal</code>,<code>securityissuance</code>,<code>securitymaster</code>,<code>securityrateadjust</code>,<code>securityyield</code></td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">相关业务的码表缺失</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>备注:</strong> <br></p>
+<ol>
+<li>数据文件有可能是当期未生成，日期为3.7的数据现缺失这些表(其中基金部分修改后修改了3表的表结构，<br>且更换了具体的表，具体情况请参考相关文档)<br></li>
+<li>码表的数据</li>
+</ol>
+</blockquote>
+<h2 id="数据规范">数据规范</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">问题说明</th>
+<th style="text-align:left">YN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">3.7 数据规范问题主要集中在csv文件的命名中，按照规范使用驼峰命名法</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>备注:</strong> <br></p>
+<ol>
+<li>csv文件文件名的命名规范为 yyyyMMdd_tablename.csv,若出现需要会计期间的，则为 yyyyMMdd_tablename_period.csv,总账按此规则给数。但在核心之前要求修改时出现了一些困难，故就按照当时的表名换成驼峰命名法进行继续开发。（表名是小写）</li>
+</ol>
+</blockquote>
+<h2 id="逻辑">逻辑</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">问题说明</th>
+<th style="text-align:left">YN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">无法确定原始留债的逻辑（重组债权的逻辑可能也会因此发生变化）</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">基金部分的逻辑尚不清晰（原始留债等）</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">业务类型号在收债转股，重组债权及降准资金中无法得到</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">起息日期在原始债权及重组债权中存在争议</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">账面金额在收债转股及重组债权发股还债中存在争议</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">到期日中原始债权并未给出如何取值</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">收益率调整方式购买国债及发行金融债券字段待确定</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left">首次收益率调整日在原始债权，重组债权，发行金融债券中待确定</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:left">收益率调整周期和收益率调整周期单位在发行金融债券中待确定</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:left">资金回收方式及还款金额在原始债权和重组债权中有争议</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:left">约定收益回收日在原始债权和重组债权中有尚未明确的部分</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:left">年初至今累计投资收益-股利分红和年初至今累计顾问业务费业务收入中收债转股<br>和发股还债有部分待确定</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:left">年初至今累计管理费业务收支在收债转股和发股还债中尚无</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:left">年初至今累计利息收支在原始债权，存放同业和债券逆回购中有问题及争议</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:left">年初至今累计投资收益-退出溢价在收债转股和发股还债中尚无</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:left">本金科目号等8项与财务系统对接后提供逻辑尚无</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实现">实现</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">问题说明</th>
+<th style="text-align:left">YN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">将全部核心的表导入到src贴源层</td>
+<td style="text-align:left">基本完成,缺失验证</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">将全部贴源层的数据导入到std标准层</td>
+<td style="text-align:left">基本完成,缺失验证</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">将std标准层数据转化处理成想要的数据</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>备注:</strong> <br></p>
+<ol>
+<li>1问题中的脚本及控制文件基本写完，查漏补缺需要正确集成数据支持<br></li>
+<li>2问题中所涉及的存储过程基本完成，需要验证及修改<br></li>
+<li>3问题中，处理总账的数据的存储过程已完成，但核心和基金的数据有不少逻辑问题，推进较为困难</li>
+</ol>
+</blockquote>
+
+    </body>
+    </html>
