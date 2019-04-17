@@ -1,0 +1,20 @@
+CRM 数据库地址 sqlserver 1433 crm_sailian
+10.26.66.149  
+sa   
+XYlink0987
+
+
+DMS 数据库地址 sqlserver 1433 dms_sailian
+10.26.66.149  
+sa   
+XYlink0987
+
+prd环境
+rr-2zet4c4rk84kc1vcw.mysql.rds.aliyuncs.com
+账户：ainemoroot 
+密码：SJCiT7KMGx
+
+应用服务器
+10.81.8.91
+administrator
+密码W998nemo
