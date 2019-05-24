@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20170720" releaseVersion="10.0.0">
+<TableDataMap>
+<TableData name="data" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="period"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="productname"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="typename"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="custname"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[SERVER]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select cinvsn, date_format( use_time, '%Y%m' ) period ,cCusCode,cCusName,cInvCode,cInvName,`port` typename, amount ftaxsum,ftaxnowsum,ftaxperiod,amount-ftaxnowsum ftaxleft,use_time,first_bind_timestamp,cSOCode from hs_report  
+WHERE
+    1=1
+	-- 取开始日期小于等于最大条件日期，且结束日期大于等于最小条件日期的数据
+	${if(len(period)=0,"","and date_format( use_time, '%Y%m' )='"+period+"'" )}
+	 ${if(len(typename)=0,"","and port= '"+typename+"'" )}
+	 ${if(len(custname)=0,"","and cCusName= '"+custname+"'" )}
+	 ${if(len(productname)=0,"","and cInvName= '"+productname+"'" )}
+	order by first_bind_timestamp]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[SERVER]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[
+select distinct port typename from hardware_service_product_standard_price ]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="ds2" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[SERVER]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[
+
+
+select distinct cCusName custname from hs_load_order_data_hardwareservice  where prodsp is not null and first_bind_timestamp is not null]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="ds3" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[SERVER]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[
+
+
+select distinct cInvName productname from hs_load_order_data_hardwareservice  where prodsp is not null and first_bind_timestamp is not null]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+</TableDataMap>
+<ReportWebAttr>
+<Title>
+<![CDATA[云服务分摊明细表]]></Title>
+<ServerPrinter/>
+</ReportWebAttr>
+<Report class="com.fr.report.worksheet.WorkSheet" name="云服务分摊总表">
+<ReportPageAttr>
+<HR F="0" T="4"/>
+<FR/>
+<HC F="0" T="1"/>
+<FC/>
+<UPFCR COLUMN="true" ROW="true"/>
+</ReportPageAttr>
+<ColumnPrivilegeControl/>
+<RowPrivilegeControl/>
+<RowHeight defaultValue="723900">
+<![CDATA[723900,1440000,288000,1008000,1008000,1008000,1008000,936000,936000,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[720000,9105900,3600000,3600000,7848600,3600000,3600000,3600000,3600000,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="1" cs="8" s="0">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=left($period, 4) + "年" + right($period, 2) + "月" + $typename + $custname + $productname + "明细表"]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="3" s="1">
+<O>
+<![CDATA[激活卡号码]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="3" rs="2" s="1">
+<O>
+<![CDATA[激活时间]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="3" rs="2" s="1">
+<O>
+<![CDATA[持续时间(月)]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="3" rs="2" s="1">
+<O>
+<![CDATA[订单号]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="3" s="1">
+<O>
+<![CDATA[当月摊销费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="3" s="1">
+<O>
+<![CDATA[累计摊销费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="3" s="1">
+<O>
+<![CDATA[总摊销费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="3" s="1">
+<O>
+<![CDATA[剩余摊销费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="4" s="2">
+<O>
+<![CDATA[合计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="4" s="3">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=sum(F6)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="4" s="3">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=sum(G6)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="4" s="3">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=sum(H6)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="4" s="3">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=sum(I6)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="5" s="4">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="cinvsn"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<HighlightList>
+<Highlight class="com.fr.report.cell.cellattr.highlight.DefaultHighlight">
+<Name>
+<![CDATA[条件属性1]]></Name>
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[ROW() % 30 = 0]]></Formula>
+</Condition>
+<HighlightAction class="com.fr.report.cell.cellattr.highlight.PageHighlightAction">
+<P i="1"/>
+</HighlightAction>
+</Highlight>
+</HighlightList>
+<Expand dir="0"/>
+</C>
+<C c="2" r="5" s="5">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="first_bind_timestamp"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="3" r="5" s="6">
+<O t="I">
+<![CDATA[12]]></O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="4" r="5" s="7">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="cSOCode"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="5" r="5" s="8">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="ftaxperiod"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="6" r="5" s="8">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="ftaxnowsum"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="7" r="5" s="8">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="ftaxsum"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="8" r="5" s="8">
+<O t="DSColumn">
+<Attributes dsName="data" columnName="ftaxleft"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+<Background name="ColorBackground" color="-1"/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<PrivilegeControl/>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="false" windowPosition="1" align="0" useParamsTemplate="true"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<ParameterUI class="com.fr.form.main.parameter.FormParameterUI">
+<Parameters/>
+<Layout class="com.fr.form.ui.container.WParameterLayout">
+<WidgetName name="para"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Margin top="0" left="0" bottom="0" right="0"/>
+<Border>
+<border style="0" color="-723724" borderRadius="0" type="0" borderStyle="0"/>
+<WidgetTitle>
+<O>
+<![CDATA[新建标题]]></O>
+<FRFont name="SimSun" style="0" size="72"/>
+<Position pos="0"/>
+</WidgetTitle>
+<Alpha alpha="1.0"/>
+</Border>
+<Background name="ColorBackground" color="-526086"/>
+<LCAttr vgap="0" hgap="0" compInterval="0"/>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.ComboBox">
+<WidgetName name="productname"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Dictionary class="com.fr.data.impl.TableDataDictionary">
+<FormulaDictAttr kiName="productname" viName="productname"/>
+<TableDataDictAttr>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[ds3]]></Name>
+</TableData>
+</TableDataDictAttr>
+</Dictionary>
+<widgetValue>
+<O>
+<![CDATA[]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="691" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="Labelproductname"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[产品名称：]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="微软雅黑" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="611" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.ComboBox">
+<WidgetName name="custname"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Dictionary class="com.fr.data.impl.TableDataDictionary">
+<FormulaDictAttr kiName="custname" viName="custname"/>
+<TableDataDictAttr>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[ds2]]></Name>
+</TableData>
+</TableDataDictAttr>
+</Dictionary>
+<widgetValue>
+<O>
+<![CDATA[]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="516" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="Labelcustname"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[客户名称：]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="微软雅黑" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="436" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.ComboBox">
+<WidgetName name="typename"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Dictionary class="com.fr.data.impl.TableDataDictionary">
+<FormulaDictAttr kiName="typename" viName="typename"/>
+<TableDataDictAttr>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[ds1]]></Name>
+</TableData>
+</TableDataDictAttr>
+</Dictionary>
+<widgetValue>
+<O>
+<![CDATA[]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="311" y="25" width="108" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="Labeltypename"/>
+<LabelName name="productname:"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[服务类型:]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="微软雅黑" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="231" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.DateEditor">
+<WidgetName name="period"/>
+<LabelName name="typename:"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<allowBlank>
+<![CDATA[false]]></allowBlank>
+<DirectEdit>
+<![CDATA[false]]></DirectEdit>
+<DateAttr format="yyyyMM"/>
+<widgetValue>
+<O t="Date">
+<![CDATA[1555430400000]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="130" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="Labelperiod"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[期间:]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="微软雅黑" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="50" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.parameter.FormSubmitButton">
+<WidgetName name="Search"/>
+<LabelName name="custname:"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[查询]]></Text>
+<Hotkeys>
+<![CDATA[enter]]></Hotkeys>
+</InnerWidget>
+<BoundsAttr x="806" y="25" width="80" height="21"/>
+</Widget>
+<Sorted sorted="false"/>
+<MobileWidgetList>
+<Widget widgetName="period"/>
+<Widget widgetName="typename"/>
+<Widget widgetName="custname"/>
+<Widget widgetName="productname"/>
+<Widget widgetName="Search"/>
+</MobileWidgetList>
+<Display display="true"/>
+<DelayDisplayContent delay="false"/>
+<UseParamsTemplate use="true"/>
+<Position position="0"/>
+<Design_Width design_width="960"/>
+<NameTagModified>
+<TagModified tag="period" modified="true"/>
+<TagModified tag="Search" modified="true"/>
+<TagModified tag="productname" modified="true"/>
+<TagModified tag="typename" modified="true"/>
+<TagModified tag="custname" modified="true"/>
+</NameTagModified>
+<WidgetNameTagMap>
+<NameTag name="period" tag="typename:"/>
+<NameTag name="Search" tag="custname:"/>
+<NameTag name="productname" tag="服务类型:"/>
+<NameTag name="typename" tag="typename:"/>
+<NameTag name="custname" tag="期间:"/>
+</WidgetNameTagMap>
+<ParamAttr class="com.fr.report.mobile.DefaultMobileParamStyle"/>
+</Layout>
+<DesignAttr width="960" height="60"/>
+</ParameterUI>
+</ReportParameterAttr>
+<StyleList>
+<Style style_name="简绿"/>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="Microsoft YaHei UI" style="0" size="72" foreground="-1"/>
+<Background name="ColorBackground" color="-12478742"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="Microsoft YaHei UI" style="0" size="72" foreground="-1"/>
+<Background name="ColorBackground" color="-13382452"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<Format class="com.fr.base.CoreDecimalFormat">
+<![CDATA[#0.00]]></Format>
+<FRFont name="微软雅黑" style="1" size="72"/>
+<Background name="ColorBackground" color="-13382452"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1">
+<FRFont name="Microsoft YaHei UI" style="0" size="72"/>
+<Background name="ColorBackground" color="-3743751"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<Format class="com.fr.base.SimpleDateFormatThreadSafe">
+<![CDATA[yyyy-MM-dd]]></Format>
+<FRFont name="微软雅黑" style="1" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<Format class="com.fr.base.CoreDecimalFormat">
+<![CDATA[#0]]></Format>
+<FRFont name="微软雅黑" style="1" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<Format class="com.fr.base.CoreDecimalFormat">
+<![CDATA[#0]]></Format>
+<FRFont name="微软雅黑" style="1" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<Format class="com.fr.base.CoreDecimalFormat">
+<![CDATA[#0.00]]></Format>
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-657929"/>
+<Bottom style="1" color="-657929"/>
+<Left style="1" color="-657929"/>
+<Right style="1" color="-657929"/>
+</Border>
+</Style>
+</StyleList>
+<DesignerVersion DesignerVersion="KAA"/>
+<PreviewType PreviewType="2"/>
+<TemplateIdAttMark class="com.fr.base.iofile.attr.TemplateIdAttrMark">
+<TemplateIdAttMark TemplateId="4a1acc62-4b0d-4cb4-92c7-8e73d3bbdd31"/>
+</TemplateIdAttMark>
+</WorkBook>

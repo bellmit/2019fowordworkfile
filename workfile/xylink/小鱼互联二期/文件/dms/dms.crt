@@ -1,0 +1,95 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 6 (0x6)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=CN, ST=HN, L=ZK, O=shenOrganization, OU=shenOrganizationalUnit, CN=shenOrganization CA/name=EasyRSA/emailAddress=shen@link.com
+        Validity
+            Not Before: Dec 21 07:33:48 2017 GMT
+            Not After : Dec 19 07:33:48 2027 GMT
+        Subject: C=CN, ST=HN, L=ZK, O=shenOrganization, OU=shenOrganizationalUnit, CN=dms/name=EasyRSA/emailAddress=shen@link.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:c9:c1:6a:d3:1f:ea:f1:ae:de:7b:f1:c8:f9:75:
+                    d8:56:06:f4:35:9f:59:bb:12:f5:9f:69:23:13:53:
+                    9f:2d:4a:d7:05:fb:0e:58:32:6c:52:5a:79:c6:72:
+                    0f:75:37:2f:47:e9:7c:76:64:07:fb:75:1e:38:54:
+                    00:ae:e9:1f:fd:0f:a8:fe:7b:56:99:c4:4e:5f:46:
+                    aa:e3:9f:25:ce:4f:50:74:62:7a:94:d0:9c:81:6d:
+                    bc:59:60:f6:cb:74:d0:e1:71:18:9f:35:18:4d:90:
+                    43:3c:33:b7:2d:8e:95:8d:a7:9a:c7:43:e9:bd:4c:
+                    f0:72:71:23:5e:2f:f8:46:fe:fc:35:cc:03:42:33:
+                    b1:e0:59:45:dc:4b:19:4d:af:46:22:78:81:e4:d0:
+                    62:f5:c5:cb:d0:f0:35:6b:30:5c:54:50:8c:58:16:
+                    72:96:7b:b7:86:41:14:3d:34:1d:ec:98:38:20:e9:
+                    26:41:c1:b7:c7:9b:b6:4d:48:e5:2b:06:da:7d:19:
+                    c7:74:98:c1:9f:21:cb:2a:24:f0:57:88:da:ab:91:
+                    1f:1d:b1:97:a1:59:23:4f:a7:ab:41:04:28:77:f3:
+                    42:fd:22:63:01:04:b9:ab:7f:4c:e7:3d:40:6a:80:
+                    0b:33:73:f3:e6:50:9b:b6:9a:53:7e:50:89:73:8c:
+                    e4:2d
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                8C:77:9C:60:8C:CC:2E:1C:71:33:59:FE:2B:7C:0C:BD:D5:06:4D:7C
+            X509v3 Authority Key Identifier: 
+                keyid:35:4E:4C:49:13:8D:BD:CF:F1:3E:07:FF:16:77:C0:23:6A:9C:B9:41
+                DirName:/C=CN/ST=HN/L=ZK/O=shenOrganization/OU=shenOrganizationalUnit/CN=shenOrganization CA/name=EasyRSA/emailAddress=shen@link.com
+                serial:B7:D8:7C:A0:81:88:41:30
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+         2c:e3:66:35:31:cf:1e:69:c1:68:4f:eb:3c:e2:52:26:eb:e3:
+         31:a4:68:09:ee:b6:d5:f2:a8:ee:30:1f:76:d2:f6:f6:21:d4:
+         03:13:a8:83:6a:8d:46:3e:0e:d4:18:6a:38:55:8a:d4:e6:d8:
+         ef:72:e2:3f:ac:76:56:9c:d5:cc:e9:bd:02:dc:26:11:bf:03:
+         c2:55:43:cf:3a:76:49:4d:ae:39:84:9c:06:ba:92:22:21:6d:
+         7f:d2:9b:e1:06:05:d3:7d:ab:44:71:72:fc:ae:5f:f5:72:d0:
+         ff:1a:d8:f5:55:c7:a9:5e:2f:49:7a:98:a0:7e:76:d0:6e:3d:
+         3e:91:a5:84:6c:01:06:8e:48:65:05:7c:fd:0e:cd:b9:0a:06:
+         7d:0e:6a:e4:a6:16:c3:27:59:08:47:d4:10:1d:7f:eb:69:b0:
+         5e:a1:a4:71:81:86:3a:f4:9c:d5:58:f4:5f:d9:19:0a:cc:9a:
+         e2:66:fb:86:26:4c:29:34:a1:6a:c1:4c:4a:36:6e:02:77:4c:
+         33:c2:e0:9e:3f:8a:87:a5:ef:3b:09:00:28:a9:ef:46:ed:aa:
+         ea:cb:dc:89:d2:e0:18:ec:17:dd:63:f0:d3:92:31:1c:35:2f:
+         95:41:e4:de:73:66:09:92:70:06:12:99:ff:88:9a:20:73:e3:
+         79:2c:49:16
+-----BEGIN CERTIFICATE-----
+MIIFOTCCBCGgAwIBAgIBBjANBgkqhkiG9w0BAQsFADCBsTELMAkGA1UEBhMCQ04x
+CzAJBgNVBAgTAkhOMQswCQYDVQQHEwJaSzEZMBcGA1UEChMQc2hlbk9yZ2FuaXph
+dGlvbjEfMB0GA1UECxMWc2hlbk9yZ2FuaXphdGlvbmFsVW5pdDEcMBoGA1UEAxMT
+c2hlbk9yZ2FuaXphdGlvbiBDQTEQMA4GA1UEKRMHRWFzeVJTQTEcMBoGCSqGSIb3
+DQEJARYNc2hlbkBsaW5rLmNvbTAeFw0xNzEyMjEwNzMzNDhaFw0yNzEyMTkwNzMz
+NDhaMIGhMQswCQYDVQQGEwJDTjELMAkGA1UECBMCSE4xCzAJBgNVBAcTAlpLMRkw
+FwYDVQQKExBzaGVuT3JnYW5pemF0aW9uMR8wHQYDVQQLExZzaGVuT3JnYW5pemF0
+aW9uYWxVbml0MQwwCgYDVQQDEwNkbXMxEDAOBgNVBCkTB0Vhc3lSU0ExHDAaBgkq
+hkiG9w0BCQEWDXNoZW5AbGluay5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQDJwWrTH+rxrt578cj5ddhWBvQ1n1m7EvWfaSMTU58tStcF+w5YMmxS
+WnnGcg91Ny9H6Xx2ZAf7dR44VACu6R/9D6j+e1aZxE5fRqrjnyXOT1B0YnqU0JyB
+bbxZYPbLdNDhcRifNRhNkEM8M7ctjpWNp5rHQ+m9TPBycSNeL/hG/vw1zANCM7Hg
+WUXcSxlNr0YieIHk0GL1xcvQ8DVrMFxUUIxYFnKWe7eGQRQ9NB3smDgg6SZBwbfH
+m7ZNSOUrBtp9Gcd0mMGfIcsqJPBXiNqrkR8dsZehWSNPp6tBBCh380L9ImMBBLmr
+f0znPUBqgAszc/PmUJu2mlN+UIlzjOQtAgMBAAGjggFoMIIBZDAJBgNVHRMEAjAA
+MC0GCWCGSAGG+EIBDQQgFh5FYXN5LVJTQSBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUw
+HQYDVR0OBBYEFIx3nGCMzC4ccTNZ/it8DL3VBk18MIHmBgNVHSMEgd4wgduAFDVO
+TEkTjb3P8T4H/xZ3wCNqnLlBoYG3pIG0MIGxMQswCQYDVQQGEwJDTjELMAkGA1UE
+CBMCSE4xCzAJBgNVBAcTAlpLMRkwFwYDVQQKExBzaGVuT3JnYW5pemF0aW9uMR8w
+HQYDVQQLExZzaGVuT3JnYW5pemF0aW9uYWxVbml0MRwwGgYDVQQDExNzaGVuT3Jn
+YW5pemF0aW9uIENBMRAwDgYDVQQpEwdFYXN5UlNBMRwwGgYJKoZIhvcNAQkBFg1z
+aGVuQGxpbmsuY29tggkAt9h8oIGIQTAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYD
+VR0PBAQDAgeAMA0GCSqGSIb3DQEBCwUAA4IBAQAs42Y1Mc8eacFoT+s84lIm6+Mx
+pGgJ7rbV8qjuMB920vb2IdQDE6iDao1GPg7UGGo4VYrU5tjvcuI/rHZWnNXM6b0C
+3CYRvwPCVUPPOnZJTa45hJwGupIiIW1/0pvhBgXTfatEcXL8rl/1ctD/Gtj1Vcep
+Xi9JepigfnbQbj0+kaWEbAEGjkhlBXz9Ds25CgZ9DmrkphbDJ1kIR9QQHX/rabBe
+oaRxgYY69JzVWPRf2RkKzJriZvuGJkwpNKFqwUxKNm4Cd0wzwuCeP4qHpe87CQAo
+qe9G7arqy9yJ0uAY7BfdY/DTkjEcNS+VQeTec2YJknAGEpn/iJogc+N5LEkW
+-----END CERTIFICATE-----

@@ -1,0 +1,7 @@
+
+select   a.cinvsn sn号码,a.cCusCode 客户编码,a.cCusName 客户名称,a.dDate 订单时间,a.cInvCode 存货料号,a.cInvName 存货名称,a.iQuantity 数量,a.iTaxUnitPrice 单价,a.iSum 订单总价,a.cSOCode 订单号,a.iorderdid,a.prodsp 产品标准价格,a.portsp 端口标准价格,a.pre 折扣,a.amount 云服务分摊费用
+from (
+select  a.cinvsn,a.cCusCode,a.cCusName,a.dDate,a.cInvCode,a.cInvName,a.iQuantity,a.iTaxUnitPrice,a.iSum,a.cSOCode,a.iorderdid,b.standardprice prodsp,c.standardprice portsp ,(a.iTaxUnitPrice/0.7)/b.standardprice pre,c.standardprice*(a.iTaxUnitPrice/0.7)/b.standardprice amount from hs_load_order_data_fix a left join hardware_service_product_standard_price b
+ on a.cInvCode=b.productcode and cast( DATE_FORMAT(a.dDate,'%Y%m') as signed) between cast(b.startperiod as signed) and cast(b.endperiod as signed) left join hardware_service_port_standard_price c
+ on c.portname=b.`port` 
+ and cast( DATE_FORMAT(a.dDate,'%Y%m') as signed) between cast(c.startperiod as signed) and cast(c.endperiod as signed) )a
