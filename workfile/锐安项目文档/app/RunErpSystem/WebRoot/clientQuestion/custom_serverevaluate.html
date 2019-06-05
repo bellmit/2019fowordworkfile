@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<!--<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+		<h1 class="mui-title">
+			<span class="titleName">服务评价</span>
+		</h1>
+	</header>
+	<div class="mui-content">
+		<div class="changeHeight">
+			<div class="questionType">
+				<div class="listTitle clearfix relative">
+					<h6 class="left titleText" id="titleClient"></h6>
+					<img src="images/toparr.png" alt="" class="right rightToggle" />
+				</div>
+				<div class="toggleHeight hideText" id="descClient"></div>
+			</div>
+			<div class="questionType overhide">
+				<ul class="timeroute" id="custom_chk">
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="bottomComfirm h660">
+		<ul class="centerBox">
+			<li class="clearfix"><label class="left">服务效率</label> <a
+				href="javascript:;" class="starPoint right" name="xiaolv"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="xiaolv"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="xiaolv"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="xiaolv"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="xiaolv"><img
+					src="images/yellowstarempty.png" alt="" /></a></li>
+			<li class="clearfix"><label class="left">服务态度</label> <a
+				href="javascript:;" class="starPoint right" name="taidu"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="taidu"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="taidu"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="taidu"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="taidu"><img
+					src="images/yellowstarempty.png" alt="" /></a></li>
+			<li class="clearfix"><label class="left">服务结果</label> <a
+				href="javascript:;" class="starPoint right" name="zhuanye"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="zhuanye"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="zhuanye"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="zhuanye"><img
+					src="images/yellowstarempty.png" alt="" /></a> <a href="javascript:;"
+				class="starPoint right" name="zhuanye"><img
+					src="images/yellowstarempty.png" alt="" /></a></li>
+			<li><a href="javascript:;" class="evaluateSubmit"
+				onclick="submitPingJian();">提交</a></li>
+		</ul>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/global.js"></script>
+	<script>
+			//计算高度
+			setTimeout(function(){
+				$('.changeHeight').css('height', parseInt(document.documentElement.clientHeight)-parseInt($('.bottomComfirm').height())-45);
+			},10);
+			//评价级别，星星点击事件
+			$('.starPoint').off().on('touchend',function(){
+				$(this).siblings('a').find('img').attr('src','images/yellowstarempty.png');
+				$(this).siblings('a').removeClass('slt');
+				if($(this).hasClass('slt')){
+					$(this).removeClass('slt');
+					$(this).find('img').attr('src','images/yellowstarempty.png');
+					$(this).nextAll('a').find('img').attr('src','images/yellowstarempty.png');
+				}else{
+					$(this).addClass('slt');
+					$(this).find('img').attr('src','images/yellowstar.png');
+					$(this).nextAll('a').find('img').attr('src','images/yellowstar.png');
+				}
+			});
+		</script>
+	<script>
+			$(function () {
+			    //头部展开收起
+			    $('.rightToggle').die().live('touchend',function(){
+			        if($(this).hasClass('slt')){
+			            $(this).removeClass('slt');
+			            $(this).attr('src','images/toparr.png');
+			            $('.toggleHeight').addClass('hideText');
+			        }else{
+			            $(this).addClass('slt');
+			            $(this).attr('src','images/toparrslt.png');
+			            $('.toggleHeight').removeClass('hideText');
+			        }
+			    });
+				getQueLogList();
+			});
+			
+			function getQueLogList(){
+				var id = JSON.parse(localStorage.obj).id;
+				
+				$.ajax({
+						url: pathUrl+'/getClientListToMobile.action',
+						type:"post",
+						data:{
+							id:id
+						},
+						async:false,/*同步请求*/
+						dataType:"jsonp",
+						jsonp:"callback",
+						jsonpCallback:'flightHandler',
+						success:function(data){
+						  //处理数据格式
+						  var data = JSON.parse(data);
+						  var dataList1 = "";
+						  $("#custom_chk").html('');
+						   var len = data.dataList.length;
+						  $.each(data.dataList,function(i,custom){	
+						  var img = '5';
+						  	if(i+1==len){
+						  		img= '3';
+						  	}
+						  //处理数据格式
+					  		 custom = JSON.stringify(custom);
+					  		 custom =JSON.parse(custom);
+							  if(custom.status=='1'){
+									$("#titleClient").html(custom.title);
+									$("#descClient").html('问题描述：'+custom.desc);
+								       dataList1='<li class="red relative">'+
+												'<div class="outline"></div>'+
+												'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+												'<div class="clearfix">'+
+													'<span class="listStatus left">已提交</span>'+
+													'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+												'</div>'+
+												'<div class="routeDes">您的问题我们已经收到，正在紧急处理中...</div>'+
+												'</li>';
+							  }else if(custom.status=='2'){
+									   dataList1='<li class="yellow relative">'+
+												'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+												'<div class="clearfix">'+
+													'<span class="listStatus left yellow">已分配</span>'+
+													'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+												'</div>'+
+												'<div class="routeDes clearfix">'+
+													'<span class="left marginR50">问题负责人：'+custom.questiongzr+'</span><span class="left">联系电话：'+custom.questiongzrPho+'</span>'+
+												'</div>'+
+												'</li>';
+							  }else if(custom.status=='3'){
+								    	dataList1='<li class="yellow relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">处理中</span>'+
+														'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">预计完成时间：'+custom.bmcntime+'</div>'+
+												'</li>';
+							  }else if(custom.status=='5'){
+									    dataList1='<li class="blue relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">待确认</span>'+
+														'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">'+
+														'<div>您的问题负责人已经处理</div>'+
+														'<div>实际完成时间：'+custom.questionReal+'</div>'+
+													'</div>'+
+												'</li>';
+							  }else if(custom.status=='6'){
+									    dataList1='<li class="blue relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">待评价</span>'+
+														'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">请您对我们的服务做出评价！</div>'+
+												'</li>';
+							  }else if(custom.status=='4'){
+										dataList1='<li class="green relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">已完成</span>'+
+														'<span class="right colorGrey">'+custom.createTimeStr+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">您的问题已处理完毕，感谢您对我们工作的支持</div>'+
+												'</li>';
+							  }
+							 $("#custom_chk").append(dataList1);
+							  
+						 });
+					   }    
+			   });
+			}
+			
+			function submitPingJian(){
+				var data = JSON.parse(localStorage.obj);
+				var pid = data.id;
+				var xiaolv=0;//计算服务效率评分
+				$('a[name="xiaolv"]').each(function(i,item){
+					xiaolv+=1;
+					if($(this).attr("class").indexOf('slt')!=-1){
+						xiaolv=6-xiaolv;
+						return false;
+					}
+					if(xiaolv==5&&$(this).attr("class").indexOf('slt')==-1){
+						xiaolv=0;
+					}
+				})
+				var taidu=0;//计算服务态度评分
+				$('a[name="taidu"]').each(function(i,item){
+					taidu+=1;
+					if($(this).attr("class").indexOf('slt')!=-1){
+						taidu=6-taidu;
+						return false;
+					}
+					if(taidu==5&&$(this).attr("class").indexOf('slt')==-1){
+						taidu=0;
+					}
+				})
+				var zhuanye=0;//计算服务专业性评分
+				$('a[name="zhuanye"]').each(function(i,item){
+					zhuanye+=1;
+					if($(this).attr("class").indexOf('slt')!=-1){
+						zhuanye=6-zhuanye;
+						return false;
+					}
+					if(zhuanye==5&&$(this).attr("class").indexOf('slt')==-1){
+						zhuanye=0;
+					}
+				})
+				
+				$.ajax({
+					url: pathUrl+'/addEstimateFromMobile.action',
+					type:'post',
+					data : {
+						id:pid,
+						xiaolv:xiaolv,
+						taidu:taidu,
+						zhuanye:zhuanye
+					},
+					async:false,/*同步请求*/
+					dataType:'jsonp',
+					jsonp:'callback',
+					jsonpCallback:'flightHandler',
+					error : function(){
+					},
+					success:function(data){
+					    //处理数据格式
+					    var data = JSON.parse(data);
+						var msg= data.msg;
+						var msgArray = ['确定'];
+						if(msg.indexOf("提交成功!") != -1){
+							mui.confirm('操作成功！', '', msgArray, function(e) {
+								mui.openWindow({
+									url:"custom_system.html"
+								});
+							});
+							
+						}else{
+							mui.confirm('操作失败！', '', msgArray, function(e) {
+								mui.openWindow({
+									url:"custom_system.html"
+								});
+							});
+						}
+						
+						
+					}    
+				});
+			}
+			
+		</script>
+</body>
+</html>

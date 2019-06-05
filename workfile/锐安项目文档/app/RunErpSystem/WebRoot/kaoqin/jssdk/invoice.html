@@ -1,0 +1,63 @@
+
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="md5.js"></script>
+<script type="text/javascript"
+	src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+</head>
+<body style="height: 100%">
+
+</body>
+<script type="text/javascript">
+$(function(){
+	init();
+ 
+})
+
+function init(){
+
+	//获取code
+	var code = getQueryString("code");
+	$.ajax({
+			url:'http://111.204.211.208:8888/RunErpSystem/queryWXUserInfo.action',
+			type:'post',
+			data : {
+				code:code
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			error : function(){
+				alert('授权失败！');
+			},
+			success:function(data){
+				var test = JSON.parse(data);		
+				var wXUserId = test.wXUserId;
+				var message = test.msg;
+				if(message.indexOf("success") != -1){
+					var t = Math.random();
+					var timestamp=new Date().getTime();  			
+					var sign = $.md5("5FBAoT5WWyGMzcA93mmi"+"3b7feb5d20964fe0956d0f6b3287a5f9"+"91110108746736751Q"+wXUserId+timestamp);
+					var orsrc = "https://api.piaozone.com/fpcy-mobile/fpzs/rakj?tin=91110108746736751Q&client_id=5FBAoT5WWyGMzcA93mmi&method=get&clientType=mobile&billNumber=0&serialNo=0&indexType=rakj"+"&eid="+wXUserId+"&random="+t+"&timestamp="+timestamp+"&sign="+sign;
+					window.location.href=orsrc;
+				}
+			}    
+	});	
+}
+
+ //获取url？后的参数
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) return unescape(r[2]);
+	return null;
+}
+ 
+</script>
+
+</html>
