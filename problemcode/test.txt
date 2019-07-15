@@ -1,0 +1,36 @@
+Allen@DESKTOP-UMV41FA MINGW64 ~/Desktop/workspace (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+Allen@DESKTOP-UMV41FA MINGW64 ~/Desktop/workspace (master)
+$
+
+Allen@DESKTOP-UMV41FA MINGW64 ~/Desktop/workspace (master)
+$ git pull --rebase origin master
+From github.com:cloudgogo/2019fowordworkfile
+ * branch            master     -> FETCH_HEAD
+Current branch master is up to date.
+
+Allen@DESKTOP-UMV41FA MINGW64 ~/Desktop/workspace (master)
+$  git push -u origin master
+Enumerating objects: 1477, done.
+Counting objects: 100% (1477/1477), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (1213/1213), done.
+Writing objects: 100% (1467/1467), 978.84 MiB | 175.00 KiB/s, done.
+Total 1467 (delta 399), reused 1038 (delta 202)
+remote: Resolving deltas: 100% (399/399), completed with 3 local objects.
+remote: warning: File workfile/经分文档/一期/01.需求分析/0101.系统原型/UI设计/经营分析平台设计图.pptx is 69.33 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+remote: error: Trace: cfb52ced1495d40e57bfe19629bf4b1f
+remote: error: See http://git.io/iEPt8g for more information.
+remote: error: File workfile/xylink/小鱼互联二期/文件/sale二期库.sql is 229.25 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File workfile/xylink/小鱼互联二期/文件/sale2019052310.53.sql is 120.44 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File workfile/锐安项目文档/sap/NEW HANA STUDIO.rar is 611.81 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File workfile/xylink/小鱼互联二期/saleupdate.sql is 235.40 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File workfile/xylink/小鱼互联二期/文件/sale2019.05.23.20.35sql.sql is 158.33 MB; this exceeds GitHub's file size limit of 100.00 MB
+To github.com:cloudgogo/2019fowordworkfile.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'git@github.com:cloudgogo/2019fowordworkfile.git'
+
