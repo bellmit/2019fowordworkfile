@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link href="css/mui.picker.css" rel="stylesheet" />
+<link href="css/mui.picker.min.css" rel="stylesheet" />
+<link href="css/mui.poppicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/app.css">
+</head>
+<style>
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+		<h1 class="mui-title">新增服务单</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="questionform">
+			<li class="relative"><span class="label">标题</span> <textarea
+					type="text" id="queTitle" class="spetextarea"
+					placeholder="请填写标题，不超过20字"
+					onfocus="limitTextarea(this,'.inputChange .textNum',20);"></textarea>
+				<span class="inputChange"><em class="textNum">0</em>/20</span></li>
+			<li class="relative" id="typeNames"><span class="label">类型</span>
+				<span class="selContent" id="selType">请选择</span> <img
+				src="images/rightarr.png" alt="" class="selArr" /></li>
+			<li class="relative"><span class="label">内容</span>
+				<div class="customList h600">
+					<textarea class="inptextarea" id="queText"
+						placeholder="请填写详细问题，不超过100字，如字数过多，建议添加Word文档"
+						onfocus="limitTextarea(this,'.changeNum .textNum',100);"></textarea>
+					<span class="upbtns clearfix">
+						<div class="fileBox left"></div> <a href="javascript:;"
+						class="addbtn left fileAdd"><img src="images/addicon.png" alt
+							class="addicon" /></a> <input type="text" class="mui-hidden"
+						id="questionFiles" />
+					</span> <span class="changeNum"><em class="textNum">0</em>/100</span>
+				</div></li>
+		</ul>
+		<div class="formbtns">
+			<a href="javascript:;" class="cancelbtn left" id="confirmBtn">取消</a>
+			<a href="javascript:;" class="formsubmitbtn left"
+				onclick="submitQueForm();">提交</a>
+		</div>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/trade.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script src="js/ajaxfileupload.js"></script>
+	<script>
+	mui.init({
+    swipeBack:true //启用右滑关闭功能
+});
+var delfile = [];
+var timer=null;
+mui.ready(function() {
+    /**
+     * 获取对象属性的值
+     * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+     * @param {Object} obj 对象
+     * @param {String} param 属性名
+     */
+    var _getParam = function(obj, param) {
+        return obj[param] || '';
+    };
+    //普通示例
+    //性别
+    var typeNames = [{
+        value: '0',
+        text: '咨询'
+    }, {
+        value: '1',
+        text: '故障报修'
+    }, {
+        value: '2',
+        text: '投诉'
+    }, {
+        value: '3',
+        text: '需求'
+    }, {
+        value: '4',
+        text: '其他'
+    }];
+    getSelect("typeNames","selType",typeNames);
+
+    //取消确认
+    document.getElementById("confirmBtn").addEventListener('tap', function() {
+        var btnArray = ['取消', '确定(3)'];
+        mui.confirm('本次输入不会被保存，是否放弃新增问题？', ' ', btnArray, function(e) {
+            if (e.index == 1) {//是
+                clearInterval(timer);
+                 $('.mui-popup-backdrop').hide();
+                 mui.openWindow({
+						url:"custom_system.html"
+					});
+            } else {//否
+                clearInterval(timer);
+                 $('.mui-popup-backdrop').hide();
+            }
+        });
+         
+        $('.mui-popup-backdrop').show();
+        var i=2;
+        timer = setInterval(function(){
+            if(i>=0){
+                $('.mui-popup-button-bold').text('确定('+i+')');
+                i--;
+            }else{
+                $('.mui-popup').remove();
+                $('.mui-popup-backdrop').hide();
+                clearInterval(timer);
+            }
+        },1000);
+    });
+    //添加文件
+    $('.fileAdd').off().on('click',function(){
+        var inputName = new Date().getTime();
+        var _html = '<input type="file" class="hide fileInput" data-id="'+inputName+'" multiple/>';
+        $('.fileBox').after(_html);
+		
+        $('input[data-id="'+inputName+'"]').click();
+    });
+
+    //文件选择变化
+    $('.fileInput').die().live('change',function(e) {
+        var _html = '';
+        var filelength = e.target.files.length;
+        
+        	
+            if(e.target.files.length<=1){
+ //           	var x = 100;
+ //	   			var y = 0;
+ //   		    var rand = parseInt(Math.random() * (x - y + 1) + y);
+			
+                var file = e.target.files[0];
+				var strFile=file.name;
+				if(strFile.indexOf(";")!=-1){
+					alert("文件名称不能带 ; ");
+					return false;
+				}
+				 //上传控制！！！！！！！！
+				const imgMaxSize = 1024 * 1024 * 5 ; // 5MB
+				// 检查文件类型
+				
+				// 文件大小限制
+				if(file.size > imgMaxSize ) {
+					showAlert("文件大小不能超过5MB！");
+					return false;
+				}	
+				if(file.name!=null&&file.name!='/'){
+				goToFileUp(file);
+                _html='<span class="imgbtn left relative" data-input="'+$(e.target).attr("data-id")+'" data-time="'+file.lastModified+'">'+
+                    '<img src="images/imgicon.png" class="imgicon" />'+
+                    '<a href="javascript:;" class="imgdelbtn">'+
+                    '<img src="images/delicon.png" alt class="imgdelicon" />'+					
+                    '</a>'+
+					'<input type="text" class="mui-hidden" name="picName" value="'+file.name+'"/>'+
+                    '</span>';
+				}
+				
+            }else{
+            	var x = 100;
+   				var y = 0;
+   		    	var rand = parseInt(Math.random() * (x - y + 1) + y);
+                var file = e.target.files;
+                $.each(file,function(i,item){
+				var strFile=item.name;
+				if(strFile.indexOf(";")!=-1){
+					alert("文件名称不能带 ; ");
+					return false;
+				}
+				 //上传控制！！！！！！！！
+				const imgMaxSize = 1024 * 1024 * 5; // 5MB
+				// 检查文件类型
+				
+				// 文件大小限制
+				if(file.size > imgMaxSize ) {
+					showAlert("文件大小不能超过5MB！");
+					return false;
+				}	
+				if(file.name!=null&&file.name!='/'){
+				goToFileUp(file);
+                    _html+='<span class="imgbtn left relative" data-input="'+$(e.target).attr("data-id")+'" data-time="'+item.lastModified+'">'+
+                        '<img src="images/imgicon.png" class="imgicon"/>'+
+                        '<a href="javascript:;" class="imgdelbtn">'+
+                        '<img src="images/delicon.png" alt class="imgdelicon" />'+
+                        '</a>'+
+						'<input type="text" class="mui-hidden" name="picName" value="'+file.name+'"/>'+
+                        '</span>';}
+                });
+            }
+            $('.fileBox').append(_html);
+        
+    });
+    //关闭文件
+    $('.imgdelbtn').die().live('touchend',function(){
+        var fileId = $(this).parent().attr('data-time'); //file中的lastModified
+        delfile.push(fileId);
+        $(this).parent().remove();
+        return false;
+    });
+});
+/**
+ * 输入框文字个数
+ * @param self
+ * @param nowleng
+ */
+function limitTextarea(self,nowleng,bigNum){
+    $(self).on('input propertychange', function(event) {
+        var _val = $(self).val();
+        if(_val.length<=bigNum){
+            $(self).val(_val);
+            $(nowleng).text(_val.length)
+        }else{
+            $(self).val(_val.slice(0,bigNum));
+        }
+    });
+    $(self).blur(function(){
+        $(self).off('input propertychange');
+    });
+}
+
+function submitQueForm(){
+
+	if(localStorage.wxUser==null){
+		showAlert('登录信息认证失败');
+		return false;
+	}
+	var loginUser = JSON.parse(localStorage.wxUser);
+	var applyUser=loginUser.userName;
+	var company=loginUser.company;
+	var phone =loginUser.phone;
+	var accessory='';	
+	
+	var btnArray = ['确定(3)'];
+	var title=$("#queTitle").val(); //标题
+	var type=$("#selType").html(); //类型
+	var desc=$("#queText").val(); //描述
+	var filesName = '';
+	$("input[name='picName']").each(function(i,item){
+		filesName+=';'+$(this).val();
+	})
+	$("#questionFiles").val(filesName);
+	var files=filesName;
+	if(title==null || title==''){
+		mui.confirm('请输入标题', '', btnArray, function(e) {
+		if (e.index == 0) {//是
+                clearInterval(timer);
+                 $('.mui-popup-backdrop').hide();
+            }
+		});
+		timerFn();
+		return false;
+	}
+	if(type==null || type=='' || type=='请选择'){
+		mui.confirm('请选择问题类型', '', btnArray, function(e) {
+		if (e.index == 0) {//是
+                clearInterval(timer);
+                 $('.mui-popup-backdrop').hide();
+            }
+		});
+		timerFn();
+		return false;
+	}
+	if(desc==null || desc==''){
+		mui.confirm('请输入详细内容', '', btnArray, function(e) {
+		if (e.index == 0) {//是
+                clearInterval(timer);
+                 $('.mui-popup-backdrop').hide();
+            }
+		});
+		timerFn();
+		return false;
+	}
+	$.ajax({
+		url: pathUrl+'/addQuestionFromMobile.action',
+		type:'post',
+		data : {
+			applyUser:applyUser,
+			company:company,
+			phone:phone,
+			title:title,
+			type:type,
+			desc:desc,
+			files:files
+		},
+		async:false,/*同步请求*/
+		dataType:'jsonp',
+		jsonp:'callback',
+		jsonpCallback:'flightHandler',
+		error : function(){
+		},
+		success:function(data){
+			//处理数据格式
+			var data = JSON.parse(data);
+			var msg= data.msg;
+			var msgArray = ['确定'];
+			if(msg.indexOf("提交成功!") != -1){
+				mui.confirm('操作成功！', '', msgArray, function(e) {
+				$('.mui-popup-backdrop').show();
+					mui.openWindow({
+						url:"custom_system.html"
+					});
+				});
+				
+			}else{
+				mui.confirm('操作失败！', '', msgArray, function(e) {
+					mui.openWindow({
+						url:"custom_system.html"
+					});
+				});
+			}
+			
+			
+		}    
+	});
+}
+
+function goToFileUp(file){
+			
+	// 图片上传							
+	//transformFileToFormData(file);	
+	// 图片压缩绘制
+	// transformFileToDataUrl(file);
+	// 图片上传
+	transformFileToFormData(file);
+}
+
+
+// 将File append进 FormData
+function transformFileToFormData (file) {
+    const formData = new FormData();
+    // name
+    formData.append('name', file.name);
+    // append 文件
+    formData.append('businessFile', file);	
+    // 上传图片
+    uploadMobileFile(formData);
+}
+
+// 上传图片
+function uploadImg (formData) {
+     const xhr = new XMLHttpRequest();
+     // 进度监听
+     xhr.upload.addEventListener('progress', function(e){console.log(e.loaded / e.total)}, false);
+     // 加载监听
+     // xhr.addEventListener('load', ()=>{console.log("加载中");}, false);
+     // 错误监听
+     xhr.addEventListener('error', function(){Toast.error("上传失败！", 2000, undefined, false);toCliekBtn();}, false);
+     xhr.onreadystatechange = function () {
+         if (xhr.readyState === 4) {
+				 debugger;
+			 if (xhr.status === 200) {
+				 const result = JSON.parse(xhr.responseText);
+                 // 上传成功
+				 if(result.flag == true){
+				 }else{
+					// showAlert("上传失败");
+				 }
+             } else {
+                 // 上传失败
+				 //console.log("fail");
+				 showAlert("服务异常,上传失败");
+				
+             }
+			 //上传按钮处理！！！！！
+         }
+     };
+     xhr.open('POST', pathUrl+'/clientQueFileMobile.action' , true);
+	 xhr.send(formData);
+}
+
+function uploadMobileFile(formData){
+			$.ajax({
+			url: pathUrl+'/clientQueFileMobile.action',
+			type:"post",
+			data:formData,
+			async:false,/*同步请求*/
+			dataType:"jsonp",
+			contentType:false,
+			processData:false,
+			jsonp:"callback",
+			jsonpCallback:'flightHandler',
+			success:function(data){
+				var data=JSON.parse(data);
+			}    
+   });
+}
+
+function showAlert(str){
+	setTimeout(function(){
+		alert(str);
+	},100);
+}
+
+
+function timerFn(){
+		$('.mui-popup-backdrop').show();
+		var i=2;
+        timer = setInterval(function(){
+            if(i>=0){
+                $('.mui-popup-button-bold').text('确定('+i+')');
+                i--;
+            }else{
+                $('.mui-popup').remove();
+                $('.mui-popup-backdrop').hide();
+                clearInterval(timer);
+            }
+        },1000);
+}
+</script>
+</body>
+</html>

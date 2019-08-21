@@ -1,0 +1,2957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20170720" releaseVersion="10.0.0">
+<TableDataMap>
+<TableData name="Embedded1" class="com.fr.data.impl.EmbeddedTableData">
+<Parameters/>
+<DSName>
+<![CDATA[]]></DSName>
+<ColumnNames>
+<![CDATA[利润中心名,,.,,id,,.,,pid]]></ColumnNames>
+<ColumnTypes>
+<![CDATA[java.lang.String,java.lang.String,java.lang.String]]></ColumnTypes>
+<RowData ColumnTypes="java.lang.String,java.lang.String,java.lang.String">
+<![CDATA[HT>ZSdrh4O#)6BC:NgkFfeMgg^*Q%9JK[S*#t;o@,ijn.A.0)CI+c0ljn'9q?!r(GYp<j7,D
+]AGWZC!@7/-T2#"<s.h&2Sp*B>g'i/-\#Y#QO~
+]]></RowData>
+</TableData>
+<TableData name="Tree1" class="com.fr.data.impl.RecursionTableData">
+<markFields>
+<![CDATA[1]]></markFields>
+<parentmarkFields>
+<![CDATA[2]]></parentmarkFields>
+<markFieldsName>
+<![CDATA[id]]></markFieldsName>
+<parentmarkFieldsName>
+<![CDATA[pid]]></parentmarkFieldsName>
+<originalTableDataName>
+<![CDATA[Embedded1]]></originalTableDataName>
+</TableData>
+</TableDataMap>
+<Report class="com.fr.report.worksheet.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<ColumnPrivilegeControl/>
+<RowPrivilegeControl/>
+<RowHeight defaultValue="723900">
+<![CDATA[1485900,1257300,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,1008000,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[10287000,5524500,9144000,8915400,2743200,2743200,2743200,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0" cs="4" s="0">
+<O>
+<![CDATA[损益表]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="1" s="1">
+<O>
+<![CDATA[项目]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="1" s="1">
+<O>
+<![CDATA[行次]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="1" s="1">
+<O>
+<![CDATA[上期累计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="1" s="1">
+<O>
+<![CDATA[本期累计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="2" s="2">
+<O>
+<![CDATA[一、营业总收入]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="2" s="3">
+<O t="I">
+<![CDATA[1]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="2" s="2">
+<O>
+<![CDATA[148,525,268,999.44]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="2" s="2">
+<O>
+<![CDATA[202,413,451,160.48]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="3" s="4">
+<O>
+<![CDATA[营业收入]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="3" s="5">
+<O t="I">
+<![CDATA[2]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="3" s="6">
+<O t="BigDecimal">
+<![CDATA[148326363909.94]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="3" s="6">
+<O t="BigDecimal">
+<![CDATA[202149152364.77]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="4" s="2">
+<O>
+<![CDATA[二、营业总成本]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="4" s="3">
+<O t="I">
+<![CDATA[3]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="4" s="2">
+<O>
+<![CDATA[142,117,550,906.22]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="4" s="2">
+<O>
+<![CDATA[186,586,431,218.13]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="5" s="4">
+<O>
+<![CDATA[营业成本]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="5" s="5">
+<O t="I">
+<![CDATA[4]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="5" s="6">
+<O>
+<![CDATA[ 134,332,458,305.02]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="5" s="6">
+<O>
+<![CDATA[ 177,816,743,212.39]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="6" s="4">
+<O>
+<![CDATA[营业税金及附加]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="6" s="5">
+<O t="I">
+<![CDATA[5]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="6" s="6">
+<O>
+<![CDATA[ 569,634,292.13]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="6" s="6">
+<O>
+<![CDATA[ 525,055,202.74]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="7" s="4">
+<O>
+<![CDATA[销售费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="7" s="5">
+<O t="I">
+<![CDATA[6]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="7" s="6">
+<O>
+<![CDATA[ 1,458,740,948.42]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="7" s="6">
+<O>
+<![CDATA[ 1,784,620,103.36]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="8" s="4">
+<O>
+<![CDATA[管理费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="8" s="5">
+<O t="I">
+<![CDATA[7]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="8" s="6">
+<O>
+<![CDATA[ 4,592,115,090.69]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="8" s="6">
+<O>
+<![CDATA[ 5,304,370,387.55]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="9" s="4">
+<O>
+<![CDATA[财务费用]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="9" s="5">
+<O t="I">
+<![CDATA[8]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="9" s="6">
+<O>
+<![CDATA[ 1,675,503,461.87]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="9" s="6">
+<O>
+<![CDATA[ 806,574,502.66]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="10" s="4">
+<O>
+<![CDATA[资产减值损失]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="10" s="5">
+<O t="I">
+<![CDATA[9]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="10" s="6">
+<O>
+<![CDATA[ -635,104,394.76]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="10" s="6">
+<O>
+<![CDATA[ 187,685,600.66]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="11" s="2">
+<O>
+<![CDATA[三、其他经营收益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="11" s="3">
+<O t="I">
+<![CDATA[10]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="11" s="7">
+<O>
+<![CDATA[ 316,070,757]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="11" s="7">
+<O>
+<![CDATA[ -14,870,783.07]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="12" s="4">
+<O>
+<![CDATA[公允价值变动净收益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="12" s="5">
+<O t="I">
+<![CDATA[11]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="12" s="6">
+<O>
+<![CDATA[ -107,403,713.41]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="12" s="6">
+<O>
+<![CDATA[ 12,063,575.63]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="13" s="4">
+<O>
+<![CDATA[投资净收益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="13" s="5">
+<O t="I">
+<![CDATA[12]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="13" s="6">
+<O>
+<![CDATA[ 953,451,861.75]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="13" s="6">
+<O>
+<![CDATA[ 826,681,541.14]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="14" s="4">
+<O>
+<![CDATA[联营、合营企业投资收益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="14" s="5">
+<O t="I">
+<![CDATA[13]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="14" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="14" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="15" s="4">
+<O>
+<![CDATA[汇兑净收益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="15" s="5">
+<O t="I">
+<![CDATA[14]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="15" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="15" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="16" s="2">
+<O>
+<![CDATA[四、营业利润]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="16" s="3">
+<O t="I">
+<![CDATA[15]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="16" s="2">
+<O>
+<![CDATA[ 7,253,766,241.56]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="16" s="2">
+<O>
+<![CDATA[ 16,665,765,059.12]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="17" s="4">
+<O>
+<![CDATA[营业外收入]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="17" s="5">
+<O t="I">
+<![CDATA[16]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="17" s="6">
+<O>
+<![CDATA[ 495,599,260.18]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="17" s="6">
+<O>
+<![CDATA[ 589,839,984.17]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="18" s="4">
+<O>
+<![CDATA[营业外支出]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="18" s="5">
+<O t="I">
+<![CDATA[17]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="18" s="6">
+<O>
+<![CDATA[ 454,810,105.87]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="18" s="6">
+<O>
+<![CDATA[ 179,372,012.82]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="19" s="4">
+<O>
+<![CDATA[非流动资产处置净损失]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="19" s="5">
+<O t="I">
+<![CDATA[18]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="19" s="6">
+<O>
+<![CDATA[ 342,022,037.9]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="19" s="6">
+<O>
+<![CDATA[ 133,386,264.64]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="20" s="2">
+<O>
+<![CDATA[五、利润总额]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="20" s="3">
+<O t="I">
+<![CDATA[19]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="20" s="2">
+<O>
+<![CDATA[ 7,294,555,395.87]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="20" s="2">
+<O>
+<![CDATA[ 17,076,233,030.47]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="21" s="4">
+<O>
+<![CDATA[所得税]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="21" s="5">
+<O t="I">
+<![CDATA[20]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="21" s="6">
+<O>
+<![CDATA[ 1,199,353,677.79]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="21" s="6">
+<O>
+<![CDATA[ 3,715,345,425.92]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="22" s="4">
+<O>
+<![CDATA[未确认的投资损失]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="22" s="5">
+<O t="I">
+<![CDATA[21]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="22" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="22" s="6">
+<O>
+<![CDATA[ --]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="23" s="2">
+<O>
+<![CDATA[六、净利润]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="23" s="3">
+<O t="I">
+<![CDATA[22]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="23" s="2">
+<O>
+<![CDATA[ 6,095,201,718.08]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="23" s="2">
+<O>
+<![CDATA[ 13,360,887,604.55]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="0" r="24" s="4">
+<O>
+<![CDATA[少数股东损益]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="24" s="5">
+<O t="I">
+<![CDATA[23]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="24" s="6">
+<O>
+<![CDATA[ 278,974,324.98]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="24" s="6">
+<O>
+<![CDATA[ 471,804,285.43]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="0" r="25" s="8">
+<O>
+<![CDATA[归属于母公司股东的净利润]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="25" s="9">
+<O t="I">
+<![CDATA[24]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="25" s="10">
+<O>
+<![CDATA[ 5,816,227,393.1]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+<C c="3" r="25" s="10">
+<O>
+<![CDATA[ 12,889,083,319.12]]></O>
+<PrivilegeControl/>
+<NameJavaScriptGroup>
+<NameJavaScript name="钻取下级利润中心">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[
+window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表下级部门.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+<NameJavaScript name="钻取会计科目">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="groupid"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$groupid]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="period"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$period]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="type"/>
+<O>
+<![CDATA[营业收入]]></O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[window.parent.FS.tabPane.addItem({title:period+groupid+type+"损益表下级部门详情",src:"${servletURL}?reportlet=损益表会计科目表.cpt&groupid="+groupid+"&period="+period+"&type="+type})]]></Content>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting>
+<PaperSize width="40320000" height="42768000"/>
+<Margin top="432000" left="720000" bottom="432000" right="1152000"/>
+</PaperSetting>
+<Background name="ColorBackground" color="-1"/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<PrivilegeControl/>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="1" align="0" useParamsTemplate="false"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<ParameterUI class="com.fr.form.main.parameter.FormParameterUI">
+<Parameters/>
+<Layout class="com.fr.form.ui.container.WParameterLayout">
+<WidgetName name="para"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Margin top="0" left="0" bottom="0" right="0"/>
+<Border>
+<border style="0" color="-723724" borderRadius="0" type="0" borderStyle="0"/>
+<WidgetTitle>
+<O>
+<![CDATA[新建标题]]></O>
+<FRFont name="SimSun" style="0" size="72"/>
+<Position pos="0"/>
+</WidgetTitle>
+<Alpha alpha="1.0"/>
+</Border>
+<Background name="ColorBackground" color="-526086"/>
+<LCAttr vgap="0" hgap="0" compInterval="0"/>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.parameter.FormSubmitButton">
+<WidgetName name="formSubmit0"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[查询]]></Text>
+<Hotkeys>
+<![CDATA[enter]]></Hotkeys>
+</InnerWidget>
+<BoundsAttr x="517" y="24" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.ComboBox">
+<WidgetName name="period"/>
+<LabelName name="会计期间:"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<Dictionary class="com.fr.data.impl.CustomDictionary">
+<CustomDictAttr>
+<Dict key="2019-01" value="2019-01"/>
+<Dict key="2019-02" value="2019-02"/>
+<Dict key="2019-03" value="2019-03"/>
+<Dict key="2019-04" value="2019-04"/>
+<Dict key="2019-05" value="2019-05"/>
+</CustomDictAttr>
+</Dictionary>
+<widgetValue>
+<O>
+<![CDATA[]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="348" y="24" width="119" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="label1"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[会计期间:]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="268" y="24" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="label0"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue>
+<O>
+<![CDATA[利润中心组:]]></O>
+</widgetValue>
+<LabelAttr verticalcenter="true" textalign="0" autoline="true"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</InnerWidget>
+<BoundsAttr x="45" y="25" width="84" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.TreeComboBoxEditor">
+<WidgetName name="groupid"/>
+<LabelName name="利润中心组"/>
+<WidgetAttr description="">
+<PrivilegeControl/>
+</WidgetAttr>
+<TreeAttr selectLeafOnly="false"/>
+<isLayerBuild isLayerBuild="false"/>
+<isAutoBuild autoBuild="false"/>
+<isPerformanceFirst performanceFirst="false"/>
+<Dictionary class="com.fr.data.impl.TableDataDictionary">
+<FormulaDictAttr kiName="利润中心名" viName="利润中心名"/>
+<TableDataDictAttr>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[Tree1]]></Name>
+</TableData>
+</TableDataDictAttr>
+</Dictionary>
+<widgetValue>
+<O>
+<![CDATA[]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="129" y="25" width="102" height="21"/>
+</Widget>
+<Sorted sorted="false"/>
+<MobileWidgetList>
+<Widget widgetName="period"/>
+<Widget widgetName="formSubmit0"/>
+<Widget widgetName="groupid"/>
+</MobileWidgetList>
+<Display display="true"/>
+<DelayDisplayContent delay="true"/>
+<UseParamsTemplate use="false"/>
+<Position position="0"/>
+<Design_Width design_width="960"/>
+<NameTagModified>
+<TagModified tag="comboBox0" modified="true"/>
+<TagModified tag="treeComboBoxEditor0" modified="true"/>
+</NameTagModified>
+<WidgetNameTagMap>
+<NameTag name="comboBox0" tag="会计期间:"/>
+<NameTag name="treeComboBoxEditor0" tag="利润中心组"/>
+</WidgetNameTagMap>
+<ParamAttr class="com.fr.report.mobile.DefaultMobileParamStyle"/>
+</Layout>
+<DesignAttr width="960" height="80"/>
+</ParameterUI>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="2" imageLayout="1" paddingLeft="0" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="128"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="88" foreground="-1"/>
+<Background name="ColorBackground" color="-13719584"/>
+<Border>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80" foreground="-13421773"/>
+<Background name="ColorBackground" color="-1182733"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80" foreground="-13421773"/>
+<Background name="ColorBackground" color="-1182733"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style imageLayout="1" paddingLeft="54" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1" paddingLeft="0" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1" paddingLeft="0" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-16776961" underline="1"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80"/>
+<Background name="ColorBackground" color="-1182733"/>
+<Border>
+<Top style="14" color="-1579033"/>
+<Bottom style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style imageLayout="1" paddingLeft="54" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1" paddingLeft="0" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1" paddingLeft="0" paddingRight="0">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-16776961" underline="1"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="14" color="-1579033"/>
+</Border>
+</Style>
+</StyleList>
+<DesignerVersion DesignerVersion="KAA"/>
+<PreviewType PreviewType="0"/>
+<TemplateIdAttMark class="com.fr.base.iofile.attr.TemplateIdAttrMark">
+<TemplateIdAttMark TemplateId="0debeec4-c61d-4cdc-93dc-745b2bcb9fb0"/>
+</TemplateIdAttMark>
+</WorkBook>

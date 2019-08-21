@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 保存数据日志 -->
+<hibernate-mapping package="com.bjrun.clientQuestion.entity">
+	<class name="AppMsdLog" table="app_wx_msd_log">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+
+		<property name="agentId" column="agent_id"></property>
+		<property name="toUser" column="to_user"></property>
+		<property name="wxUserId" column="wx_user_id"></property>
+		<property name="title" column="title"></property>
+		<property name="content" column="content"></property>
+		<property name="sendTime" column="send_time"></property>
+		<property name="type" column="type"></property>
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link rel="stylesheet" href="css/app.css">
+
+</head>
+<body>
+
+	<header class="mui-bar mui-bar-nav">
+		<!-- 
+			<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		-->
+		<h1 class="mui-title">客户信息</h1>
+		<a href="addcompany.html"
+			class="mui-icon mui-icon-plus mui-icon-right-nav mui-pull-right"></a>
+	</header>
+
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="topSearch">
+				<div class="relative">
+					<form id="myform" action="" onsubmit="return false;">
+						<input type="search" class="f_input searchInput" id="condition"
+							placeholder="请输入关键字搜索" /> <img src="images/searchicon.png" alt=""
+							class="searchIcon" />
+					</form>
+
+				</div>
+			</div>
+			<ul id="OA_task_1" class="mui-table-view">
+
+			</ul>
+		</div>
+	</div>
+	<!--<script type="text/javascript" src="../js/jssdk/vrv-jssdk.js"></script>-->
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript"
+		src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/global.js"></script>
+	<!-- 
+		<script src="js/custominfo_sub.js"></script>
+		 -->
+	<script type="text/javascript">
+		$(function(){
+		
+			logInAction('王林','wanglin');
+		
+		});
+
+
+//登录验证
+function logInAction(userName,wxUserId){
+
+	$.ajax({
+			url: 'http://111.204.211.208:8888/RunErpSystem/loginCheck.action',
+			type:'post',
+			data : {
+				fromYJTApp:'true',
+				userName:'王林'
+				
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			error : function(){
+				alert("获取登录用户信息失败！");
+			},
+			success:function(data){
+				var data = JSON.parse(data);
+				var flag= data.flag;
+				if(flag == 'success'){
+					alert("登录成功！");
+				}else{
+					alert("登录失败！");
+				}
+			}    
+		});
+   }
+			
+		
+		</script>
+</body>
+</html>

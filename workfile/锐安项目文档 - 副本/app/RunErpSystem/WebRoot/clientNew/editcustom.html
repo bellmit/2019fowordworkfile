@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link href="css/mui.picker.css" rel="stylesheet" />
+<link href="css/mui.picker.min.css" rel="stylesheet" />
+<link href="css/mui.picker.v1.0.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/app.css">
+<!--<script type="text/javascript" src="../js/jssdk/vrv-jssdk.js"></script>-->
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<!--
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+-->
+		<h1 class="mui-title">添加客户联系人</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="formList">
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>姓名</span> <input type="text"
+				class="f_input right wp60" id="lxrName" placeholder="请输入姓名" /></li>
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>业务部门（一级）</span> <input type="text"
+				class="f_input right wp60" id="ywbm1" placeholder="请输入一级业务部门" /></li>
+			<li class="clearfix"><span class="left label">业务部门（二级）</span> <input
+				type="text" class="f_input right wp60" id="ywbm2"
+				placeholder="请输入二级业务部门" /></li>
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>行业分类（二级）</span> <input type="text"
+				class="f_input right wp60" id="hyType2" placeholder="请输入行业分类（二级）" />
+			</li>
+			<li class="clearfix" id="adminLevelPicker"><span
+				class="left label"><span style="color: red;">*</span>行政级别</span> <img
+				src="images/rightarr.png" alt="" class="right rightArr" /> <span
+				class="right content" id="adminLevelcontent"></span></li>
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>工作职务</span> <input type="text"
+				class="f_input right wp60" id="gzzw" placeholder="请输入工作职务" /></li>
+
+			<li class="clearfix" id="showSexPicker"><span class="left label">性别</span>
+				<img src="images/rightarr.png" alt="" class="right rightArr" /> <span
+				class="right content" id="sexContent"></span></li>
+
+			<li class="clearfix" id="showProPicker"><span class="left label">籍贯</span>
+				<img src="images/rightarr.png" alt="" class="right rightArr" /> <span
+				class="right content" id="ProCityRegion"></span></li>
+			<li class="clearfix"><span class="left label">年龄</span> <input
+				type="text" class="f_input right wp60" id="age" placeholder="请输入年龄" />
+			</li>
+			<li class="clearfix"><span class="left label">生日</span> <img
+				src="images/rightarr.png" alt="" class="right rightArr" /> <input
+				type="text" class="f_input right wp60"
+				data-options='{"type":"date","beginYear":1926,"endYear":2016}'
+				id="getTime" /></li>
+			<li class="clearfix"><span class="left label">个人爱好</span> <input
+				type="text" class="f_input right wp60" id="grah"
+				placeholder="请输入个人爱好" /></li>
+			<li class="clearfix"><span class="left label">性格特点</span> <input
+				type="text" class="f_input right wp60" id="xgtd"
+				placeholder="请输入性格特点" /></li>
+			<li class="clearfix"><span class="left label">手机号码</span> <input
+				type="text" class="f_input right wp60" id="phoneNo"
+				placeholder="请输入手机号码" /></li>
+			<li class="clearfix"><span class="left label">办公电话</span> <input
+				type="text" class="f_input right wp60" id="officePhone"
+				placeholder="请输入办公电话" /></li>
+			<li class="clearfix"><span class="left label">毕业院校</span> <input
+				type="text" class="f_input right wp60" id="byyx"
+				placeholder="请输入毕业院校" /></li>
+			<li class="clearfix"><span class="left label">爱好体育</span> <input
+				type="text" class="f_input right wp60" id="ah" placeholder="请输入爱好体育" />
+			</li>
+			<li class="clearfix"><span class="left label">疾病史</span> <input
+				type="text" class="f_input right wp60" id="jbs" placeholder="请输入疾病史" />
+			</li>
+			<li class="clearfix"><span class="left label">吸烟品牌</span> <input
+				type="text" class="f_input right wp60" id="xypp"
+				placeholder="请输入吸烟品牌" /></li>
+			<li class="clearfix"><span class="left label">饮酒品牌</span> <input
+				type="text" class="f_input right wp60" id="yjpp"
+				placeholder="请输入饮酒品牌" /></li>
+			<li class="clearfix"><span class="left label">饮茶品牌</span> <input
+				type="text" class="f_input right wp60" id="ycpp"
+				placeholder="请输入饮茶品牌" /></li>
+
+			<div class="formList padding10">
+				<textarea type="text" class="f_input f_textarea" id="jtcy"
+					placeholder="请输入家庭成员【字数限制2000】"></textarea>
+			</div>
+
+			<div class="formList padding10">
+				<textarea type="text" class="f_input f_textarea" id="gzjl"
+					placeholder="请输入工作经历【字数限制2000】"></textarea>
+			</div>
+			<div class="formList padding10">
+				<textarea type="text" class="f_input f_textarea" id="remark"
+					placeholder="请输入备注【字数限制2000】"></textarea>
+			</div>
+
+			<!--
+		<li class="clearfix">
+            <span class="left label">上传附件</span>
+        </li>
+		-->
+		</ul>
+		<div class="clearfix bottomLable">
+			<div class="left">
+				<label class="left">添加人：</label> <span class="left" id="userName">--</span>
+			</div>
+			<div class="right">
+				<label class="left">添加日期：</label> <span class="left" id="currDate">--</span>
+			</div>
+		</div>
+
+		<a href="#" onclick="submitForm(0);" class="submitBtnspecial saveAs">草稿</a>
+		<a href="#" onclick="submitForm(1);"
+			class="submitBtnspecial marginB40">提交</a>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script type="text/javascript"
+		src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script src="js/editcustom.js"></script>
+
+
+	<script>
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+</script>
+</body>
+</html>

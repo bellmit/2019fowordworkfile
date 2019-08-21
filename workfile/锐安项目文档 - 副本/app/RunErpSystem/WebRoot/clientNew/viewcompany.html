@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link href="css/mui.picker.css" rel="stylesheet" />
+<link href="css/mui.picker.min.css" rel="stylesheet" />
+<link href="css/mui.picker.v1.0.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/app.css">
+<!--<script type="text/javascript" src="../js/jssdk/vrv-jssdk.js"></script>-->
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">查看客户单位</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="formList">
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>省份-地市-区县</span> <span class="right content"
+				id="ProCityRegion" disabled></span></li>
+		</ul>
+		<ul class="formList">
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>法人单位</span> <input type="text"
+				class="f_input right wp60" disabled id="legalEntity" /></li>
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>地址</span> <input type="text"
+				class="f_input right wp60" disabled id="address" /></li>
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>行业分类(一级)</span> <span class="right content"
+				id="tradeContent" disabled></span></li>
+		</ul>
+		<div class="clearfix bottomLable"></div>
+		<a href="#" onclick="backPre();" class="submitBtn">返回</a>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script type="text/javascript"
+		src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script src="js/viewcompany.js"></script>
+</body>
+</html>

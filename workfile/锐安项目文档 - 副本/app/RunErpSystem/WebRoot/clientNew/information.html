@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title></title>
+<!--标准mui.css-->
+<link rel="stylesheet" href="css/mui.min.css">
+<link href="css/mui.picker.css" rel="stylesheet" />
+<link href="css/mui.picker.min.css" rel="stylesheet" />
+<link href="css/mui.picker.v1.0.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/app.css">
+<!--<script type="text/javascript" src="../js/jssdk/vrv-jssdk.js"></script>-->
+<style>
+.upfileBtn {
+	display: block;
+	text-align: center;
+	color: #fff;
+	background: #0080ff;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	margin-right: 20px;
+}
+
+.hidden-node {
+	display: none;
+}
+
+.wp70 {
+	width: 70% !important;
+}
+
+.workSub {
+	bottom: inherit;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.uploadFile {
+	background: url(images/file_add.png) no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin: 5px;
+	/*float: right;*/
+}
+
+.uploadFile input::-webkit-file-upload-button {
+	width: 50px;
+	height: 50px;
+	border: none;
+	position: absolute;
+	outline: 0;
+	opacity: 0;
+}
+
+.uploadFile input#file {
+	display: block;
+	width: auto;
+	border: 0;
+	vertical-align: middle;
+}
+</style>
+
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<!-- 
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+-->
+		<h1 class="mui-title">添加客户工作资讯</h1>
+	</header>
+	<div class="mui-content">
+
+		<ul class="formList">
+			<li class="clearfix"><span class="left label"><span
+					style="color: red;">*</span>客户单位</span> <input type="text"
+				class="f_input right wp60" id="autoInput" placeholder="请输入客户单位" /></li>
+			<li class="clearfix " id="showtradePicker"><span
+				class="left label"><span style="color: red;">*</span>行业分类</span> <img
+				src="images/rightarr.png" alt="" class="right rightArr" /> <span
+				class="right content" id="tradeContent">行业</span></li>
+			<li class="clearfix " id="showInfoType"><span class="left label"><span
+					style="color: red;">*</span>资讯类型</span> <img src="images/rightarr.png"
+				alt="" class="right rightArr" /> <span class="right content"
+				id="typeContent">类型</span></li>
+			<li class="clearfix hidden-node" id="upFileLi_0"><span
+				class="left label">附件</span> <input type="text"
+				class="f_input right wp70" name="name" readonly id="name_0" /> <input
+				type="text" class="f_input right hidden-node" name="filePath"
+				id="upFileName_0" /> <input type="file" class="hidden-node"
+				id="fileInp_0" multiple="multiple" accept="image/*" name="fileInp"
+				onchange="fileInpChange()" /></li>
+			<li class="clearfix nobottomborder" id="upfileBtn"
+				style="height: auto;"><span class="left label">上传图片</span>
+				<div class="mui-page-content">
+					<div id="uploadFileList" style="float: right; margin: 5px;"></div>
+					<div class="uploadFile" onclick="upFileClick(this)"></div>
+					<div id="file-ing" class="hidden-node"></div>
+				</div> <!--
+			<div align="center" > 
+				<a href="#" onclick = "upFileClick(this)" class="upfileBtn" >上传附件</a>
+			</div>
+			--></li>
+
+		</ul>
+		<div class="formList padding10">
+			<textarea type="text" class="f_input f_textarea" id="workText"
+				placeholder="请输入资讯内容，清晰描述时间、地点、人物、事件，勿使用代号、字母等。"></textarea>
+		</div>
+		<div class="clearfix bottomLable">
+			<div class="left">
+				<label class="left">添加人：</label> <span class="left" id="userName">--</span>
+			</div>
+			<div class="right">
+				<label class="left">添加日期：</label> <span class="left" id="currDate">--</span>
+			</div>
+		</div>
+		<a href="#" onclick="submitForm();" class="submitBtn workSub">提交</a>
+	</div>
+	<div class="autoDiv" id="auto_div">
+		<div></div>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script type="text/javascript"
+		src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/trade.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script src="js/information.js"></script>
+	<script src="js/image-upload.js"></script>
+
+</body>
+</html>
