@@ -1,0 +1,572 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Page-Enter" content="revealTrans(Duration=0.4,Transition=3)">
+		<title>海口市政务数据共享采集平台展示系统</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/function.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+        //页面初始 ajax调用太极接口获取数据
+		$(document).ready(function () {
+			teda();
+		});
+
+		// alert(headjson);
+		// var hdata = headjson['data'];
+
+		setInterval(function(){
+			var date = new Date();
+			var year = date.getFullYear();    //获取当前年份
+			var mon = date.getMonth()+1;      //获取当前月份
+			var da = date.getDate();          //获取当前日
+			var day = date.getDay();          //获取当前星期几
+			var h = date.getHours();          //获取小时
+			var m = date.getMinutes();        //获取分钟
+			var s = date.getSeconds();        //获取秒
+			var d = document.getElementById('topweek');
+			switch (day) {
+				case 1:
+					day='一';
+					break;
+				case 2:
+					day='二';
+					break;
+				case 3:
+					day='三';
+					break;
+				case 4:
+					day='四';
+					break;
+				case 5:
+					day='五';
+					break;
+				case 6:
+					day='六';
+					break;
+				case 0:
+					day='七';
+					break;
+			}
+			d.innerHTML='星期'+day+'\xa0\xa0\xa0' +'AM'+'\xa0\xa0\xa0' +h+':'+m+"  "+year+'-'+mon+'-'+da;
+		},1000)
+		function changeFrameHeight(){
+			var ifm= document.getElementById("rightwrapfr");
+			ifm.height=document.documentElement.clientHeight;
+		}
+		window.onresize=function(){
+			changeFrameHeight();
+		}
+	</script>
+	</head>
+	<style>
+	.topweek{
+  line-height: 32px;
+  margin: 0 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #319af8;
+  float: left;
+
+  display: inline-block;
+}
+	
+	</style>
+
+<body>
+	<!--头部区域-->
+	<div class="header">
+		<div class="top">
+			<div class="logo">
+				<img src="image/logo.png" />
+			</div>
+		   	<div class="top-rt">
+				
+
+		   		<div class="myctrip-name" id="myctripname">某某某，欢迎您访问！</div>
+					<div class="topweek" id="topweek">星期五  AM 09:30  2019-06-14  </div>
+					<div class="topweek" style="margin-left: 0"><a href=" " style="text-decoration: none; color:#319af8;">个人中心</a></div>
+					<div class="topweek" style="margin-left: 0"><a href=" " style="text-decoration: none; color:#319af8;">平台管理</a></div>
+		   		<button class="quit"  href="#" onclick="loginoutTai()">注销</button>
+				<div class="topweek" style="margin-left: 0"><a href="" style="text-decoration: none;color:#319af8"></a></div>
+<!--                onclick="loginoutTai()"-->
+		   	</div>
+		</div>
+
+
+		<div class="m-nav fn-clear"  id="fnmain">
+			<ul id="mnav">
+<!--            				<li>-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#">首页</a>-->
+<!--            				</li>-->
+<!--            				<li>-->
+<!--            					<span class="navdot" ></span>-->
+<!--            					<a href="#" >目录链</a>-->
+
+<!--            				</li>-->
+<!--            				<li class="on">-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#">数据资源</a>-->
+<!--            				</li>-->
+<!--            				<li class="nav-sel">-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#" class="font-bold">数据处理</a>-->
+<!--            					<div class="nav-sel-nav">-->
+<!--            						<a href="#">数据脱敏</a>-->
+<!--            						<span class="line-bt"></span>-->
+<!--            						<a href="#">数据清洗</a>-->
+<!--            					</div>-->
+<!--            				</li>-->
+<!--            				<li>-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#">组件服务</a>-->
+<!--            					<div class="nav-sel-nav" id="finbi">-->
+<!--            						<a href="#">可视化系统</a>-->
+<!--            					</div>-->
+<!--            				</li>-->
+<!--            				<li>-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#">领导驾驶舱</a>-->
+<!--            				</li>-->
+<!--            				<li>-->
+<!--            					<span class="navdot"></span>-->
+<!--            					<a href="#">平台管理</a>-->
+<!--            				</li>-->
+            			</ul>
+	</div>
+	<!--头部区域 end-->
+	<div class="main">
+<!--		左侧内容区-->
+		<div class="leftwrap">
+			<div class="left-tit">
+				<span class="icon1"></span>
+				可视化系统
+			</div>
+			<div class="navwrapper">
+				<div id="sidebar2">
+					<div id="sidebar-wrapper">
+						<ul id="main-nav">
+<!--							<div id="leftyc">-->
+<!--								<img src="image/leftjt.jpg" />-->
+<!--							</div>-->
+							<!--<li>
+								<a href="javascript:void(0)" class="nav-top-item current"><span>BI展示</span></a>
+								<ul class="secondary-menu" style="display: block;">
+									<li>
+										<a href="javascript:void(0)" class="submenu-item down1">
+											<span>领域数据</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu" style="display: block;">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>部门数据</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>上报数据</span>
+											<em>852</em>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>服务数据</span>
+											<em>852</em>
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0)" class="nav-top-item"><span>国家数据</span></a>
+								<ul class="secondary-menu">
+									<li>
+										<a href="javascript:void(0)" class="submenu-item down1">
+											<span>基础信息资源目录</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu" style="display: block;">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>主题信息资源目录</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>部门信息资源目录</span>
+											<em>852</em>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>地方信息资源目录</span>
+											<em>852</em>
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0)" class="nav-top-item"><span>社会数据</span></a>
+								<ul class="secondary-menu">
+									<li>
+										<a href="javascript:void(0)" class="submenu-item down1">
+											<span>基础信息资源目录</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu" style="display: block;">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>主题信息资源目录</span>
+											<em>852</em>
+										</a>
+										<ul class="thir-menu">
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)" class="">
+													<span class="lfdot"></span>
+													<span>部门数据</span>
+													<em>852</em>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>部门信息资源目录</span>
+											<em>852</em>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" class="submenu-item">
+											<span>地方信息资源目录</span>
+											<em>852</em>
+										</a>
+									</li>
+								</ul>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div >
+
+		<!--左侧内容区 end-->
+		<!--右侧内容区-->
+		<div class="rightwrap" id="rightwrap" name="rightwrap">
+<!--      http://172.26.52.168:9010/WebReport/ReportServer;jsessionid=102081E5D92F296BD4FDEFBEE6AE1FDF?op=fr_bi&cmd=bi_init&id=144&createBy=-999
+-->
+	<iframe class="rightwrapfr" name="rightwrapfr" id="rightwrapfr" frameborder="0"  width="100%" height="100%" scrolling="no" onload="changeFrameHeight()"  src=" http://172.26.52.168:9010/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=144&createBy=-999" ></iframe>
+	</div>
+<!--	  	右侧内容区 end&ndash;&gt;-->
+	</div>
+
+	<!--底部-->
+	<div class="footer">
+		<div class="bottom">
+			<div class="">
+				建议使用360极速浏览器/IE9+浏览器    分辨率1280*768
+			</div>
+			<div class="">
+				北京市经济和信息化局主办      北京市信息资源管理中心承办
+			</div>
+			<div class="">
+				技术支持：平台运维组        联系电话：84371878
+			</div>
+		</div>
+	</div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/simpla.jquery.configuration.js"></script>
+		<script type="text/javascript">
+			//$('.counter').countUp({});
+				$(".m-nav ul li").hover(function(){
+					$(this).find(".nav-sel-nav").stop().slideDown(200);
+					},function(){
+						$(this).find(".nav-sel-nav").stop().slideUp(200);
+					});
+		</script>
+
+
+		<script type="text/javascript">
+			// var surl = location.search;
+			// alert(surl);
+
+
+
+            //将接口返回json数据分割为头部菜单json和左侧菜单json
+
+
+            // alert(hdata.length);
+            // var newhjson =[];
+            // var newjsont=[];
+            // for (var i = 0; i <hdata.length ; i++) {
+            //     if (  hdata[i]['code'] >=100900){
+            //         newhjson.push(hdata[i]);        //头部菜单json
+            //     } else {
+            //         newjsont.push(hdata[i]);        //左侧菜单json
+            //     }
+            // }
+
+
+			x(jsontt);
+
+			//头部菜单渲染
+            function tx(result) {
+            var context = []
+            var citiao="";
+            for (var i = 0; i <result.length ; i++) {
+                //一级
+             citiao += '<li class="nav-sel"><span class="navdot"></span><a  class="font-bold" href="#">'+result[i]['name']+'</a>'
+                var submenu = result[i]['subMenu']
+                if(submenu != undefined){
+                    //二级
+                    citiao +='<div class="nav-sel-nav">'
+                    for (var j = 0; j < submenu.length ; j++) {
+                        if(submenu[j]['subMenu'] != undefined){
+                            citiao +='<a class="line-bt" href="#">'+submenu[j]['name']+'</a>'
+                        }
+                    }
+                    citiao +="</div>"
+                    citiao +="</li>"
+                }
+            }
+                context.push(citiao)
+            $("#mnav").html(context)
+            }
+             // tx(hdata);
+
+			//渲染左侧菜单
+            var oarurl =[];
+			function x(result) {
+				var data = result['data']
+				var context = []
+				for (var i = 0; i <data.length ; i++) {
+					//一级
+					var citiao = '<li><a href="javascript:void(0)" id="nav-top-item current" class="nav-top-item current"><span>'+data[i]['userLevel']+'</span></a><ul class="secondary-menu " id="secondary-menu" style="display: block;">'
+					var list = data[i]['list']
+					if(list != undefined){
+						//二级
+						for (var j = 0; j < list.length ; j++) {
+							if(list[j]['list'] == undefined){
+
+								citiao += '<li><a href="'+list[j]['url']+'" class="submenu-item down1"  target="rightwrapfr" id="submenu-item down1"  ><span>'+list[j]['userLevel']+'</span></a></li>'
+							}else{
+								//
+								citiao += '<li><a href="javascript:void(0);" class="submenu-item down1"   target="rightwrapfr" id="submenu-item down1"  ><span>'+list[j]['userLevel']+'</span></a>'
+							//	三级
+                                var list_3 = list[j]['list']
+								if(list_3 != undefined){
+									citiao +='<ul class="thir-menu" style="display: block;">'
+									for (var q = 0; q < list_3.length; q++) {
+										citiao +='<li> <a href="javascript:void(0);"  class=""><span class="lfdot" target="rightwrapfr"></span><span>'+list_3[q]['userLevel']+'</span></li>'
+									}
+									citiao+='</li></ul>'
+								}
+							}
+							// oarurl.push(list[j]['url']);
+						}
+					}
+					citiao +='</li>'
+					context.push(citiao)
+				}
+				$("#main-nav").html(context)
+			}
+
+
+            //获取cookie中传递的用户名 用户32位特征码
+			// var cookie = document.cookie;
+			// var onesplit = cookie.split(';');
+			// var two = onesplit[1];
+			// var ttwo=onesplit[0];
+			// var  swto=	two.split('=');
+			// var  sttwo=ttwo.split('=');
+			// var userid = sttwo[1];
+			// var  username = swto[1];
+			// var ds = document.getElementById('myctripname');
+			// ds.innerHTML=username+"，欢迎您访问！";
+
+
+
+			//退出oncilck
+			function loginoutTai() {
+				url="http://192.166.162.181:8081/app/api_v1/getMenuUrlsByCaId";
+				window.location.href=url;
+			}
+
+			// var tjosn={};
+			// var zjosn={};
+			// var jyt=["首页","目录链","数据资源","数据治理","组件服务","领导驾驶舱","个人中心","评估评价","平台管理"]
+			// var jyz=["仪表板","数据配置","管理系统","BI展示","可视化样例","图表","分析功能","样式展示","汇总表","明细表"]
+			// function jsonpcs(result) {
+			// 	for (var i = 0; i <result.length ; i++) {
+			// 		if (result[i]["name"]==jyt[i]){
+			// 			tjosn[i]==result[i]
+			// 		} else if (result[i]["name"]==jyz[i]) {
+			// 			zjosn[i]==result[i]
+			// 		}
+			// 		return tjosn,zjosn;
+			// 	}
+			// }
+			// alert("=====tjson======="+tjosn);
+			// alert("=====zjson======="+zjosn);
+
+
+			// 使用用户32特征码获取用户菜单信息
+			var userid="871b412eab6ea3e7b21cb2dfa4b64c58";
+			function teda() {
+				var formData = new FormData();
+				formData.append("models",JSON.stringify({"caId":this.userid}));
+				var xhr=new XMLHttpRequest();
+				xhr.open("post","http://172.26.60.219:8081/app/api_v1/getMenuUrlsByCaId");
+				xhr.send(formData);
+				xhr.onload=function(){
+					if(xhr.status==200){
+						jsonpcs(data);
+					}else {
+
+					}
+				}
+			}
+			// tx(tjosn);
+			// x(zjosn);
+
+
+
+		</script>
+
+
+</body>
+</html>

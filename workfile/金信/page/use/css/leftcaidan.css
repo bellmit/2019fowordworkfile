@@ -1,0 +1,91 @@
+element.style {
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 204px;
+    position: absolute;
+}
+
+ #body .bi-platform-card-background {
+     background-color: rgb(41, 45, 55);
+     color: rgb(255, 255, 255);
+ }
+html, body, div, ul, ol, li, img, a, span, p, * {
+    margin: 0;
+    padding: 0;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+html, button, input, select, textarea, * {
+    font-family: "Microsoft YaHei","Hiragino Sans GB W3";
+}
+* {
+    font-family: "Open Sans","Tahoma","Hiragino Sans GB","Microsoft YaHei";
+}
+user agent stylesheet
+div {
+    display: block;
+}
+#body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    background-repeat: repeat;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    font: normal 12px "Microsoft YaHei","Hiragino Sans GB W3";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none;
+    -kthml-user-focus: normal;
+    -moz-user-focus: normal;
+    -moz-outline: 0 none;
+    outline: 0 none;
+    background-color: #eff1f4;
+    color: #666;
+}
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    font-family: Microsoft YaHei,STXihei,SimSun,sans-serif;
+    font-size: 12px;
+    background-repeat: repeat;
+}
+html, button, input, select, textarea {
+    font-family: sans-serif;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+div::-webkit-scrollbar, textarea::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: rgba(102,102,102,0.05);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0d666666,endColorstr=#0d666666);
+    width: 6px;
+    height: 6px;
+}
+div::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background-color: rgba(102,102,102,0.3);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4d666666,endColorstr=#4d666666);
+}

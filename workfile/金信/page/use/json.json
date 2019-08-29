@@ -1,0 +1,117 @@
+{
+    "code": 1,
+    "data": [
+        {
+            "subMenu": [],
+            "code": "10000",
+            "name": "首页",
+            "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh_sy&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+        },
+        {
+            "subMenu": [],
+            "code": "20000",
+            "name": "目录链",
+            "url": ""
+        },
+        {
+            "subMenu": [],
+            "code": "30000",
+            "name": "数据资源",
+            "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh_zsj&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+        },
+        {
+            "subMenu": [
+                {
+                    "subMenu": [],
+                    "code": "41000",
+                    "name": "原始区管理",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_sjgl&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "42000",
+                    "name": "处理区管理",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_sjgl_cl&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "43000",
+                    "name": "分析区管理",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_sjgl_fx&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "44000",
+                    "name": "统计分析",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_sjgl_tj&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                }
+            ],
+            "code": "40000",
+            "name": "数据管理",
+            "url": ""
+        },
+        {
+            "subMenu": [
+                {
+                    "subMenu": [],
+                    "code": "54000",
+                    "name": "数据清洗",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=gydsj_sjqx&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "55000",
+                    "name": "数据脱敏",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=gydsj_sjtm&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "56000",
+                    "name": "批量数据处理",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=gydsj_sjpcl&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                }
+            ],
+            "code": "50000",
+            "name": "数据治理",
+            "url": ""
+        },
+        {
+            "subMenu": [
+                {
+                    "subMenu": [],
+                    "code": "61000",
+                    "name": "数据分析",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_sjfx&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                },
+                {
+                    "subMenu": [],
+                    "code": "63000",
+                    "name": "数据可视化",
+                    "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=gydsj_sjksh&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+                }
+            ],
+            "code": "60000",
+            "name": "组件服务",
+            "url": ""
+        },
+        {
+            "subMenu": [],
+            "code": "80000",
+            "name": "个人中心",
+            "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh_grzx&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+        },
+        {
+            "subMenu": [],
+            "code": "90000",
+            "name": "评估评价",
+            "url": "http://172.26.60.219/zyzx/portal/channel/toPgpjPage"
+        },
+        {
+            "subMenu": [],
+            "code": "A0000",
+            "name": "平台管理",
+            "url": "http://172.26.64.109:7001/GovSSOService/SSOSecService?LinkType=online&LinkID=dsjmh2_ptgl&sid=871b412eab6ea3e7b21cb2dfa4b64c58"
+        }
+    ],
+    "message": "success"
+}

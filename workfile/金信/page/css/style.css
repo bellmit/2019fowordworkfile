@@ -1,0 +1,378 @@
+
+
+@font-face {
+  font-family: "SourceHanSansCN-Regular_0";
+  src:url("../fonts/SourceHanSansCN-Regular_0.otf") format("opentype"),
+  		url("../fonts/SourceHanSansCN-Regular_0.woff") format("woff"),
+      url("../fonts/SourceHanSansCN-Regular_0.svg") format("svg");
+}
+body {
+	width: 100%;
+	height: 100%;
+	background: url(../image/bg.png) no-repeat top center;
+	position: relative;
+	font-family: "SourceHanSansCN-Regular_0" !important;
+}
+
+.header {
+	width: 100%;
+	height:126px ;
+	background: url(../image/topbg.png) no-repeat top center;
+}
+.top{
+	width: 1230px;
+	height: 69px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.logo{
+	margin-top: 10px;
+	float: left;
+	display: inline-block;
+}
+
+.logo img{
+	width: 350px;
+	height: 46px;
+	display: block;
+}
+.top-rt{
+	margin-top: 20px;
+	float: right;
+	display: inline-block;
+}
+
+.myctrip-name{
+	line-height: 32px;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #319af8;
+	float: left;
+	display: inline-block;
+}
+.topweek{
+	line-height: 32px;
+	margin: 0 20px;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #319af8;
+	float: left;
+	display: inline-block;
+}
+
+.newbutton{
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 25px;
+	border-radius: 4px;
+	border: solid 1px #073c62;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #319af8;
+	display: block;
+	float: right;
+}
+.quit{
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 25px;
+	border-radius: 4px;
+	border: solid 1px #073c62;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #319af8;
+	background: url(../image/quit.png) no-repeat left center;
+	display: block;
+	float: right;
+}
+
+.quit:hover{
+	border: solid 1px #00a3dd;
+}
+.newbutton:hover{
+	border: solid 1px #00a3dd;
+}
+
+
+.m-nav {
+ 	width: 1230px;
+ 	height: 56px;
+	margin: 0 auto;
+}
+.m-nav ul li {
+  display: inline-block;
+  width: 170px;
+  height: 56px;
+  line-height: 56px;
+  font-size: 16px;
+  text-align: center;
+  position: relative;
+}
+.m-nav ul li a {
+  color: #FFFFFF;
+  display: block;
+}
+.m-nav ul li.on ,.m-nav ul li:hover{
+	font-weight: bold;
+  background: url(../image/navon.png) no-repeat center top;
+  background-size: 100% 100%;
+}
+.m-nav ul li.on a {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.nav-sel:hover .font-bold{
+	font-weight: bold;
+}
+
+.navdot{
+	width: 4px;
+	height: 4px;
+	margin-top: 25px;
+	border-radius: 2px;
+	background-color: #1781e0;
+	display: block;
+	float: left;
+}
+
+.nav-sel-nav{
+	width: 170px;
+	position: absolute;
+	left: 0;
+	top: 56px;
+	display: none;
+}
+.nav-sel:hover .nav-sel-nav{
+	display: block;
+}
+.nav-sel-nav a{
+   width: 170px;
+   height: 55px;
+   line-height: 55px;
+   font-size: 16px;
+   color: #FFFFFF;
+   text-align: center;
+   font-weight: normal;
+   background: url(../image/on.png) no-repeat center top;
+}
+.m-nav .nav-sel-nav a:hover{
+	color: #319af8;
+	font-weight: normal;
+	display: block;
+}
+
+.line-bt{
+	width: 170px;
+	height: 1px;
+	background: url(../image/line.png) no-repeat center bottom;
+	display: block;
+}
+.leftyc img{
+	left: 10px;
+	height: 800px;
+}
+
+.main{
+	width: 1230px;
+	margin:25px auto;
+	min-height:1050px  ;
+	overflow: hidden;
+}
+
+.leftwrap{
+	width:280px;
+	float:left;
+}
+.left-tit{
+	width: 280px;
+	height: 40px;
+	font-size: 18px;
+	line-height: 40px;
+	letter-spacing: 2px;
+	color: #ffffff;
+	background-color: #0051ad;
+	border-bottom: solid 1px #0b204b;
+}
+.left-tit .icon1{
+	width: 40px;
+	height: 40px;
+	margin-left: 10px;
+	background: url(../image/icon1.png) no-repeat center;
+	display: block;
+	float: left;
+}
+
+/***menu css***/
+.navwrapper{
+	margin:0;
+    overflow-x:hidden;
+    height:100%;
+    background:#ccc;
+    padding: 0 0 0 0;
+}
+#sidebar {
+	width:100%;
+	margin: 0  ;
+	padding:0 ;
+	float:left;
+	overflow:hidden;
+}
+			
+#sidebar-wrapper {
+	margin:0 0 0 0;
+	overflow:hidden;
+}
+/************ Sidebar Accordion Menu ************/
+
+#sidebar #main-nav {
+	width:280px;
+	padding:0;
+	margin:0 0 0 0;
+}
+
+#sidebar #main-nav li {
+	list-style: none;
+	text-align:left;
+	margin:0 0;
+	padding:0 0 0 0;
+}
+
+/* 未选中 一级主菜单样式 */			
+.nav-top-item{
+	background: #0051ad url(../image/down.png) no-repeat;
+	background-position: 220px 18px;
+	height:40px;
+	border:0;
+	color: #ffffff;
+	font-size:16px;
+	cursor:pointer;
+	display:block;
+	text-decoration: none;
+	line-height:40px;				
+	vertical-align:middle;
+	text-indent:20px;
+	text-decoration:none;
+	border-bottom: solid 1px #0b204b;
+	cursor:pointer;
+}		
+
+#main-nav .nav-top-item.current {
+	background: #0051ad url(../image/up.png) no-repeat;
+	background-position: 220px 18px;
+}
+
+
+
+.secondary-menu{
+	display: none;
+}
+
+.submenu-item{
+	clear:both;
+	zoom: 1;
+}
+
+.secondary-menu li a.submenu-item {
+  height: 40px;
+  border-bottom:solid 1px #102f60;
+  color: #ffffff;
+  font-size: 14px;
+  display: block;
+  padding: 0;
+  line-height: 40px;
+  cursor: pointer;
+  background: #0b204b url(../image/down1.png) no-repeat;
+  background-position: 260px 16px;
+}
+.secondary-menu li a span{
+	margin-left: 20px;
+	display: inline-block;
+	float: left;
+}
+.secondary-menu li a em{
+	margin-right: 50px;
+	display: inline-block;
+	float:right;
+	font-weight: normal;
+}
+.secondary-menu li a.down1{
+	background: #1781e0 url(../image/up1.png) no-repeat;
+	background-position: 260px 16px;
+}
+
+
+.thir-menu{
+	display: none;
+}
+.thir-menu{
+	width: 100%;
+	background: #0b204b
+}
+.thir-menu li{
+	margin-left: 40px;
+}
+.thir-menu li a{
+  height: 40px;
+  border-bottom:solid 1px #102f60;
+  color: #1781e0;
+  font-size: 12px;
+  display: block;
+  padding: 0;
+  line-height: 40px;
+  cursor: pointer;
+  background: #0b204b url(../image/down1.png) no-repeat;
+  background-position: 260px 16px;
+}
+.thir-menu li a:hover{
+	color: #FFFFFF;
+}
+#main-nav .thir-menu span{
+	margin-left: 0;
+}
+#main-nav .thir-menu .lfdot{
+	width: 4px;
+	height: 4px;
+	margin-top: 20px;
+	margin-left: -15px;
+	background-color: #1781e0;
+	border-radius: 2px;
+	display: block;
+	float: left;
+}
+
+.rightwrap {
+	width: 920px;
+	margin-left: 30px;
+ 	float: left;
+}
+/*.rightwrapfr{*/
+/*	width: 920px;*/
+/*	margin-left: 30px;*/
+/*	float: left;*/
+/*}*/
+.footer{
+	width: 100%;
+	height:116px ;
+	background: #0b204b url(../image/bottombg.png) no-repeat;
+}
+.bottom{
+	width: 1230px;
+	margin: 0px auto;
+	padding-top: 18px;
+}
+
+.bottom div{
+	font-size: 14px;
+	line-height: 28px;
+	letter-spacing: 1px;
+	color: #2b9afe;
+	text-align: center;
+}
+
+
+
+
+
+
