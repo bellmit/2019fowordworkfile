@@ -85,3 +85,10 @@ filter-branch 是让git重写每一个分支，
 
 3.关于git filter-branch使用的文档：https://git-scm.com/docs/git-filter-branch
 ```
+
+
+
+```
+emp:
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch workfile/锐安项目文档/sap/'NEW HANA STUDIO.rar'" --prune-empty --tag-name-filter cat -- --all
+```
