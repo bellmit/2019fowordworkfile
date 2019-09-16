@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+   xmlns="http://java.sun.com/xml/ns/j2ee" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" 
+   version="2.4"> 
+  <display-name>Template WebApp</display-name>
+    <mime-mapping>
+  <extension>msi</extension>
+  <mime-type>application/x-msi</mime-type>
+  </mime-mapping>     
+  <filter>  
+        <filter-name>CASFilter</filter-name>  
+        <filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>  
+        <init-param>  
+            <param-name>edu.yale.its.tp.cas.client.filter.loginUrl</param-name>  
+            <param-value>http://localhost:8080/cas/login</param-value>  
+            <!--cas提供登陆页面的url-->  
+        </init-param>  
+        <init-param>  
+            <param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>  
+            <param-value>http://localhost:8080/cas/proxyValidate</param-value>  
+            <!--cas提供service ticker或者proxy ticket验证服务的url-->  
+        </init-param>  
+        <init-param>  
+            <param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>  
+            <param-value>localhost:80</param-value>  
+                        <!--客户端应用的域名和端口-->  
+        </init-param>  
+	<init-param>  
+        <param-name>encoding</param-name>  
+        <param-value>utf-8</param-value>  
+   </init-param>   
+    </filter>  
+    <filter-mapping>  
+        <filter-name>CASFilter</filter-name>  
+        <url-pattern>/decision/*</url-pattern>  
+    </filter-mapping> 
+ <filter>    
+    <filter-name>FrFilter</filter-name>    
+    <filter-class>com.fr.FrFilter</filter-class>    
+</filter>    
+<filter-mapping>    
+    <filter-name>FrFilter</filter-name>    
+    <url-pattern>/decision/*</url-pattern>    
+</filter-mapping>  
+</web-app>

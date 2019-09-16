@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>请假申请撤销审批</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../../css/feedback.css" />
+
+	<style>
+		.title{
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		.display_none{display: none;}
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">请假申请撤销审批</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view fixBox">
+				<li class=" mui-media relative mui-table-view-cell">
+					<div>
+						<div class="myui-baobei-list-icon mui-pull-left"><span id="leaveTypeName"></span></div>
+						<div class="mui-media-body mui-pull-left">
+							<span id="login_name"></span>
+							<p class='mui-ellipsis clearfix'>申请日期：<span id="applyTime"></span></p>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox">
+					<div>请假时间：<span id="startTimeString"></span> - <span id="endTimeString"></span></div>
+					<div id = "divLeaveHours" class="display_none">请假小时数： <span id="leaveHours"></span></div>
+					<div id = "divLeavePeriod" class="display_none">时间段： <span id="leavePeriod"></span></div>
+					<div class="line"></div>
+					<div>
+						请假理由：<br>
+						<span id="reason"></span>
+					</div>
+					<div class="line"></div>
+					<div>工作代理人：<span id="replaceUserName"></span></div>
+				</li>
+			</ul>
+			<div class="title">
+				请假条件
+			</div>
+			<ul class="mui-table-view fixBox display_none conditon">
+			    <!-- 调休假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable takeOffCheck" data-title="调休假">
+					<div>调休假期明细：<span id="takeOffDay"></span></div>
+				</li>
+				<!-- 产检假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable birthCheck" data-title="产检假">
+					<div>产检假类型：<span id="checkType"></span></div>
+					<div class="line"></div>
+					<div>产检附件：<span id="birthCheckFile"></span></div>
+				</li>
+				<!-- 病假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable sickLeave" data-title="病假">
+					<div>医院诊断证明：<span id="sickLeaveFile"></span></div>
+				</li>
+				<!-- 长期病假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable longSickLeave" data-title="长期病假">
+					<div>医院诊断证明：<span id="longSickLeaveFile"></span></div>
+				</li>
+				<!-- 带薪病假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable sickLeaveWithSalary" data-title="带薪病假">
+					<div>医院诊断证明：<span id="sickLeaveWithSalFile"></span></div>
+				</li>
+				<!-- 陪护假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable chaperonage" data-title="陪护假">
+					<div>子女出生日期：<span id="birthDay"></span></div>
+					<div class="line"></div>
+					<div>子女出生证明：<span id="chaperonageFile"></span></div>
+				</li>
+				<!-- 计划生育假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable planBirth" data-title="计划生育假">
+					<div>计划类型：<span id="planBirthType"></span></div>
+					<div class="line"></div>
+					<div>医院诊断证明：<span id="planBirthFile"></span></div>
+				</li>
+				<!-- 产假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable maternity" data-title="产假">
+					<div>产假类型：<span id="maternityType"></span></div>
+					<div class="line"></div>
+					<div>医院诊断证明：<span id="maternityFile"></span></div>
+				</li>
+				<!-- 哺乳假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable suckle" data-title="哺乳假">
+					<div>子女出生证明：<span id="suckleFile"></span></div>
+					<div class="line"></div>
+					<div>子女出生日期：<span id="suckleBirthDay"></span></div>
+				</li>
+				<!-- 婚假-->
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox stateTable wedding" data-title="婚假">
+					<div>领取结婚证日期：<span id="weddingDay"></span></div>
+					<div class="line"></div>
+					<div>结婚证复印件：<span id="weddingFile"></span></div>
+				</li>
+			</ul>
+			
+			<div class="title">
+				撤销申请
+			</div>
+			<ul class="mui-table-view fixBox">
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox">
+					<div>撤销开始时间：<span id="backStartTimeStr"></span></div>
+					<div>撤销结束时间：<span id="backEndTimeStr"></span></div>
+					<div class="line"></div>
+					<div>
+						撤销原因理由：<br>
+						<span id="backReason"></span>
+					</div>
+				</li>
+			</ul>
+			<div class="mui-card-content" style="border-top: 1px solid #ddd;" id="checkDate">
+			</div>
+			<ul class="formList">
+				<li class="clearfix" id="ifAgree">
+					<div class="left label">是否同意</div>
+					<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+						<button type="button" class="mui-btn mui-btn t5">不同意</button>
+					</div>
+					<div class="mui-radio right" style=" display: inline-block; ">
+						<button type="button" class="mui-btn mui-btn-primary t5">同意</button>
+					</div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix"  style="height: auto;">
+					<textarea class="mui-input-speech t10" id="comment" rows="5" placeholder="请输入审批意见"></textarea>
+				</li>
+			</ul>
+			<!-- <form> -->
+				<div class="mui-card">
+					<button type="button" onclick="checkleave()" class="mui-btn mui-btn-primary mui-btn-block">提交</button>
+				</div>
+				
+			<!-- </form> -->
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script src="js/leaveBackAudit.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+		
+	</script>
+	
+</html>

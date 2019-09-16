@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+      	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 扫描service及dao -->
+	<context:component-scan base-package="com.**.dao" />
+	<context:component-scan base-package="com.**.service" />
+	<!-- 加载配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:remote.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--创建jdbc数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="${cpool.checkoutTimeout}" />
+		<property name="initialPoolSize" value="${cpool.minPoolSize}" />
+		<property name="minPoolSize" value="${cpool.minPoolSize}" />
+		<property name="maxPoolSize" value="${cpool.maxPoolSize}" />
+		<property name="maxIdleTime" value="${cpool.maxIdleTime}" />
+		<property name="acquireIncrement" value="${cpool.acquireIncrement}" />
+		<property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}" />
+	</bean>
+
+
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!-- 创建SqlSessionFactory，同时指定数据源 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath*:com/run/**/dao/*.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.run.**.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="AdminHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.admin.url}/Hessian/AdminHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.admin.service.AdminHessianService"/>
+	</bean>
+	<bean id="ActivitiHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.activiti.url}/Hessian/ActivitiHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.activiti.service.ActivitiHessianService"/>
+	    <property name="overloadEnabled" value="true"/>
+	</bean>
+	<bean id="PMSHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/PMSHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.pms.service.PMSHessianService"/>
+	</bean>
+	<bean id="PMSIndexHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/PMSIndexHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.pms.service.PMSIndexHessianService"/>
+	</bean>
+	<bean id="TMSHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.tms.url}/Hessian/TMSHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.tms.service.TMSHessianService"/>
+	</bean>
+	<!-- 工程 -->
+	<bean id="AppConstructHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.gcsh.url}/Hessian/AppConstructHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appEngineer.service.AppConstructHessianService"/>
+	</bean>
+	<!-- 验收 -->
+	<bean id="AppCheckHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.gcsh.url}/Hessian/AppCheckHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appEngineer.service.AppCheckHessianService"/>
+	</bean>
+
+	
+    <bean id="AppBudgetHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.gcsh.url}/Hessian/AppBudgetHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appEngineer.service.AppBudgetHessianService"/>
+	</bean>
+	
+
+	<!-- 维保 -->
+	<bean id="AppCustomserviceHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.gcsh.url}/Hessian/AppCustomserviceHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appEngineer.service.AppCustomserviceHessianService"/>
+	</bean>
+
+	<!--<bean id="appPMSHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPMSHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.tms.service.TMSHessianService"/>
+	</bean>
+	 定时任务配置 start -->
+	 
+	 <!--薪酬 -->
+	 <bean id="AppPmsWageHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPmsWageHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appPMS.wages.AppPmsWageHessianService"/>
+	</bean>
+	<!--考核 -->
+	<bean id="AppPmsAssessHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPmsAssessHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appPMS.assess.AppPmsAssessHessianService"/>
+	</bean>
+	<!--考勤 -->
+	<bean id="AppPmsAttendenceHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPmsAttendenceHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appPMS.attendence.AppPmsAttendenceHessianService"/>
+	    <property name="overloadEnabled" value="true"/>
+	</bean>
+	<!--任务 -->
+	<bean id="AppTmsTaskHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.tms.url}/Hessian/AppTmsTaskHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appTMS.AppTmsTaskHessianService"/>
+	</bean>
+	<bean id="AppTmsDailyHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="overloadEnabled" value="true"/>
+	    <property name="serviceUrl" value="${yjt.tms.url}/Hessian/AppTmsDailyHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appTMS.AppTmsDailyHessianService"/>
+	</bean>
+	<!--入调离 -->
+	<bean id="AppPmsTurnoverHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPmsTurnoverHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appPMS.staffTurnover.AppPmsTurnoverHessianService"/>
+	</bean>
+	<!-- 9999 -->
+	<bean id="AppTmsAcceptHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.tms.url}/Hessian/AppTmsAcceptHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appTMS.AppTmsAcceptHessianService"/>
+	</bean>
+	<!-- 客户接待 -->
+	<bean id="AppPmsCustRecepHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.pms.url}/Hessian/AppPmsCustRecepHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appPMS.custRecept.AppPmsCustRecepHessianService"/>
+	</bean>
+	<!-- 发票池详情以及回写 -->
+	<bean id="FinanceHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.finance.url}/Hessian/FinanceHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.hessian.finance.service.FinanceHessianService"/>
+	</bean>
+	<!-- 项目投标 -->
+	<bean id="AppHPMHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.hpm.url}/Hessian/HPMHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appHPM.AppHPMHessianService"/>
+	</bean>
+	<!--员工招待费调整 -->
+	<bean id="AppFinanceHessianService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+	    <property name="serviceUrl" value="${yjt.finance.url}/Hessian/AppFinanceHessianService"/>
+	    <property name="serviceInterface" value="com.run.common.appHessian.appFinance.AppFinanceHessianService"/>
+	    <property name="overloadEnabled" value="true"/>
+	</bean>
+	<!-- 配置包扫描 -->
+	   <context:component-scan base-package="com.run.**.task"/>
+	   <!-- 定时任务配置 scheduler 方式  注解 -->
+	   <task:executor id="executor" pool-size="5"/>
+	   <task:scheduler id="scheduler" pool-size="10"/>
+	   <task:annotation-driven executor="scheduler" scheduler="scheduler"/>
+	<!-- 定时任务配置 end -->
+</beans>
