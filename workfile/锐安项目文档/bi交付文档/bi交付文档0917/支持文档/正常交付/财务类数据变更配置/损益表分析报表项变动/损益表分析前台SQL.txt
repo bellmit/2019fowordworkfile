@@ -1,0 +1,322 @@
+--损益表二级部门
+WITH dept AS (
+SELECT a.db_key dept1
+      ,b.db_key dept2
+      ,c.db_key dept3
+      ,d.db_key dept4
+      ,f.db_key dept5
+  FROM dw_fi_dept a
+  LEFT JOIN dw_fi_dept b ON b.parent_key = a.db_key
+  LEFT JOIN dw_fi_dept c ON c.parent_key = b.db_key
+  LEFT JOIN dw_fi_dept d ON d.parent_key = c.db_key
+  LEFT JOIN dw_fi_dept f ON f.parent_key = d.db_key)
+ ,dept1 AS (
+   SELECT dept1 dept  FROM dept a WHERE a.dept1 = '${company}'
+   UNION  
+   SELECT dept2  FROM dept a WHERE a.dept1 = '${company}'
+   UNION           
+   SELECT dept3  FROM dept a WHERE a.dept1 = '${company}' 
+   UNION 
+   SELECT dept4  FROM dept a WHERE a.dept1 = '${company}'          
+   UNION 
+   SELECT dept5  FROM dept a WHERE a.dept1 = '${company}' ) 
+ , a as (--净利润、收入、费用
+ select a.dept_code
+       ,a.parent_code
+       ,SUM(nvl(a.sr, 0)*0.0001) sr
+       ,SUM(nvl(a.fy, 0)*0.0001) fy
+       ,SUM(nvl(a.jlr, 0)*0.0001) jlr
+   from (
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)) sr
+      ,0 fy
+      ,0 jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('1') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+UNION ALL
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,0 sr
+      ,SUM(nvl(a.dmbtr_year, 0)) fy
+      ,0 jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) BETWEEN 7 AND 20
+   AND to_number(zc_index) NOT IN ('15', '16', '17') --费用
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP by a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+   union all
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,0 sr
+      ,0 fy
+      ,SUM(nvl(a.dmbtr_year, 0)) jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('29') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+ )a
+  group by a.dept_code
+       ,a.parent_code
+       )     
+
+SELECT a.*
+      ,b.dept_level
+      ,row_number()over (partition by a.parent_code order by a.parent_code,jlr DESC) rn
+  FROM a
+  LEFT JOIN dw_fi_dept b 
+  ON a.dept_code = b.db_key
+  left join dw_fi_dept c
+  on a.parent_code=c.db_key
+ WHERE B.DEPT_LEVEL=4
+   and c.parent_key NOT in ('8300','8301','8999','8700')
+------------------------------------------------------------
+--损益表公司
+WITH dept AS (
+SELECT a.db_key dept1
+      ,b.db_key dept2
+      ,c.db_key dept3
+      ,d.db_key dept4
+      ,f.db_key dept5
+  FROM dw_fi_dept a
+  LEFT JOIN dw_fi_dept b ON b.parent_key = a.db_key
+  LEFT JOIN dw_fi_dept c ON c.parent_key = b.db_key
+  LEFT JOIN dw_fi_dept d ON d.parent_key = c.db_key
+  LEFT JOIN dw_fi_dept f ON f.parent_key = d.db_key)
+ ,dept1 AS (
+   SELECT dept1 dept  FROM dept a WHERE a.dept1 = '${company}'
+   UNION  
+   SELECT dept2  FROM dept a WHERE a.dept1 = '${company}'
+   UNION           
+   SELECT dept3  FROM dept a WHERE a.dept1 = '${company}' 
+   UNION 
+   SELECT dept4  FROM dept a WHERE a.dept1 = '${company}'          
+   UNION 
+   SELECT dept5  FROM dept a WHERE a.dept1 = '${company}' ) 
+ , a as (--净利润、收入、费用
+SELECT to_char(to_number(a.zc_index))zc_index
+      ,to_char(a.ZC_KTEXT)ZC_KTEXT
+      ,a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)*0.0001) dmbtr_year
+      ,SUM(nvl(a.dmbtr_year_tq, 0)*0.0001) dmbtr_year_tq
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('1', '29') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.zc_index
+         ,a.ZC_KTEXT
+         ,a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+UNION ALL
+SELECT  '99' zc_index
+      ,'费用'ZC_KTEXT
+      ,a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)) dmbtr_year
+      ,SUM(nvl(a.dmbtr_year_tq, 0)) dmbtr_year_tq
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) BETWEEN 7 AND 20
+   AND to_number(zc_index) NOT IN ('15', '16', '17') --费用
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP by a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+ )
+SELECT a.*
+      ,b.dept_level
+  FROM a
+  LEFT JOIN dw_fi_dept b 
+  ON a.dept_code = b.db_key
+ WHERE B.DEPT_LEVEL=1
+  AND A.ZC_INDEX='29'
+ ----------------------------------------------------------------
+--损益表事业群
+WITH dept AS (
+SELECT a.db_key dept1
+      ,b.db_key dept2
+      ,c.db_key dept3
+      ,d.db_key dept4
+      ,f.db_key dept5
+  FROM dw_fi_dept a
+  LEFT JOIN dw_fi_dept b ON b.parent_key = a.db_key
+  LEFT JOIN dw_fi_dept c ON c.parent_key = b.db_key
+  LEFT JOIN dw_fi_dept d ON d.parent_key = c.db_key
+  LEFT JOIN dw_fi_dept f ON f.parent_key = d.db_key)
+ ,dept1 AS (
+   SELECT dept1 dept  FROM dept a WHERE a.dept1 = '${company}'
+   UNION  
+   SELECT dept2  FROM dept a WHERE a.dept1 = '${company}'
+   UNION           
+   SELECT dept3  FROM dept a WHERE a.dept1 = '${company}' 
+   UNION 
+   SELECT dept4  FROM dept a WHERE a.dept1 = '${company}'          
+   UNION 
+   SELECT dept5  FROM dept a WHERE a.dept1 = '${company}' ) 
+ , a as (--净利润、收入、费用
+SELECT to_char(to_number(a.zc_index))zc_index
+      ,to_char(a.ZC_KTEXT)ZC_KTEXT
+      ,a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)*0.0001) dmbtr_year
+      ,SUM(nvl(a.dmbtr_year_tq, 0)*0.0001) dmbtr_year_tq
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('1', '29') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.zc_index
+         ,a.ZC_KTEXT
+         ,a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+UNION ALL
+SELECT  '99' zc_index
+      ,'费用'ZC_KTEXT
+      ,a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)) dmbtr_year
+      ,SUM(nvl(a.dmbtr_year_tq, 0)) dmbtr_year_tq
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) BETWEEN 7 AND 20
+   AND to_number(zc_index) NOT IN ('15', '16', '17') --费用
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP by a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+ )
+SELECT a.*
+      ,b.dept_level
+  FROM a
+  LEFT JOIN dw_fi_dept b 
+  ON a.dept_code = b.db_key
+ WHERE B.DEPT_LEVEL=2
+  AND A.ZC_INDEX='29'
+  and a.dept_code NOT in('8300','8301','8999','8700')
+order by  dmbtr_year desc
+---------------------------------------------------------
+--损益表一级部门
+WITH dept AS (
+SELECT a.db_key dept1
+      ,b.db_key dept2
+      ,c.db_key dept3
+      ,d.db_key dept4
+      ,f.db_key dept5
+  FROM dw_fi_dept a
+  LEFT JOIN dw_fi_dept b ON b.parent_key = a.db_key
+  LEFT JOIN dw_fi_dept c ON c.parent_key = b.db_key
+  LEFT JOIN dw_fi_dept d ON d.parent_key = c.db_key
+  LEFT JOIN dw_fi_dept f ON f.parent_key = d.db_key)
+ ,dept1 AS (
+   SELECT dept1 dept  FROM dept a WHERE a.dept1 = '${company}'
+   UNION  
+   SELECT dept2  FROM dept a WHERE a.dept1 = '${company}'
+   UNION           
+   SELECT dept3  FROM dept a WHERE a.dept1 = '${company}' 
+   UNION 
+   SELECT dept4  FROM dept a WHERE a.dept1 = '${company}'          
+   UNION 
+   SELECT dept5  FROM dept a WHERE a.dept1 = '${company}' ) 
+ , a as (--净利润、收入、费用
+ select a.dept_code
+       ,a.parent_code
+       ,SUM(nvl(a.sr, 0)*0.0001) sr
+       ,SUM(nvl(a.fy, 0)*0.0001) fy
+       ,SUM(nvl(a.jlr, 0)*0.0001) jlr
+   from (
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,SUM(nvl(a.dmbtr_year, 0)) sr
+      ,0 fy
+      ,0 jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('1') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+UNION ALL
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,0 sr
+      ,SUM(nvl(a.dmbtr_year, 0)) fy
+      ,0 jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) BETWEEN 7 AND 20
+   AND to_number(zc_index) NOT IN ('15', '16', '17') --费用
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP by a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+   union all
+SELECT a.dept_code
+      ,a.parent_code
+      ,substr(a.period, 1, 4) gjahr
+      ,substr(a.period, 5) poper
+      ,0 sr
+      ,0 fy
+      ,SUM(nvl(a.dmbtr_year, 0)) jlr
+  FROM dw_fi_profit_loss a
+ WHERE to_number(zc_index) IN ('29') --收入、净利润
+   and a.period='${year}'||'${period}'
+   and a.dept_code in (SELECT dept FROM dept1 a )
+ GROUP BY a.dept_code
+         ,a.parent_code
+         ,substr(a.period, 1, 4)
+         ,substr(a.period, 5)
+ )a
+  group by a.dept_code
+       ,a.parent_code
+       )     
+
+SELECT a.*
+      ,b.dept_level
+     ,row_number()over(partition by parent_code order by  parent_code,jlr DESC) rn
+  FROM a
+  LEFT JOIN dw_fi_dept b 
+  ON a.dept_code = b.db_key
+ WHERE B.DEPT_LEVEL=3
+  and a.parent_code NOT in ('8300','8301','8999','8700')
+ 

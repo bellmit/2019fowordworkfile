@@ -1,0 +1,1127 @@
+---损益表主数据
+
+WITH dept AS (
+SELECT a.db_key dept1
+      ,b.db_key dept2
+      ,c.db_key dept3
+      ,d.db_key dept4
+      ,f.db_key dept5
+  FROM dw_fi_dept a
+  LEFT JOIN dw_fi_dept b ON b.parent_key = a.db_key
+  LEFT JOIN dw_fi_dept c ON c.parent_key = b.db_key
+  LEFT JOIN dw_fi_dept d ON d.parent_key = c.db_key
+  LEFT JOIN dw_fi_dept f ON f.parent_key = d.db_key) 
+ ,dept1 AS (
+   SELECT dept1 dept  FROM dept a WHERE a.dept1 = '${company}' --利润中心参数
+   UNION  
+   SELECT dept2  FROM dept a WHERE a.dept1 = '${company}'
+   UNION           
+   SELECT dept3  FROM dept a WHERE a.dept1 = '${company}' 
+   UNION 
+   SELECT dept4  FROM dept a WHERE a.dept1 = '${company}'          
+   UNION 
+   SELECT dept5  FROM dept a WHERE a.dept1 = '${company}' ) 
+  ,dept2 AS
+ ( --用户的利润中心：用来排除内部交易
+  SELECT dept1 dept
+    FROM dept a
+   WHERE a.dept1 = '${fix_dept}'
+  UNION
+  SELECT dept2
+    FROM dept a
+   WHERE a.dept1= '${fix_dept}' --用户对应的利润中心
+  UNION
+  SELECT dept3
+    FROM dept a
+   WHERE a.dept1 = '${fix_dept}'
+  UNION
+  SELECT dept4
+    FROM dept a
+   WHERE a.dept1 = '${fix_dept}'
+  UNION
+  SELECT dept5
+    FROM dept a
+   WHERE a.dept1 ='${fix_dept}'  )
+, a AS
+ (SELECT b.zc_index --自动编号
+        ,b.zc_ktext --描述
+        ,b.zc_item --输出顺序 
+        ,b.zc_cud --计算类型
+        ,b.zc_hs
+        ,'01'  Levl
+        ,SUM(dmbtr) dmbtr
+        ,SUM(dmbtr_year) dmbtr_year
+    FROM (SELECT b.zc_index --自动编号
+                ,b.zc_ktext --描述 
+                ,b.zc_item --输出顺序 
+                ,b.zc_cud --计算类型
+                ,b.zc_hs --借方正数或者贷方正数
+                ,SUM(CASE
+                       WHEN b.zc_hs = 'S' THEN
+                        a.dmbtr
+                       WHEN b.zc_hs = 'H' THEN
+                        -a.dmbtr
+                     END) AS dmbtr --按本位币计的金额 
+                ,0 AS dmbtr_year
+            FROM (SELECT *
+                    FROM dw_fi_list_items b
+                   WHERE 1 = 1
+                  --   AND b.zc_cud = 'C'
+                  ) b --计算类型 
+            LEFT JOIN dw_fi_subject c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (SELECT *
+                        FROM dw_fi_account_balance a
+                       WHERE a.gjahr = '${year}' --'2019' 年（参数）
+                         AND a.poper= '${period}' --'006' 期间（参数）
+                         AND trim(leading '0'FROM a.prctr) IN  
+                         (SELECT dept FROM dept1 a )
+                         AND NOT EXISTS
+                       (SELECT *
+                                FROM dw_fi_account_balance b
+                               WHERE b.racct LIKE 'A%'
+                                 AND trim(leading '0'FROM b.SPRCTR) IN
+                                     (SELECT dept FROM dept2 a)
+                                 AND a.racct = b.racct 
+                                 AND a.sprctr=b.sprctr 
+                                 AND a.gjahr=b.gjahr 
+                                 AND a.poper=b.poper 
+                                 AND a.prctr=b.prctr)) a 
+              ON a.racct BETWEEN c.from_racct AND c.to_racct
+           WHERE 1 = 1
+           GROUP BY b.zc_index --自动编号
+                   ,b.zc_ktext --描述  
+                   ,b.zc_item --输出顺序 
+                   ,b.zc_cud --计算类型
+                   ,b.zc_hs --借方正数或者贷方正数
+          UNION ALL
+          SELECT b.zc_index --自动编号
+                ,b.zc_ktext --描述 
+                ,b.zc_item --输出顺序 
+                ,b.zc_cud --计算类型
+                ,b.zc_hs --借方正数或者贷方正数
+                ,0 AS dmbtr --按本位币计的金额 
+                ,SUM(CASE
+                       WHEN b.zc_hs = 'S' THEN
+                        a.dmbtr
+                       WHEN b.zc_hs = 'H' THEN
+                        -a.dmbtr
+                     END) AS dmbtr_year
+            FROM (SELECT *
+                    FROM dw_fi_list_items b
+                   WHERE 1 = 1
+                  -- AND b.zc_cud = 'C'
+                  ) b --计算类型 
+            LEFT JOIN dw_fi_subject c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (SELECT *
+                        FROM dw_fi_account_balance a
+                        WHERE a.gjahr = '${year}' --'2019' 年（参数）
+                         AND a.poper<= '${period}' --'006'  期间（参数）
+                         AND trim(leading '0'FROM a.prctr) IN 
+                          (SELECT dept  FROM dept1 a)
+                         AND NOT EXISTS
+                       (SELECT *
+                                FROM dw_fi_account_balance b
+                               WHERE b.racct LIKE 'A%'
+                                 AND trim(leading '0'FROM b.SPRCTR) IN
+                                     (SELECT dept FROM dept2 a)
+                                 AND a.racct = b.racct 
+                                 AND a.sprctr=b.sprctr 
+                                 AND a.gjahr=b.gjahr 
+                                 AND a.poper=b.poper 
+                                 AND a.prctr=b.prctr)) a 
+              ON a.racct BETWEEN c.from_racct AND c.to_racct
+           WHERE 1 = 1
+           GROUP BY b.zc_index --自动编号
+                   ,b.zc_ktext --描述  
+                   ,b.zc_item --输出顺序 
+                   ,b.zc_cud --计算类型
+                   ,b.zc_hs --借方正数或者贷方正数
+          ) b --借方正数或者贷方正数
+   GROUP BY b.zc_index --自动编号
+           ,b.zc_ktext --描述  
+            ,b.zc_item --输出顺序 
+                   ,b.zc_cud --计算类型
+                   ,b.zc_hs)
+
+
+  ,b AS (
+      SELECT '00005' zc_index
+            ,'二、主营业务利润（亏损以“-”号填列)' zc_ktext
+            ,'02' Levl
+            ,sum(CASE WHEN zc_index='00001' THEN b.dmbtr
+             ELSE -b.dmbtr END)  dmbtr
+            ,sum(CASE WHEN zc_index='00001' THEN b.dmbtr_year
+             ELSE -b.dmbtr_year END) dmbtr_year
+        FROM  a b
+       WHERE to_number(zc_index) >= 1
+         AND to_number(zc_index) <= 4
+        
+      UNION ALL
+      SELECT to_char(b.zc_index)zc_index
+            ,to_char(b.zc_ktext)zc_ktext
+            ,Levl
+            ,SUM(b.dmbtr) dmbtr
+            ,SUM(b.dmbtr_year) dmbtr_year
+        FROM  a b
+       WHERE b.zc_index <> '00005'
+      GROUP BY b.zc_index
+              ,b.zc_ktext
+              ,Levl
+            )
+
+,c AS (
+      SELECT '00021' zc_index
+            ,'三、营业利润（亏损以“-”号填列）' zc_ktext
+            ,'03' Levl
+            ,sum(CASE WHEN zc_index IN ('00005','00006') THEN b.dmbtr
+             ELSE -b.dmbtr END)  dmbtr
+            ,sum(CASE WHEN zc_index IN ('00005','00006') THEN b.dmbtr_year
+             ELSE -b.dmbtr_year END) dmbtr_year
+        FROM b
+       WHERE to_number(zc_index) >= 5
+         AND to_number(zc_index) <= 20
+        
+      UNION ALL
+      SELECT to_char(b.zc_index)zc_index
+            ,to_char(b.zc_ktext)zc_ktext
+            ,Levl
+            ,SUM(b.dmbtr) dmbtr
+            ,SUM(b.dmbtr_year) dmbtr_year
+        FROM b
+       WHERE b.zc_index <> '00021'
+      GROUP BY b.zc_index
+              ,b.zc_ktext
+              ,Levl)
+   
+ ,d AS (  
+   SELECT '00027' zc_index
+            ,'四、利润总额（亏损总额以“-”号填列）' zc_ktext
+            ,'04' Levl
+            ,sum(CASE WHEN zc_index IN ('00025','00026') THEN -b.dmbtr
+             ELSE b.dmbtr END)  dmbtr
+            ,sum(CASE WHEN zc_index IN ('00025','00026') THEN -b.dmbtr_year
+             ELSE b.dmbtr_year END) dmbtr_year
+        FROM c b
+       WHERE to_number(zc_index) >= 21
+         AND to_number(zc_index) <= 26
+        
+      UNION ALL
+      SELECT to_char(b.zc_index)zc_index
+            ,to_char(b.zc_ktext)zc_ktext
+            ,Levl
+            ,SUM(b.dmbtr) dmbtr
+            ,SUM(b.dmbtr_year) dmbtr_year
+        FROM c b
+       WHERE b.zc_index <> '00027'
+      GROUP BY b.zc_index
+              ,b.zc_ktext
+              ,Levl
+              )
+    
+    SELECT * FROM (                       
+     SELECT '00029' zc_index
+            ,'五、净利润（净亏损以“-”号填列）' zc_ktext
+            ,'05' Levl
+            ,sum(CASE WHEN zc_index IN ('00027') THEN b.dmbtr
+             ELSE -b.dmbtr END)  dmbtr
+            ,sum(CASE WHEN zc_index IN ('00027') THEN b.dmbtr_year
+             ELSE -b.dmbtr_year END) dmbtr_year
+        FROM d b
+       WHERE to_number(zc_index) >= 27
+         AND to_number(zc_index) <= 28
+        
+      UNION ALL
+      SELECT to_char(b.zc_index)zc_index
+            ,to_char(b.zc_ktext)zc_ktext
+            ,Levl
+            ,SUM(b.dmbtr) dmbtr
+            ,SUM(b.dmbtr_year) dmbtr_year
+        FROM  d b
+       WHERE b.zc_index <> '00029'
+      GROUP BY b.zc_index
+              ,b.zc_ktext
+              ,Levl )a
+              ORDER BY TO_NUMBER(a.zc_index) 
+                
+-------------------------------------------------------------------------------------------------------------
+---资产负债表
+
+--资产负债表
+
+WITH dept AS
+ (SELECT a.db_key dept1,
+         b.db_key dept2,
+         c.db_key dept3,
+         d.db_key dept4,
+         f.db_key dept5
+    FROM dw_fi_dept a
+    LEFT JOIN dw_fi_dept b
+      ON b.parent_key = a.db_key
+    LEFT JOIN dw_fi_dept c
+      ON c.parent_key = b.db_key
+    LEFT JOIN dw_fi_dept d
+      ON d.parent_key = c.db_key
+    LEFT JOIN dw_fi_dept f
+      ON f.parent_key = d.db_key),
+dept1 AS
+ (SELECT dept1 dept
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept2
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept3
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept4
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept5
+    FROM dept a
+   WHERE a.dept1 = '${company}'   ),
+exchange_detail as
+ (SELECT b.zc_index --自动编号
+        ,
+         b.zc_ktext --描述 
+        ,
+         b.zc_item --输出顺序 
+        ,
+         b.zc_cud --计算类型
+        ,
+         b.zc_fz --资产负债
+        ,
+         SUM(dmbtr_start) dmbtr_start,
+         SUM(dmbtr_end) dmbtr_end
+    FROM (
+          --对调科目年初余额
+          SELECT b.zc_index --自动编号
+                 ,
+                  b.zc_ktext --描述 
+                 ,
+                  b.zc_item --输出顺序 
+                 ,
+                  b.zc_cud --计算类型
+                 ,
+                  b.zc_fz --资产负债
+                  -- ,b.qc_hs --借方正数或者贷方正数
+                 ,
+                  SUM(CASE
+                        WHEN b.qc_hs = 'H' THEN
+                         -a.dmbtr1
+                        else
+                         a.dmbtr1
+                      END) AS dmbtr_start --按本位币计的金额 
+                 ,
+                  0 AS dmbtr_end
+            FROM dw_fi_dept_header b
+            LEFT JOIN dw_fi_dept_item c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (select *
+                         FROM (SELECT a.*, b.zbelnr1f, b.zbelnr1t
+                                 FROM dw_fi_exchange_detail a
+                                 JOIN (SELECT a.zitem1, a.zbelnr1f, a.zbelnr1t
+                                        FROM dw_fi_exchange_allocate a
+                                      UNION ALL
+                                      SELECT a.zitem2, a.zbelnr2f, a.zbelnr2t
+                                        FROM dw_fi_exchange_allocate a) b
+                                   ON a.zitem1 = b.zitem1) a
+                         where 1=1
+                          ${if(year="2016","AND zflag = 'X'" ," and a.gjahr = '"+year+"'- 1 AND a.poper = '013'")}  --前一年参数
+                           
+                          AND TRIM(leading '0' FROM a.prctr) IN
+                              (SELECT dept FROM dept1 a) --利润中心
+                          AND NOT EXISTS --排除内部交易
+                        (SELECT *
+                                 FROM (SELECT a.*, b.zbelnr1f, b.zbelnr1t
+                                         FROM dw_fi_exchange_detail a
+                                         JOIN (SELECT a.zitem1,
+                                                     a.zbelnr1f,
+                                                     a.zbelnr1t
+                                                FROM dw_fi_exchange_allocate a
+                                              UNION ALL
+                                              SELECT a.zitem2,
+                                                     a.zbelnr2f,
+                                                     a.zbelnr2t
+                                                FROM dw_fi_exchange_allocate a) b
+                                           ON a.zitem1 = b.zitem1) b
+                                WHERE TRIM(leading '0' FROM b.sprctr) IN
+                                      (SELECT dept FROM dept1 a)
+                                  AND a.zbelnr1f = b.zbelnr1f
+                                  AND a.zbelnr1t = b.zbelnr1t
+                                  AND a.sprctr = b.sprctr
+                                  AND a.gjahr = b.gjahr
+                                  AND a.poper = b.poper
+                                  AND a.prctr = b.prctr)                        
+                       ) a 
+              ON a.zbelnr1f = c.from_racct
+             AND a.zbelnr1t = c.to_racct
+           GROUP BY b.zc_index --自动编号
+                    ,
+                     b.zc_ktext --描述 
+                    ,
+                     b.zc_item --输出顺序 
+                    ,
+                     b.zc_cud --计算类型
+                    ,
+                     b.zc_fz
+          --对调科目当前余额
+          UNION ALL
+          SELECT b.zc_index --自动编号
+                 ,
+                  b.zc_ktext --描述 
+                 ,
+                  b.zc_item --输出顺序 
+                 ,
+                  b.zc_cud --计算类型
+                 ,
+                  b.zc_fz --资产负债
+                  -- ,b.qc_hs --借方正数或者贷方正数
+                 ,
+                  0 dmbtr_start --按本位币计的金额 
+                 ,
+                  SUM(CASE
+                        WHEN b.QM_HS = 'H' THEN
+                         -a.dmbtr1
+                        else
+                         a.dmbtr1
+                      END) AS dmbtr_end
+            FROM dw_fi_dept_header b
+            LEFT JOIN dw_fi_dept_item c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (SELECT *
+                         FROM (SELECT a.*, b.zbelnr1f, b.zbelnr1t
+                                 FROM dw_fi_exchange_detail a
+                                 JOIN (SELECT a.zitem1, a.zbelnr1f, a.zbelnr1t
+                                        FROM dw_fi_exchange_allocate a
+                                      UNION ALL
+                                      SELECT a.zitem2, a.zbelnr2f, a.zbelnr2t
+                                        FROM dw_fi_exchange_allocate a) b
+                                   ON a.zitem1 = b.zitem1) a
+                                   
+                            where 1=1
+                          ${if(year="2016","AND zflag = 'X'" ," and a.gjahr = '"+year+"' AND a.poper = '"+period+"'")}  --前一年参数        
+                           AND TRIM(leading '0' FROM a.prctr) IN
+                              (SELECT dept FROM dept1 a) --利润中心
+                          AND NOT EXISTS --排除内部交易
+                        (SELECT *
+                                 FROM (SELECT a.*, b.zbelnr1f, b.zbelnr1t
+                                         FROM dw_fi_exchange_detail a
+                                         JOIN (SELECT a.zitem1,
+                                                     a.zbelnr1f,
+                                                     a.zbelnr1t
+                                                FROM dw_fi_exchange_allocate a
+                                              UNION ALL
+                                              SELECT a.zitem2,
+                                                     a.zbelnr2f,
+                                                     a.zbelnr2t
+                                                FROM dw_fi_exchange_allocate a) b
+                                           ON a.zitem1 = b.zitem1) b
+                                WHERE TRIM(leading '0' FROM b.sprctr) IN
+                                      (SELECT dept FROM dept1 a)
+                                  AND a.zbelnr1f = b.zbelnr1f
+                                  AND a.zbelnr1t = b.zbelnr1t
+                                  AND a.sprctr = b.sprctr
+                                  AND a.gjahr = b.gjahr
+                                  AND a.poper = b.poper
+                                  AND a.prctr = b.prctr)
+                         
+                       ) a --固定的
+              ON a.zbelnr1f = c.from_racct
+             AND a.zbelnr1t = c.to_racct
+           GROUP BY b.zc_index --自动编号
+                    ,
+                     b.zc_ktext --描述 
+                    ,
+                     b.zc_item --输出顺序 
+                    ,
+                     b.zc_cud --计算类型
+                    ,
+                     b.zc_fz) b
+   GROUP BY b.zc_index --自动编号
+           ,
+            b.zc_ktext --描述 
+           ,
+            b.zc_item --输出顺序 
+           ,
+            b.zc_cud --计算类型
+           ,
+            b.zc_fz) --资产负债
+
+--------------------------------------------------------------------
+,
+begin_balance as
+ (
+  --41表期初余额
+  SELECT b.zc_index --自动编号
+         ,
+          b.zc_ktext --描述 
+         ,
+          b.zc_item --输出顺序 
+         ,
+          b.zc_cud --计算类型
+         ,
+          b.zc_fz --资产负债
+          -- ,b.qc_hs --借方正数或者贷方正数
+         ,
+          SUM(CASE
+                WHEN b.qc_hs = 'H' THEN
+                 -nvl(a.dmbtr, 0)
+                else
+                 nvl(a.dmbtr, 0)
+              END) AS dmbtr_start --按本位币计的金额 
+         ,
+          SUM(CASE
+                WHEN b.QM_HS = 'H' THEN
+                 -nvl(a.dmbtr, 0)
+                else
+                 nvl(a.dmbtr, 0)
+              END) AS dmbtr_end
+    FROM dw_fi_dept_header b
+    LEFT JOIN dw_fi_dept_item c
+      ON c.zc_index = b.zc_index
+    LEFT JOIN (SELECT *
+                 FROM dw_fi_begin_balance a
+                WHERE TRIM(leading '0' FROM a.prctr) IN
+                      (SELECT dept FROM dept1 a)
+                  AND NOT EXISTS --排除内部交易
+                (SELECT *
+                         FROM dw_fi_begin_balance b
+                        WHERE b.racct LIKE 'A%'
+                          AND TRIM(leading '0' FROM b.sprctr) IN
+                              (SELECT dept FROM dept1 a)
+                          AND a.racct = b.racct
+                          AND a.sprctr = b.sprctr
+                          AND a.gjahr = b.gjahr
+                          AND a.poper = b.poper
+                          AND a.prctr = b.prctr)
+                  AND NOT EXISTS --排除对调科目
+                (SELECT c.*
+                         FROM dw_fi_begin_balance c
+                         JOIN (SELECT a.zitem1, a.zbelnr1f, a.zbelnr1t
+                                FROM dw_fi_exchange_allocate a
+                              UNION ALL
+                              SELECT a.zitem2, a.zbelnr2f, a.zbelnr2t
+                                FROM dw_fi_exchange_allocate a) b
+                           ON c.racct BETWEEN b.zbelnr1f AND b.zbelnr1t
+                        WHERE a.racct = c.racct
+                          AND a.sprctr = c.sprctr
+                          AND a.gjahr = c.gjahr
+                          AND a.poper = c.poper
+                          AND a.prctr = c.prctr)) a
+      ON a.racct BETWEEN c.from_racct AND c.to_racct
+   GROUP BY b.zc_index --自动编号
+            ,
+             b.zc_ktext --描述 
+            ,
+             b.zc_item --输出顺序 
+            ,
+             b.zc_cud --计算类型
+            ,
+             b.zc_fz) --资产负债
+
+-------------------------------------------------------------------------------
+
+--科目余额年初和期末数据
+,
+account_balance as
+ (SELECT b.zc_index --自动编号
+        ,
+         b.zc_ktext --描述 
+        ,
+         b.zc_item --输出顺序 
+        ,
+         b.zc_cud --计算类型
+        ,
+         b.zc_fz --资产负债
+         -- ,'01' lvl
+        ,
+         SUM(dmbtr_start) dmbtr_start --年初
+         -- ,SUM(dmbtr) dmbtr--发生额
+        ,
+         SUM(dmbtr_start) + SUM(dmbtr) as dmbtr_end --期末
+    FROM (
+          --科目余额表年初数据
+          SELECT b.zc_index --自动编号
+                 ,
+                  b.zc_ktext --描述 
+                 ,
+                  b.zc_item --输出顺序 
+                 ,
+                  b.zc_cud --计算类型
+                 ,
+                  b.zc_fz --资产负债
+                  -- ,b.qc_hs --借方正数或者贷方正数
+                 ,
+                  SUM(CASE
+                        WHEN b.qc_hs = 'H' THEN
+                         -a.dmbtr
+                        else
+                         a.dmbtr
+                      END) AS dmbtr_start --按本位币计的金额 
+                 ,
+                  0 AS dmbtr
+            FROM dw_fi_dept_header b
+            LEFT JOIN dw_fi_dept_item c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (SELECT *
+                         FROM dw_fi_account_balance a
+                        WHERE a.gjahr < '${year}' --年度参数
+                          AND TRIM(leading '0' FROM a.prctr) IN
+                              (SELECT dept FROM dept1 a)
+                          AND NOT EXISTS --排除内部交易
+                        (SELECT *
+                                 FROM dw_fi_account_balance b
+                                WHERE b.racct LIKE 'A%'
+                                  AND TRIM(leading '0' FROM b.sprctr) IN
+                                      (SELECT dept FROM dept1 a)
+                                  AND a.racct = b.racct
+                                  AND a.sprctr = b.sprctr
+                                  AND a.gjahr = b.gjahr
+                                  AND a.poper = b.poper
+                                  AND a.prctr = b.prctr)
+                          AND NOT EXISTS --排除对调科目
+                        (SELECT c.*
+                                 FROM dw_fi_account_balance c
+                                 JOIN (SELECT a.zitem1, a.zbelnr1f, a.zbelnr1t
+                                        FROM dw_fi_exchange_allocate a
+                                      UNION ALL
+                                      SELECT a.zitem2, a.zbelnr2f, a.zbelnr2t
+                                        FROM dw_fi_exchange_allocate a) b
+                                   ON c.racct BETWEEN b.zbelnr1f AND b.zbelnr1t
+                                WHERE a.racct = c.racct
+                                  AND a.sprctr = c.sprctr
+                                  AND a.gjahr = c.gjahr
+                                  AND a.poper = c.poper
+                                  AND a.prctr = c.prctr)) a
+              ON a.racct BETWEEN c.from_racct AND c.to_racct
+           GROUP BY b.zc_index --自动编号
+                    ,
+                     b.zc_ktext --描述 
+                    ,
+                     b.zc_item --输出顺序 
+                    ,
+                     b.zc_cud --计算类型
+                    ,
+                     b.zc_fz --资产负债
+          -- ,b.qc_hs
+          UNION ALL
+          --科目余额表本年发生额
+          SELECT b.zc_index --自动编号
+                 ,
+                  b.zc_ktext --描述 
+                 ,
+                  b.zc_item --输出顺序 
+                 ,
+                  b.zc_cud --计算类型
+                 ,
+                  b.zc_fz --资产负债
+                  -- ,b.qc_hs --借方正数或者贷方正数
+                 ,
+                  0 dmbtr_start,
+                  SUM(CASE
+                        WHEN b.QM_HS = 'H' THEN
+                         -a.dmbtr
+                        else
+                         a.dmbtr
+                      END) AS dmbtr
+            FROM dw_fi_dept_header b
+            LEFT JOIN dw_fi_dept_item c
+              ON c.zc_index = b.zc_index
+            LEFT JOIN (SELECT *
+                         FROM dw_fi_account_balance a
+                        WHERE a.gjahr = '${year}' --年度参数
+                          AND a.poper <= '${period}' --期间参数
+                          AND TRIM(leading '0' FROM a.prctr) IN
+                              (SELECT dept FROM dept1 a)
+                          AND NOT EXISTS --排除内部交易
+                        (SELECT *
+                                 FROM dw_fi_account_balance b
+                                WHERE b.racct LIKE 'A%'
+                                  AND TRIM(leading '0' FROM b.sprctr) IN
+                                      (SELECT dept FROM dept1 a)
+                                  AND a.racct = b.racct
+                                  AND a.sprctr = b.sprctr
+                                  AND a.gjahr = b.gjahr
+                                  AND a.poper = b.poper
+                                  AND a.prctr = b.prctr)
+                          AND NOT EXISTS --排除对调科目
+                        (SELECT c.*
+                                 FROM dw_fi_account_balance c
+                                 JOIN (SELECT a.zitem1, a.zbelnr1f, a.zbelnr1t
+                                        FROM dw_fi_exchange_allocate a
+                                      UNION ALL
+                                      SELECT a.zitem2, a.zbelnr2f, a.zbelnr2t
+                                        FROM dw_fi_exchange_allocate a) b
+                                   ON c.racct BETWEEN b.zbelnr1f AND b.zbelnr1t
+                                WHERE a.racct = c.racct
+                                  AND a.sprctr = c.sprctr
+                                  AND a.gjahr = c.gjahr
+                                  AND a.poper = c.poper
+                                  AND a.prctr = c.prctr)) a
+              ON a.racct BETWEEN c.from_racct AND c.to_racct
+           GROUP BY b.zc_index --自动编号
+                    ,
+                     b.zc_ktext --描述 
+                    ,
+                     b.zc_item --输出顺序 
+                    ,
+                     b.zc_cud --计算类型
+                    ,
+                     b.zc_fz --资产负债
+          -- ,b.qc_hs
+          ) b
+   GROUP BY b.zc_index --自动编号
+           ,
+            b.zc_ktext --描述 
+           ,
+            b.zc_item --输出顺序 
+           ,
+            b.zc_cud --计算类型
+           ,
+            b.zc_fz) --资产负债
+
+,
+a as
+ (SELECT A.zc_index --自动编号
+        ,
+         A.zc_ktext,
+         a.zc_fz,
+         '1' lvl,
+         NVL(A.dmbtr_start, 0) + NVL(B.dmbtr_start, 0) +
+         NVL(C.dmbtr_start, 0) as dmbtr_start,
+         NVL(A.dmbtr_end, 0) + NVL(B.dmbtr_end, 0) + NVL(C.dmbtr_end, 0) as dmbtr_end
+    FROM account_balance a
+    LEFT JOIN begin_balance b
+      ON a.zc_index = b.zc_index
+    LEFT JOIN exchange_detail c
+      ON a.zc_index = c.zc_index)
+--select * from a
+,
+b as
+ (select '00014' zc_index --自动编号
+        ,
+         '流动资产合计' zc_ktext,
+         'Z' zc_fz,
+         '2' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) >= 1
+     and to_number(a.zc_index) <= 13
+  union all
+  select '00033' zc_index --自动编号
+        ,
+         '非流动资产合计' zc_ktext,
+         'Z' zc_fz,
+         '2' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) >= 16
+     and to_number(a.zc_index) <= 32
+  union all
+  select '00051' zc_index --自动编号
+        ,
+         '流动负债合计' zc_ktext,
+         'F' zc_fz,
+         '2' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) >= 38
+     and to_number(a.zc_index) <= 50
+  union all
+  select '00060' zc_index --自动编号
+        ,
+         '非流动负债合计' zc_ktext,
+         'F' zc_fz,
+         '2' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) >= 53
+     and to_number(a.zc_index) <= 59
+  union all
+  select '00069' zc_index --自动编号
+        ,
+         '所有者权益（或股东权益）合计' zc_ktext,
+         'F' zc_fz,
+         '3' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) >= 64
+     and to_number(a.zc_index) <= 68
+  union all
+  select to_char(A.zc_index) zc_index --自动编号
+        ,
+         to_char(A.zc_ktext) zc_ktext,
+         TO_CHAR(zc_fz) zc_fz,
+         lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from a
+   where to_number(a.zc_index) not in ('14', '33', '51', '60', '69')
+   group by to_char(A.zc_index) --自动编号
+           ,
+            to_char(A.zc_ktext),
+            TO_CHAR(zc_fz),
+            lvl),
+c as
+ (select '00036' zc_index,
+         '资产总计' zc_ktext,
+         'Z' zc_fz,
+         '4' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from b a
+   where to_number(a.zc_index) in ('14', '33')
+  union all
+  select '00061' zc_index,
+         '负债合计' zc_ktext,
+         'F' zc_fz,
+         '3' lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from b a
+   where to_number(a.zc_index) in ('51', '60')
+  union all
+  select to_char(A.zc_index) zc_index --自动编号
+        ,
+         to_char(A.zc_ktext) zc_ktext,
+         TO_CHAR(zc_fz) zc_fz,
+         lvl,
+         sum(dmbtr_start) dmbtr_start,
+         sum(dmbtr_end) dmbtr_end
+    from b a
+   where to_number(a.zc_index) not in ('36', '61')
+   group by to_char(A.zc_index) --自动编号
+           ,
+            to_char(A.zc_ktext),
+            TO_CHAR(zc_fz),
+            lvl)
+
+select *
+  from (select '00072' zc_index,
+               '负债和所有者（或股东权益）合计' zc_ktext,
+               'F' zc_fz,
+               '4' lvl,
+               sum(dmbtr_start) dmbtr_start,
+               sum(dmbtr_end) dmbtr_end
+          from c a
+         where to_number(a.zc_index) in ('61', '69')
+        union all
+        select to_char(A.zc_index) zc_index --自动编号
+              ,
+               to_char(A.zc_ktext) zc_ktext,
+               TO_CHAR(zc_fz) zc_fz,
+               lvl,
+               sum(dmbtr_start) dmbtr_start,
+               sum(dmbtr_end) dmbtr_end
+          from c a
+         where to_number(a.zc_index) not in ('72')
+         group by to_char(A.zc_index) --自动编号
+                 ,
+                  to_char(A.zc_ktext),
+                  TO_CHAR(zc_fz),
+                  lvl)
+ order by TO_NUMBER(zc_index)
+
+
+--------------------------------------------------------------------------------------------------------
+---现金流量表
+
+WITH dept AS
+ (SELECT a.db_key dept1,
+         b.db_key dept2,
+         c.db_key dept3,
+         d.db_key dept4,
+         f.db_key dept5
+    FROM dw_fi_dept a
+    LEFT JOIN dw_fi_dept b
+      ON b.parent_key = a.db_key
+    LEFT JOIN dw_fi_dept c
+      ON c.parent_key = b.db_key
+    LEFT JOIN dw_fi_dept d
+      ON d.parent_key = c.db_key
+    LEFT JOIN dw_fi_dept f
+      ON f.parent_key = d.db_key),
+dept1 AS
+ (SELECT dept1 dept
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept2
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept3
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept4
+    FROM dept a
+   WHERE a.dept1 = '${company}'
+  UNION
+  SELECT dept5
+    FROM dept a
+   WHERE a.dept1 = '${company}')
+
+,
+base as
+ (select *
+    from dw_fi_detail a
+   where a.racct between '1001000000' and '1001999999'
+  union all
+  select *
+    from dw_fi_detail a
+   where a.racct between '1002000000' and '1002999999'
+  union all
+  select *
+    from dw_fi_detail a
+   where a.racct between '1003000000' and '1003999999'
+  union all
+  select *
+    from dw_fi_detail a
+   where a.racct between 'A100100000' and 'A100199999'),
+account_balance as
+ (select *
+    from dw_fi_account_balance a
+   where a.racct between '1001000000' and '1001999999'
+  union all
+  select *
+    from dw_fi_account_balance a
+   where a.racct between '1002000000' and '1002999999'
+  union all
+  select *
+    from dw_fi_account_balance a
+   where a.racct between '1003000000' and '1003999999'
+  union all
+  select *
+    from dw_fi_account_balance a
+   where a.racct between 'A100100000' and 'A100199999'),
+begin_balance as
+ (select *
+    from dw_fi_begin_balance a
+   where a.racct between '1001000000' and '1001999999'
+  union all
+  select *
+    from dw_fi_begin_balance a
+   where a.racct between '1002000000' and '1002999999'
+  union all
+  select *
+    from dw_fi_begin_balance a
+   where a.racct between '1003000000' and '1003999999'
+  union all
+  select *
+    from dw_fi_begin_balance a
+   where a.racct between 'A100100000' and 'A100199999')
+--,a as (
+SELECT a.zc_index,
+       a.zc_txt,
+       a.lvl,
+       SUM(CASE
+             WHEN zc_zf = 'S' THEN
+              -dmbtr
+             ELSE
+              dmbtr
+           END) dmbtr,
+       SUM(CASE
+             WHEN zc_zf = 'S' THEN
+              -dmbtr_year
+             ELSE
+              dmbtr_year
+           END) dmbtr_year
+  FROM (SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               SUM(dmbtr1) dmbtr,
+               0 dmbtr_year
+          FROM dw_fi_cash_header a
+          LEFT JOIN (SELECT *
+                      FROM base a
+                     WHERE a.gjahr = '${year}' --年度参数
+                       AND a.poper = '${period}' --期间参数
+                       AND TRIM(leading '0' FROM a.prctr) IN
+                           (SELECT dept FROM dept1 a)
+                       AND NOT EXISTS --排除内部交易
+                     (SELECT *
+                              FROM dw_fi_account_balance b
+                             WHERE b.racct LIKE 'A%'
+                               AND TRIM(leading '0' FROM b.sprctr) IN
+                                   (SELECT dept FROM dept1 a)
+                               AND a.racct = b.racct
+                               AND a.sprctr = b.sprctr
+                               AND a.gjahr = b.gjahr
+                               AND a.poper = b.poper
+                               AND a.prctr = b.prctr)) b
+            ON a.reason_code = b.rstgr
+         GROUP BY a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl
+        union all --36表
+        --第39项
+        SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               SUM(b.dmbtr) dmbtr,
+               0 dmbtr_year
+          FROM (select * from dw_fi_cash_header a where a.zc_cud = 'T') a,
+               (select *
+                  from account_balance a
+                 WHERE a.gjahr || a.poper < '${year}'||'${period}' --参数：当年当期
+                   AND TRIM(leading '0' FROM a.prctr) IN
+                       (SELECT dept FROM dept1 a)
+                   AND NOT EXISTS --排除内部交易
+                 (SELECT *
+                          FROM account_balance b
+                         WHERE b.racct LIKE 'A%'
+                           AND TRIM(leading '0' FROM b.sprctr) IN
+                               (SELECT dept FROM dept1 a)
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)
+                   AND NOT EXISTS --排除上年的13期数据中账号开头不为A的数据.
+                 (SELECT *
+                          FROM account_balance b
+                         WHERE b.racct not LIKE 'A%'
+                           and a.gjahr || a.poper = '${year}'-1||'013' --参数：排除上年的13期数据中账号开头不为A的数据.
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)) b
+         group by a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl
+        union all --41表
+        SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               SUM(b.dmbtr) dmbtr,
+               0 dmbtr_year
+          FROM (select * from dw_fi_cash_header a where a.zc_cud = 'T') a,
+               (select *
+                  from begin_balance a
+                 WHERE 1 = 1
+                   AND TRIM(leading '0' FROM a.prctr) IN
+                       (SELECT dept FROM dept1 a)
+                   AND NOT EXISTS --排除内部交易
+                 (SELECT *
+                          FROM begin_balance b
+                         WHERE b.racct LIKE 'A%'
+                           AND TRIM(leading '0' FROM b.sprctr) IN
+                               (SELECT dept FROM dept1 a)
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)) b
+         group by a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl
+        --本年累计
+        UNION ALL
+        SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               0 dmbtr,
+               SUM(dmbtr1) dmbtr_year
+          FROM dw_fi_cash_header a
+          LEFT JOIN (SELECT *
+                      FROM base a
+                     WHERE a.gjahr = '${year}' --年度参数
+                       AND a.poper <= '${period}' --期间参数
+                       AND TRIM(leading '0' FROM a.prctr) IN
+                           (SELECT dept FROM dept1 a)
+                       AND NOT EXISTS --排除内部交易
+                     (SELECT *
+                              FROM dw_fi_account_balance b
+                             WHERE b.racct LIKE 'A%'
+                               AND TRIM(leading '0' FROM b.sprctr) IN
+                                   (SELECT dept FROM dept1 a)
+                               AND a.racct = b.racct
+                               AND a.sprctr = b.sprctr
+                               AND a.gjahr = b.gjahr
+                               AND a.poper = b.poper
+                               AND a.prctr = b.prctr)) b
+            ON a.reason_code = b.rstgr
+         GROUP BY a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl
+        union all --36表
+        --第39项
+        SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               0 dmbtr,
+               SUM(b.dmbtr) dmbtr_year
+          FROM (select * from dw_fi_cash_header a where a.zc_cud = 'T') a,
+               (select *
+                  from account_balance a
+                 WHERE a.gjahr < '${year}' --上一年度参数             
+                   AND TRIM(leading '0' FROM a.prctr) IN
+                       (SELECT dept FROM dept1 a)
+                   AND NOT EXISTS --排除内部交易
+                 (SELECT *
+                          FROM account_balance b
+                         WHERE b.racct LIKE 'A%'
+                           AND TRIM(leading '0' FROM b.sprctr) IN
+                               (SELECT dept FROM dept1 a)
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)
+                   AND NOT EXISTS --排除上年的13期数据中账号开头不为A的数据.
+                 (SELECT *
+                          FROM account_balance b
+                         WHERE b.racct not LIKE 'A%'
+                           and a.gjahr || a.poper = '${year}'-1||'013' --参数：排除上年的13期数据中账号开头不为A的数据.
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)) b
+         group by a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl
+        union all --41表
+        SELECT a.zc_index,
+               a.zc_txt,
+               a.zc_cud,
+               a.zc_zf,
+               a.lvl,
+               0 dmbtr,
+               SUM(b.dmbtr) dmbtr_year
+          FROM (select * from dw_fi_cash_header a where a.zc_cud = 'T') a,
+               (select *
+                  from begin_balance a
+                 WHERE 1 = 1
+                   AND TRIM(leading '0' FROM a.prctr) IN
+                       (SELECT dept FROM dept1 a)
+                   AND NOT EXISTS --排除内部交易
+                 (SELECT *
+                          FROM begin_balance b
+                         WHERE b.racct LIKE 'A%'
+                           AND TRIM(leading '0' FROM b.sprctr) IN
+                               (SELECT dept FROM dept1 a)
+                           AND a.racct = b.racct
+                           AND a.sprctr = b.sprctr
+                           AND a.gjahr = b.gjahr
+                           AND a.poper = b.poper
+                           AND a.prctr = b.prctr)) b
+         group by a.zc_index, a.zc_txt, a.zc_cud, a.zc_zf,a.lvl) a
+ GROUP BY a.zc_index, a.zc_txt,a.lvl
+ order by a.zc_index   
+
+
+-------------------------------------------------------------------------------------------------------
