@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/467/RunErpSystem/WebRoot/module/attendance/js
+END
+attendance-approvalList.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/412/RunErpSystem/WebRoot/module/attendance/js/attendance-approvalList.js
+END
+attendance-vacationList.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/466/RunErpSystem/WebRoot/module/attendance/js/attendance-vacationList.js
+END
+feedback.js
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/projects/!svn/ver/412/RunErpSystem/WebRoot/module/attendance/js/feedback.js
+END
+image-upload.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/projects/!svn/ver/412/RunErpSystem/WebRoot/module/attendance/js/image-upload.js
+END
+attendance-apply-detail.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/467/RunErpSystem/WebRoot/module/attendance/js/attendance-apply-detail.js
+END
+attendance-apply.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/467/RunErpSystem/WebRoot/module/attendance/js/attendance-apply.js
+END
+attendance-alist.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/442/RunErpSystem/WebRoot/module/attendance/js/attendance-alist.js
+END
+global.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/417/RunErpSystem/WebRoot/module/attendance/js/global.js
+END
+attend-menu.js
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/417/RunErpSystem/WebRoot/module/attendance/js/attend-menu.js
+END
+attendance-check.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/412/RunErpSystem/WebRoot/module/attendance/js/attendance-check.js
+END
+manageAttend-list.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/468/RunErpSystem/WebRoot/module/attendance/js/manageAttend-list.js
+END
+relogin-apply.js
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/projects/!svn/ver/413/RunErpSystem/WebRoot/module/attendance/js/relogin-apply.js
+END
+attendance-apply-holidays.js
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/projects/!svn/ver/466/RunErpSystem/WebRoot/module/attendance/js/attendance-apply-holidays.js
+END

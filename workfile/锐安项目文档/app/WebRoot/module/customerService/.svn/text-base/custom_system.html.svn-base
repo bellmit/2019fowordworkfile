@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>客户服务系统</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"><span class="titleName">客户服务系统</span></h1>
+			<input type="text" class="topInput hide" value="客户服务系统" autofocus="autofocus" onclick="evalJs()"/>
+			<!--<a href="editquestion.html" class="mui-icon mui-icon-plus mui-icon-right-nav mui-pull-right"></a>
+			<a href="javascript:;" class="mui-icon mui-icon-search mui-icon-right-nav mui-pull-right marginR14"></a>-->
+		</header>
+		<div class="mui-content mui-custom-content">
+			<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/banner_1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/banner_1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/banner_1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/banner_1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="images/banner_1.jpg" /></a></div>
+				</div>
+                <div class="mui-slider-indicator">
+                    <div class="mui-indicator mui-active"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                </div>
+			</div>
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">合同信息</a>
+					<div class="mui-collapse-content">
+						
+						<!--<div class="custumTopSearch">
+							<div class="relative">
+								<input type="text" class="f_input custumTopSearchInput" placeholder="请输入关键字搜索">
+								<img src="images/searchicon.png" alt="" class="custumTopSearchIcon">
+								<a href="contractlist.html" class="customMoreLink">更多</a>
+							</div>
+						</div>-->
+						
+						<a href="contractlist.html" class="customServerLink">陕西净可为一期工程合同</a>
+						<a href="contractlist.html" class="customServerLink">陕西净可为一期工程合同</a>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">走进锐安（敬请期待）</a>
+					<div class="mui-collapse-content">
+						
+						<a href="companyprofile.html" class="customServerLink">公司简介</a>
+						<a href="#" class="customServerLink">发展里程碑</a>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">锐安资讯（敬请期待）</a>
+					<div class="mui-collapse-content">
+						
+						<!--<div class="custumTopSearch">
+							<div class="relative">
+								<input type="text" class="f_input custumTopSearchInput" placeholder="请输入关键字搜索">
+								<img src="images/searchicon.png" alt="" class="custumTopSearchIcon">
+								<a href="informationlist.html" class="customMoreLink">更多</a>
+							</div>
+						</div>-->
+						
+						<a href="informationlist.html" class="customServerLink clearfix"><span class="left">公安部第三研究所考察格力电器</span><em class="right">2019-07-12</em></a>
+						<a href="informationlist.html" class="customServerLink clearfix"><span class="left">公安部第三研究所考察格力电器</span><em class="right">2019-07-12</em></a>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">锐安视点（敬请期待）</a>
+					<div class="mui-collapse-content">
+						
+						<!--<div class="custumTopSearch">
+							<div class="relative">
+								<input type="text" class="f_input custumTopSearchInput" placeholder="请输入关键字搜索">
+								<img src="images/searchicon.png" alt="" class="custumTopSearchIcon">
+								<a href="#" class="customMoreLink">更多</a>
+							</div>
+						</div>-->
+						
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">锐安产品（敬请期待）</a>
+					<div class="mui-collapse-content">
+						
+						<!--<div class="custumTopSearch">
+							<div class="relative">
+								<input type="text" class="f_input custumTopSearchInput" placeholder="请输入关键字搜索">
+								<img src="images/searchicon.png" alt="" class="custumTopSearchIcon">
+								<a href="#" class="customMoreLink">更多</a>
+							</div>
+						</div>-->
+						
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a href="#" class="mui-navigate-right customNavWord">售后400</a>
+					<div class="mui-collapse-content">
+						
+						<!--<div class="custumTopSearch">
+							<div class="relative">
+								<input type="text" class="f_input custumTopSearchInput" placeholder="请输入关键字搜索">
+								<img src="images/searchicon.png" alt="" class="custumTopSearchIcon">
+								<a href="#" class="customMoreLink">更多</a>
+							</div>
+						</div>-->
+						
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						<a href="#" class="customServerLink">陕西净可为一期工程合同</a>
+						
+					</div>
+				</li>
+			</ul>
+			
+			
+		</div>
+
+
+
+        <nav class="mui-bar mui-bar-tab navbot" id="nav">
+
+            <a  href="" class="mui-tab-item" id="message">
+                <span class="mui-icon mui-icon-chat"></span>
+                <span class="mui-tab-label">消息盒子</span>
+            </a>
+            <a  href=""class="mui-tab-item" id="afterSale">
+                <span class="mui-icon mui-icon-help-filled"></span>
+                <span class="mui-tab-label">售后400</span>
+            </a>
+            <a href=""class="mui-tab-item mui-active" id="defaultTab">
+                <span class="mui-icon mui-icon-home"></span>
+                <span class="mui-tab-label">首页</span>
+            </a>
+            <a  href=""class="mui-tab-item" id="questionnaire">
+                <span class="mui-icon mui-icon-help"></span>
+                <span class="mui-tab-label">调查问卷</span>
+            </a>
+            <a  href=""class="mui-tab-item" id="contactUs">
+                <span class="mui-icon mui-icon-phone-filled"></span>
+                <span class="mui-tab-label">联系我们</span>
+            </a>
+        </nav>
+
+		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/global.js"></script>
+		<script>
+            // mui 初始化
+//          mui.init({
+//              swipeBack : true, // 启用右滑关闭功能
+//              subpages:[{
+//                  url:'custom_system_sub.html',
+//                  id:'custom_system_sub.html',
+//					styles:{
+//						top: '45px',
+//						bottom: '0px'
+//					}
+//              }]
+//				
+//				
+//          });
+			$('.mui-icon-search').off().on('click',function(){
+				$('.topInput').removeClass('hide');
+				$('.titleName').addClass('hide');
+				$(this).prev().addClass('hide');
+				$(this).addClass('hide');
+			
+			});
+			
+			//轮播图每隔10秒自动切换一次
+			var gallery = mui(".mui-slider");
+			gallery.slider({
+				interval : 10000
+			});
+
+			
+		</script>
+	</body>
+</html>

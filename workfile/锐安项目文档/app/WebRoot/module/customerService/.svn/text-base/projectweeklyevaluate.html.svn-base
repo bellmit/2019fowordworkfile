@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>工程周报评价</title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/mui.picker.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">陕西净可为一期工程合同</h1>
+</header>
+<div class="mui-content mui-contractlist-content">
+	<div class="clearfix weeklyDate">
+		<label>周报日期：</label>
+		<span>2019-06-24</span>
+		<em>——</em>
+		<span>2019-06-30</span>
+	</div>
+	<dl class="weeklyDetail">
+		<dt>本周进展：</dt>
+		<dd>1. 项目启动，设备采购跟进，完成100%</dd>
+		<dd>2. 三大运营商六个机房现场调研，完成50%</dd>
+		<dd>3. 市局机房调研，完成50%</dd>
+		<dd>4. 按合同要求跟进客户需求情况，完成100%</dd>
+	</dl>
+	<dl class="weeklyDetail">
+		<dt>下周计划：</dt>
+		<dd>1. 跟进采购进度，计划完成50%</dd>
+		<dd>2. 协调机房施工事宜，计划完成100%</dd>
+		<dd>3. 跟进机房建设进度，计划完成50%</dd>
+	</dl>
+	<dl class="weeklyDetail">
+		<dt>相关问题及协调事宜：</dt>
+		<dd>1. 需要重新改造机房，预计到11月底才能建设完成需要客户帮忙加快进度；</dd>
+		<dd>2. 运营商FG以及回传线路问题需客户协调；</dd>
+	</dl>
+	<div class="writeEvaluate">
+		<div class="writeEvaluateTop clearfix">
+			<label class="left">满意度评价：</label>
+			<a href="#" class="right noSatisfiedLink">不满意</a>
+			<a href="#" class="right satisfiedLink">满意</a>
+		</div>
+		<textarea class="inptextarea" placeholder="请输入满意度评价"></textarea>
+	</div>
+</div>
+<a href="#" class="bottomBackBtn marginT60">提交</a>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/global.js"></script>
+</body>
+</html>

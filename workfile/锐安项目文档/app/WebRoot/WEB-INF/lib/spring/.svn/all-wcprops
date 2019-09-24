@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring
+END
+aspectjrt.jar
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring/aspectjrt.jar
+END
+commons-logging.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring/commons-logging.jar
+END
+spring.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring/spring.jar
+END
+aspectjweaver.jar
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring/aspectjweaver.jar
+END
+cglib-nodep-2.1_3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/spring/cglib-nodep-2.1_3.jar
+END

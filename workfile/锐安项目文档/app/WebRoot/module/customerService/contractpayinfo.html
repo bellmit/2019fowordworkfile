@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>合同交付信息</title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/mui.picker.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">合同信息</h1>
+</header>
+<div class="mui-content mui-contract-content">
+    <ul class="contractDes">
+    	<li class="clearfix"><label class="left">合同名称：</label><span class="left">山西净可为一期工程合同</span></li>
+    	<li class="clearfix"><label class="left">合同签订日期：</label><span class="left">2019-06-16</span></li>
+    	<li class="clearfix"><label class="left">合同金额（万元）：</label><span class="left">100</span></li>
+    </ul>
+    
+    <ul class="mui-table-view">
+		<li class="mui-table-view-cell mui-collapse mui-active">
+			<a href="#" class="mui-navigate-right">合同交付</a>
+			<div class="mui-collapse-content">
+				
+				<div class="contractPayBox">
+					<div id="contractPayChart" class="contractPayChart"></div>
+					<a href="projectweeklylist.html" class="contractPayChartLink_1">工程周报</a>
+					<a href="#" class="contractPayChartLink_2">合同变更</a>
+				</div>
+				
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a href="#" class="mui-navigate-right">合同付款</a>
+			<div class="mui-collapse-content">
+				
+				<div class="contractPayment">
+					<div id="contractPaymentChart" class="contractPaymentChart"></div>
+					<span class="unitSpan">单位：万</span>
+					<ul class="contractPaymentList">
+						<li class="clearfix"><label>1付：</label><span>设备到货5个工作日后</span></li>
+						<li class="clearfix"><label>2付：</label><span>完工5个工作日后</span></li>
+						<li class="clearfix"><label>3付：</label><span>验收5个工作日后</span></li>
+					</ul>
+				</div>
+				
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a href="#" class="mui-navigate-right">合同维保</a>
+			<div class="mui-collapse-content">
+				
+				<div class="contractService">
+					<div id="contractServiceChart" class="contractServiceChart"></div>
+					<ul class="contractServiceList">
+						<li class="clearfix"><label>维保日期：</label><span>2018/05/04——2021/05/01</span></li>
+						<li class="clearfix"><label>维保天数：</label><span class="marginR50">1095天</span><label>剩余天数：</label><span>383天</span></li>
+						<li class="clearfix textAlignC">
+							<a href="devopsbriefinglist.html" class="contractServiceLink_1 marginR80">运维简报</a>
+							<a href="javascript:;" class="contractServiceLink_2">续保咨询</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+	<div class="contractPayInfoBtns">
+		<a class="contractPayInfoBtn_1" href="contacts.html">项目相关人</a>
+		<a class="contractPayInfoBtn_2" href="javascript:;">售后400</a>
+	</div>
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/global.js"></script>
+<script type="text/javascript" src="js/echarts/echarts.js"></script>
+<script type="text/javascript" src="js/echarts/esl.js"></script>
+<script type="text/javascript" src="js/echarts/config.js"></script>
+<script type="text/javascript" src="js/echarts/pie-texture.js"></script>
+<script type="text/javascript" src="js/echarts/dat.gui.min.js"></script>
+<script type="text/javascript" src="js/echarts/testHelper.js"></script>
+<script type="text/javascript" src="js/contractpayinfo.js"></script>
+</body>
+</html>

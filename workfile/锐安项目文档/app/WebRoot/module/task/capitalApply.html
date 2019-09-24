@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <title>费用资金申请</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/app.css">
+    </head>
+    <style>
+		.title {
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 18px;
+		}
+		.formList li .f_input {
+			font-size: 12px;
+		}
+		p {
+			text-indent: 22px;
+		}
+		input{
+			
+		}
+    </style>
+    <body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">费用资金申请</h1>
+		</header>
+		<div class="mui-content">
+			<form id="fm">
+				<div class="title">基本信息</div>
+				<ul class="formList">
+					<li class="clearfix" style="display: none;"><span class="left label">id：</span>
+						<input type='text' id='id' class='f_input right wp60'>
+				    </li>
+					<li class="clearfix"><span class="left label">经办人姓名：</span>
+						<input type='text' id='askName' class='f_input right wp60'>
+				    </li>
+					<li class="clearfix"><span class="left label">经办部门：</span> 
+						<input type='text' id='askDeptName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请日期：</span>
+						<input type='text' id='askDate' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请单编号：</span>
+						<input type='text' id='sku' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">公司代码：</span>
+						<input type='text' id='companyCode' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">发票情况：</span>
+						<input type='text' id='needFpName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">采购组织：</span>
+						<input type='text' id='cgGroupName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">本次申请是否需要签订合同/协议：</span>
+						<input type='text' id='needContractName' class='f_input right'  style="width:20%;">
+					</li>			
+					<li class="clearfix"><span class="left label">采购标题：</span>
+						<input type='text' id='title' class='f_input right' style='width:70%'>
+					</li>
+					<li class="clearfix"><span class="left label">预计交货日期：</span>
+						<input type='text' id='wantDhDate' class='f_input right wp60'>
+					</li>			
+					<li class="clearfix"><span class="left label">是否固定资产类：</span>
+						<input type='text' id='isGzName' class='f_input right wp60'>
+					</li>			
+					<li class="clearfix"><span class="left label">是否有前序合作协议：</span>
+						<input type='text' id='needAgreementName' class='f_input right '  style="width:20%;">
+					</li>
+					<li class="clearfix"><span class="left label">合作协议编号：</span>
+						<input type='text' id='agreementSku' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">是否为项目预留费：</span>
+						<input type='text' id='isXmylName' class='f_input right '  style="width:30%;">
+					</li>
+					<li class="clearfix"><span class="left label">议价类型：</span>
+						<input type='text' id='negotiateTitle' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">SAP订单号：</span>
+						<input type='text' id='sapSku' class='f_input right'  style='width:30%'>
+					</li>
+					<li class="clearfix"><span class="left label">是否已存档：</span>
+						<input type='text' id='isCdName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">存档编号：</span>
+						<input type='text' id='endDate' class='f_input right wp60'>
+					</li>
+				</ul>
+				<div class="title">采购物品规格型号数量</div>
+				<ul class="formList" id="fyMaterialDetail">
+					
+				</ul>
+				<div class="title">费用用途</div>
+				<ul class="formList">
+					<li class="clearfix "><span class="left label">费用用途：</span> 
+						<input type='text' id='fyyt' class='f_input right wp60'>
+					</li>
+				</ul>
+				<div class="title">供货商</div>
+				<ul class="formList" id="fySupplierDetail">
+					
+				</ul>
+				<div class="title">上传相关附件</div>
+				<ul class="formList">
+					<li class="clearfix "><span class="left label">总办审批：</span>
+						<input type='text' id='zbspFileName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">采购合同：</span> 
+						<input type='text' id='htFileName' class='f_input right' style='width:50%'>
+					</li>
+					<li class="clearfix "><span class="left label">供应商报单价：</span> 
+						<input type='text' id='bjdFileName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">指定采购函：</span> 
+						<input type='text' id='zdcghFileName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">其他附件：</span>
+						<input type='text' id='otherFileName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">经办人（《廉洁承诺书》）：</span> 
+						<input type='text' id='commitment1Name' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">合作商（《廉洁承诺书》/《廉洁协议书》）：</span> 
+						<input type='text' id='commitment2Name' class='f_input right wp60'>
+					</li>
+					<li class="clearfix "><span class="left label">经办部门总监（《廉洁承诺书》）：</span> 
+						<input type='text' id='commitment3Name' class='f_input right' >
+					</li>
+				</ul>
+				 <div class="" style="height: 50px;margin-top: 10px;display: none;" id="files">
+		                    <div class="fileBox left">
+		                    </div>
+		                    <a href="javascript:;" class="addbtn left fileAdd"><img src="../../images/addicon.png" alt class="addicon"/></a>
+							<span id="questionFiles" >请上传文件</span>
+		        </div>
+		        <div class="title">合作协议审批</div>
+				<ul class="formList">
+					<li class="clearfix "><span class="left label">审批结果：</span> 
+						<span class="result right">
+							<input type="radio" name="check" value="1"/>同意
+							<input type="radio" name="check" value="2"/>不同意
+						</span>
+					</li>
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10 result" style="margin-bottom: 0;" id="opinion" rows="5" placeholder="请输入审批意见"></textarea>
+					</li>	
+				</ul>
+				<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+					<button id="btns" type="button" class="mui-btn mui-btn-primary mui-btn-block t10" onclick="submits()">提交</button>
+				</div>
+				
+				<div class="title apply">合作协议申请审批</div>
+				<ul class="formList" id="apply">
+				</ul>
+			</form>
+		</div>
+		<script src="../../js/jquery-1.7.2.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="js/global.js"></script>
+	     <script >
+            //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+            document.write("<s" + "cript type='text/javascript' src='js/capitalApply.js?" + Math.random() + "'></s" + "cript>");
+        </script>
+	     <script >
+	     		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+        var delfile = [];
+        var timer=null;
+        var fileName;
+        var files;
+        mui.ready(function() {
+    /**
+     * 获取对象属性的值
+     * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+     * @param {Object} obj 对象
+     * @param {String} param 属性名
+     */
+    var _getParam = function(obj, param) {
+        return obj[param] || '';
+    };
+   
+    //添加文件
+    $('.fileAdd').off().on('click',function(){
+        var inputName = new Date().getTime();
+        var _html = '<input type="file" class="hide fileInput" data-id="'+inputName+'" multiple/>';
+        $('.fileBox').after(_html);
+		
+        $('input[data-id="'+inputName+'"]').click();
+    });
+
+    //文件选择变化
+    $('.fileInput').die().live('change',function(e) {
+        var _html = '';
+        var filelength = e.target.files.length;
+        if((filelength+$('.fileBox .imgbtn').length)>1){
+            mui.alert('不能同时上传多个文件');
+            return false;
+        }
+            if(e.target.files.length<=1){
+          	  	var file = e.target.files[0];
+           		var strFile = file.name;
+				if(strFile.indexOf(";")!=-1){
+					mui.alert("文件名称不能带 ; ");
+					return false;
+				}
+				 //上传控制！！！！！！！！
+				const imgMaxSize = 1024 * 1024 * 5 ; // 5MB
+				// 检查文件类型
+				
+				// 文件大小限制
+				if(file.size > imgMaxSize ) {
+					showAlert("文件大小不能超过5MB！");
+					return false;
+				}	
+				if(file.name!=null&&file.name!='/'){
+				goToFileUp(file);
+                _html='<span class="imgbtn left relative" data-input="'+$(e.target).attr("data-id")+'" data-time="'+file.lastModified+'">'+
+                    '<img src="../../images/imgicon.png" class="imgicon" />'+
+                    '<a href="javascript:;" class="imgdelbtn">'+
+                    '<img src="../../images/delicon.png" alt class="imgdelicon" />'+					
+                    '</a>'+
+                    '</span>';
+				}
+				
+            }else{
+            	var x = 100;
+   				var y = 0;
+   		    	var rand = parseInt(Math.random() * (x - y + 1) + y);
+                var file = e.target.files;
+                $.each(file,function(i,item){
+				var strFile=item.name;
+				if(strFile.indexOf(";")!=-1){
+					mui.alert("文件名称不能带 ; ");
+					return false;
+				}
+				 //上传控制！！！！！！！！
+				const imgMaxSize = 1024 * 1024 * 5; // 5MB
+				// 检查文件类型
+				
+				// 文件大小限制
+				if(file.size > imgMaxSize ) {
+					showAlert("文件大小不能超过5MB！");
+					return false;
+				}	
+				if(file.name!=null&&file.name!='/'){
+				goToFileUp(file);
+                    _html+='<span class="imgbtn left relative" data-input="'+$(e.target).attr("data-id")+'" data-time="'+item.lastModified+'">'+
+                        '<img src="../../images/imgicon.png" class="imgicon"/>'+
+                        '<a href="javascript:;" class="imgdelbtn">'+
+                        '<img src="../../images/delicon.png" alt class="imgdelicon" />'+
+                        '</a>'+
+                        '</span>';}
+                });
+            }
+            $('.fileBox').append(_html);
+        
+    });
+    //关闭文件
+    $('.imgdelbtn').die().live('touchend',function(){
+        var fileId = $(this).parent().attr('data-time'); //file中的lastModified
+        delfile.push(fileId);
+        $(this).parent().remove();
+        $("#questionFiles").text("");
+        return false;
+    });
+});
+
+function goToFileUp(file){
+			
+	// 图片上传							
+	//transformFileToFormData(file);	
+	// 图片压缩绘制
+	// transformFileToDataUrl(file);
+	// 图片上传
+	transformFileToFormData(file);
+}
+
+
+// 将File append进 FormData
+function transformFileToFormData (file) {
+	localStorage.files=file.size;
+    const formData = new FormData();
+    // name
+    formData.append('name', file.name);
+    // append 文件
+    formData.append('businessFile', file);	
+    // 上传图片
+    uploadMobileFile(formData);
+}
+
+// 上传图片
+function uploadImg (formData) {
+     const xhr = new XMLHttpRequest();
+     // 进度监听
+     xhr.upload.addEventListener('progress', function(e){console.log(e.loaded / e.total)}, false);
+     // 加载监听
+     // xhr.addEventListener('load', ()=>{console.log("加载中");}, false);
+     // 错误监听
+     xhr.addEventListener('error', function(){Toast.error("上传失败！", 2000, undefined, false);toCliekBtn();}, false);
+     xhr.onreadystatechange = function () {
+         if (xhr.readyState === 4) {
+				 debugger;
+			 if (xhr.status === 200) {
+				 const result = JSON.parse(xhr.responseText);
+                 // 上传成功
+				 if(result.flag == true){
+				 }else{
+					// showAlert("上传失败");
+				 }
+             } else {
+                 // 上传失败
+				 //console.log("fail");
+				 showAlert("服务异常,上传失败");
+				
+             }
+			 //上传按钮处理！！！！！
+         }
+     };
+     xhr.open('POST', pathUrl+'/attFileMobile.action' , true);
+	 xhr.send(formData);
+}
+
+function uploadMobileFile(formData){
+			var sku=$("#sku").val();
+			$.ajax({
+			url: pathUrl+'/attFileMobile.action?sku='+sku,
+			type:"post",
+			data:formData,
+			async:false,/*同步请求*/
+			dataType:"json",
+			contentType:false,
+			processData:false,
+			error : function(){
+				mui.toast("上传图片失败！");
+			},
+			success:function(data){
+				var data=JSON.parse(data);
+				if(data.resultFlag=="Y"){
+					submit(data.attachmentId,$("#id").val());
+				}else{
+					mui.alert("图片太大了！");
+				}				
+				
+			}    
+   });
+}
+function submit(fileid,id){
+	var fileid=fileid;
+	var id=id;
+	$.ajax({
+		url: pathUrl+'/submitFile.action',
+		type:"post",
+		data:{
+			id:id,
+			commitment3:fileid
+		},
+		async:false,/*同步请求*/
+		dataType:"json",
+		error : function(){
+			mui.toast("上传图片失败！");
+		},
+		success:function(data){
+			var data=JSON.parse(data);
+			mui.alert(data.msg);
+		}    
+	});
+}
+function showAlert(str){
+	setTimeout(function(){
+	},100);
+}
+         </script>
+    </body>
+</html>

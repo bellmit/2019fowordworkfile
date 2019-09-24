@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.com.img.entity">
+
+	<class name="Folder" table="folderinfo">
+		<id name="folderId" column="folderid">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="folderName" column="foldername"></property>
+		<property name="folderUrl" column="folderurl"></property>
+		
+		<many-to-one name="user" class="User" column="userid"></many-to-one>
+		
+		<property name="fileNumber" column="filenumber"></property>
+		<property name="folderReleaseTime" column="folderreleasetime"></property>
+		
+	</class>
+</hibernate-mapping>
+

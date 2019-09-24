@@ -1,0 +1,153 @@
+<html >
+<head>
+ <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+ <script type="text/javascript" src="js/md5.js"></script>
+ <script type="text/javascript" src="js/global.js"></script>
+ 
+ <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+</head>
+
+<style>
+	.loading-block .imgPos{
+	    position:absolute;
+	    width: 110px;
+	    height: 110px;
+	    z-index: 9999;
+	}
+</style>
+
+<body style="position:relative;">
+	<div class="loading-block">
+		<img src="images/1.gif" class="imgPos" style="display:block; width: 110px;height: 110px; margin:auto">
+	</div>
+</body>
+<script type="text/javascript">
+
+$(function(){
+	var top = ($('body').height()/2)-110;
+	$('.loading-block').width($('body').width());
+	$('.loading-block').height($('body').height());
+	$('.imgPos').attr('style','display:block; width:110px; height:110px; margin:auto; margin-top:'+top+'px!important;');
+	var url = window.location.href.split("#")[0];
+	setTimeout(function(){
+	$.ajax({
+			url:URL_PATH+'/RunErpSystem/getSha1.action',
+			type:'post',
+			data : {
+			url:url,
+			AppId:'INOVICE'
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			error : function(){
+			},
+			success:function(data){
+			
+				var test = JSON.parse(data);
+				wxObjet.timestamp = test.timestamp;
+				wxObjet.nonceStr = test.nonceStr;
+				wxObjet.signature = test.signature;
+				
+				wx.config({
+					beta: true,// 调用wx.invoke形式的接口值时，该值必须为true。
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					appId: 'wla377739e7a', // 必填，公众号的唯一标识
+					timestamp: wxObjet.timestamp, // 必填，生成签名的时间戳
+					nonceStr: wxObjet.nonceStr, // 必填，生成签名的随机串
+					signature: wxObjet.signature,// 必填，签名
+					jsApiList: ["getLocation","hideOptionMenu"] // 必填，需要使用的JS接口列表
+				});
+				
+				wx.ready(function(){
+					wx.hideOptionMenu();		
+				});
+	
+				wx.error(function(res){
+				});
+			}		
+		});
+		
+		var wxObjet = {};
+		
+		if(localStorage.wxUser != null && localStorage.wxCode!=null){
+			var wxCodes = getQueryString("code");
+			var wxdata = JSON.parse(localStorage.wxCode);
+			if(wxdata.code == wxCodes){
+					var userData = JSON.parse(localStorage.wxUser);
+					var mUserId = userData.wxUserId;
+					var t = Math.random();
+					var timestamp=new Date().getTime();
+					var passStr = 'Run.$*!(@._'+mUserId;
+					var sign = $.md5("5FBAoT5WWyGMzcA93mmi"+"3b7feb5d20964fe0956d0f6b3287a5f9"+"91110108746736751Q"+passStr+timestamp);
+					var orsrc = "https://api.piaozone.com/fpcy-mobile/fpzs/rakj?tin=91110108746736751Q&client_id=5FBAoT5WWyGMzcA93mmi&method=get&clientType=mobile&billNumber=0&serialNo=0&indexType=rakj"+"&eid="+passStr+"&random="+t+"&timestamp="+timestamp+"&sign="+sign;
+					window.location.href=orsrc;
+					$('.imgPos').hide();
+				
+			}else{
+				getUserDataInfo();
+			}
+		}else{
+			getUserDataInfo();
+		}
+	},1000);
+})
+
+
+
+function getUserDataInfo(){
+	localStorage.removeItem('wxCode');
+	//获取code
+	var code = getQueryString("code");
+	var wxCode = {code:code};
+	var codeStr = JSON.stringify(wxCode);
+	localStorage.wxCode = codeStr;
+	$.ajax({
+			url:URL_PATH+'/RunErpSystem/queryWXUserInfo.action',
+			type:'post',
+			data : {
+			code:code,
+			AppId:'INOVICE'
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			error : function(){},
+			success:function(data){
+			
+				var datas = JSON.parse(data);				
+				var message = datas.msg;
+				if(message.indexOf("success") != -1){
+					localStorage.removeItem('wxUser');
+					var wxUser = {userName:datas.userName,wxUserId:datas.wXUserId};
+					var str = JSON.stringify(wxUser);
+					localStorage.wxUser = str;
+					var mUserId = datas.wXUserId;
+	                var t = Math.random();
+					var timestamp=new Date().getTime();
+					var passStr ='Run.$*!(@._'+mUserId;
+	                var sign = $.md5("5FBAoT5WWyGMzcA93mmi"+"3b7feb5d20964fe0956d0f6b3287a5f9"+"91110108746736751Q"+passStr+timestamp);
+					var orsrc = "https://api.piaozone.com/fpcy-mobile/fpzs/rakj?tin=91110108746736751Q&client_id=5FBAoT5WWyGMzcA93mmi&method=get&clientType=mobile&billNumber=0&serialNo=0&indexType=rakj"+"&eid="+passStr+"&random="+t+"&timestamp="+timestamp+"&sign="+sign;
+					window.location.href=orsrc;
+					$('.imgPos').hide();
+					
+				}
+			}    
+	});	
+}
+
+
+ //获取url？后的参数
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) return unescape(r[2]);
+	return null;
+}
+ 
+</script>
+
+</html>

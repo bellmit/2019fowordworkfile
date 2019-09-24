@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/app.css">
+    </head>
+    <style>
+		.title {
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 18px;
+		}
+		.formList li .f_input {
+			font-size: 12px;
+		}
+		p {
+			text-indent: 22px;
+		}
+		input{
+			
+		}
+    </style>
+    <body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">费用类资金直接支付申请</h1>
+		</header>
+		<div class="mui-content">
+			<form id="fm">
+				<div class="title">资金直接支付申请单</div>
+				<ul class="formList">
+					<li class="clearfix"><span class="left label">标题：</span>
+						<input type='text' id='title' class='f_input right wp60'>
+				    </li>
+					<li class="clearfix"><span class="left label">编号：</span> 
+						<input type='text' id='sku' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">预算：</span> 
+						<input type='text' id='budgetSku' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">预算关系人：</span> 
+						<input type='text' id='userName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">费用类别：</span> 
+						<input type='text' id='feeTypeName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">付款方式：</span> 
+						<input type='text' id='payMethodName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请人姓名：</span> 
+						<input type='text' id='askName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请日期：</span>
+						<input type='text' id='askDate' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">所属部门：</span>
+						<input type='text' id='askDeptName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请金额：</span>
+						<input type='text' id='askAmount' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">用途：</span>
+						<input type='text' id='yt' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">发票条件：</span>
+						<input type='text' id='fpWayName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">收款单位：</span>
+						<input type='text' id='payName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">开户行/账号：</span>
+						<input type='text' id='payAccount' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">发票情况：</span>
+						<input type='text' id='' class='f_input right wp60' value='发票校验号：1234'>
+					</li>
+					<li class="clearfix"><span class="left label">预计交回发票时间：</span>
+						<input type='text' id='jpDaysStr' class='f_input right' style='width:50%'>
+					</li>
+					<li class="clearfix"><span class="left label">是否入库：</span>
+						<input type='text' id='rkInfo' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">应付款时间：</span>
+						<input type='text' id='wantDate' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">合同及相关附件：</span>
+						<input type='text' id='htFile' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">验收报告：</span>
+						<input type='text' id='ysbgFile' class='f_input right wp60'  style="width:20%;">
+					</li>			
+					<li class="clearfix"><span class="left label">SVN配置库地址：</span>
+						<input type='text' id='svnFile' class='f_input right wp60' style='width:70%'>
+					</li>
+				</ul>
+				
+				<div class="title">资金支付申请审批</div>
+				<ul class="formList">
+					<li class="clearfix "><span class="left label">审批结果：</span> 
+						<span class="result right">
+							<input type="radio" name="check" value="1"/>同意
+							<input type="radio" name="check" value="2"/>不同意
+						</span>
+					</li>
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10 result" style="margin-bottom: 0;" id="opinion" rows="5" placeholder="请输入审批意见"></textarea>
+					</li>	
+				</ul>
+				<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+					<button id="btns" type="button" class="mui-btn mui-btn-primary mui-btn-block t10" onclick="submits()">提交</button>
+				</div>
+				
+				<div class="title apply">审批s记录</div>
+				<ul class="formList" id="apply">
+				</ul>
+
+				
+			</form>
+		</div>
+		<script src="../../js/jquery-1.7.2.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="js/global.js"></script>
+	     <script >
+            //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+            document.write("<s" + "cript type='text/javascript' src='js/capitalPay.js?" + Math.random() + "'></s" + "cript>");
+        </script>
+    </body>
+</html>

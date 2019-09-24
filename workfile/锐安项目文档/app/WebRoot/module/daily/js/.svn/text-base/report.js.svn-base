@@ -1,0 +1,73 @@
+(function($) {
+	$.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			up: {
+				contentrefresh: '正在加载...',
+				callback: function() {
+					var endFlag = false;
+					var itemHtml =
+						"<li class='mui-media relative mui-table-view-cell'>\
+					    <div class='mui-slider-right mui-disabled'>\
+						<a class='mui-btn mui-btn-red'>撤回</a>\
+						</div>\
+						<div class='mui-slider-handle'>\
+						<div class='myui-list-title mui-pull-left'><span>已审批</span></div>\
+						<div class='mui-media-body mui-pull-left'>\
+						<div class='left'>2018-07-31<span class='l10 blue'>9小时 </span></div>\
+						<div class='clear'></div>\
+						<p class='mui-ellipsis clearfix'>2018-07-31提交</p>\
+						</div>\
+						<div class='mui-media-body mui-pull-right'>\
+						<div class='right'><span class='mui-badge mui-badge-primary'>评价:A</span></div>\
+						</div>\
+						</div>\
+						</li>";
+					pullRefresh('pullrefresh', 'OA_task_1', 'li', itemHtml, endFlag, 'after');
+				}
+			},
+			down: {
+				contentrefresh: '正在加载...',
+				callback: function() {
+					var endFlag = false;
+					var itemHtml =
+						"<li class='mui-media relative mui-table-view-cell'>\
+						<div class='mui-slider-right mui-disabled'>\
+						<a class='mui-btn mui-btn-red'>撤回</a>\
+						</div>\
+						<div class='mui-slider-handle'>\
+						<div class='myui-list-title mui-pull-left'><span>已审批</span></div>\
+						<div class='mui-media-body mui-pull-left'>\
+						<div class='left'>2018-07-31<span class='l10 blue'>9小时 </span></div>\
+						<div class='clear'></div>\
+						<p class='mui-ellipsis clearfix'>2018-07-31提交</p>\
+						</div>\
+						<div class='mui-media-body mui-pull-right'>\
+						<div class='right'><span class='mui-badge mui-badge-primary'>评价:A</span></div>\
+						</div>\
+						</div>\
+						</li>";
+					pullRefresh('pullrefresh', 'OA_task_1', 'li', itemHtml, endFlag, 'before');
+				}
+			}
+		}
+	})
+
+	var btnArray = ['确认', '取消'];
+	$('#OA_task_1').on('tap', '.mui-btn', function(event) {
+		var elem = this;
+		var li = elem.parentNode.parentNode;
+		mui.confirm('确认要撤回这条报工记录吗？', '提示', btnArray, function(e) {
+			if (e.index == 0) {
+				li.parentNode.removeChild(li);
+			} else {
+				setTimeout(function() {
+					$.swipeoutClose(li);
+				}, 0);
+			}
+		});
+	});
+
+
+
+})(mui);

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate
+END
+hibernate3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/hibernate3.jar
+END
+commons-collections-3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/commons-collections-3.1.jar
+END
+antlr-2.7.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/antlr-2.7.6.jar
+END
+slf4j-api-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/slf4j-api-1.6.1.jar
+END
+jta-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/jta-1.1.jar
+END
+javassist-3.12.0.GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/javassist-3.12.0.GA.jar
+END
+dom4j-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/dom4j-1.6.1.jar
+END
+hibernate-jpa-2.0-api-1.0.1.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/hibernate-jpa-2.0-api-1.0.1.Final.jar
+END
+sqljdbc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/projects/!svn/ver/1/RunErpSystem/WebRoot/WEB-INF/lib/hibernate/sqljdbc.jar
+END

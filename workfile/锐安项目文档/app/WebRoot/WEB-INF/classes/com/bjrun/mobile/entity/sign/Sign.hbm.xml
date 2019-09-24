@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bjrun.mobile.entity.sign">
+	<class name="SignInfo" table="sys_user_sign">
+		<id name="id" column="id">
+			<generator class="uuid"></generator>
+		</id>
+		
+		<property name="runId" column="run_id"></property>
+		<property name="userName" column="username"></property>
+		<property name="signDate" column="sign_date"></property>
+		
+		<property name="msStatus" column="ms_status"></property>
+		<property name="msTime" column="ms_time"></property>
+		<property name="msLongitude" column="ms_longitude"></property>
+		<property name="msLatitude" column="ms_latitude"></property>
+		<property name="msAddress" column="ms_address"></property>
+		<property name="msdeviceUuid" column="ms_deviceuuid"></property>
+		<property name="msosType" column="ms_ostype"></property>
+		
+		<property name="msoStatus" column="mso_status"></property>
+		<property name="msoTime" column="mso_time"></property>
+		<property name="msoLongitude" column="mso_longitude"></property>
+		<property name="msoLatitude" column="mso_latitude"></property>
+		<property name="msoAddress" column="mso_address"></property>
+		<property name="msodeviceUuid" column="mso_deviceuuid"></property>
+		<property name="msoosType" column="mso_ostype"></property>
+		
+		<property name="asStatus" column="as_status"></property>
+		<property name="asTime" column="as_time"></property>
+		<property name="asLongitude" column="as_longitude"></property>
+		<property name="asLatitude" column="as_latitude"></property>
+		<property name="asAddress" column="as_address"></property>
+		<property name="asoRemark" column="aso_remark"></property>
+		<property name="asdeviceUuid" column="as_deviceuuid"></property>
+		<property name="asosType" column="as_ostype"></property>
+		
+		
+		<property name="asoStatus" column="aso_status"></property>
+		<property name="asoTime" column="aso_time"></property>
+		<property name="asoLongitude" column="aso_longitude"></property>
+		<property name="asoLatitude" column="aso_latitude"></property>
+		<property name="asoAddress" column="aso_address"></property>
+		<property name="asodeviceUuid" column="aso_deviceuuid"></property>
+		<property name="asoosType" column="aso_ostype"></property>
+		
+		
+		
+		<property name="createDate" column="create_date"></property>
+		
+		<property name="deviceUuid" column="device_uuid"></property>
+		<property name="osType" column="os_type"></property>
+		<property name="singChannel" column="sign_channel"></property>
+	</class>
+</hibernate-mapping>
+

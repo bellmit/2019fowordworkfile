@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/mui.picker.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+   <link href="css/mui.picker.v1.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+	<!--<script type="text/javascript" src="../js/jssdk/vrv-jssdk.js"></script>--> 
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">编辑客户单位</h1>
+</header>
+<div class="mui-content">
+    <ul class="formList">
+        <li class="clearfix" id="showProPicker">
+            <span class="left label"><span style="color:red;">*</span>省份-地市-区县</span>
+            <img src="images/rightarr.png" alt="" class="right rightArr"/>
+            <span class="right content" id="ProCityRegion"></span>
+        </li>
+    </ul>
+    <ul class="formList">
+        <li class="clearfix">
+            <span class="left label"><span style="color:red;">*</span>法人单位</span>
+            <input type="text" class="f_input right wp60"  id = "companyName" placeholder="请输入单位名称"/>
+        </li>
+        <li class="clearfix">
+            <span class="left label"><span style="color:red;">*</span>地址</span>
+            <input type="text" class="f_input right wp60"  id = "address" placeholder="请输入客户地址"/>
+        </li>
+		<li class="clearfix" id="showtradePicker">
+            <span class="left label"><span style="color:red;">*</span>行业分类(一级)</span>
+            <img src="images/rightarr.png" alt="" class="right rightArr"/>
+            <span class="right content" id="tradeContent"></span>
+        </li>
+    </ul>
+	<div class="clearfix bottomLable">
+        <div class="left">
+            <label class="left"><span style="color:red;">*</span>添加人：</label>
+            <span class="left" id = "userName">--</span>
+        </div>
+        <div class="right">
+            <label class="left">添加日期：</label>
+            <span class="left" id = "currDate" >--</span>
+        </div>
+    </div>
+	<a href="#" onclick = "submitForm('0');" class="submitBtn saveAs">草稿</a>
+    <a href="#" onclick = "submitForm('1');" class="submitBtn" >提交</a>
+
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/global.js"></script>
+<script src="js/editcompany.js"></script>
+
+</body>
+</html>

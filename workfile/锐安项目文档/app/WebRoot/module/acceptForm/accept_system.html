@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- 
+			<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			-->
+			<h1 class="mui-title"><span class="titleName">9999受理单列表</span></h1>
+			
+			<a href="accept_editquestion.html" class="mui-icon mui-icon-plus mui-icon-right-nav mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+		</div>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">				
+			<div class="mui-scroll" id ="tishi">			
+				<div class="topSearch" id="inputSearch">
+				<form id="myform" action="" onsubmit="return false;">
+					<div class="relative">
+						<input type="search" id="condition" class="f_input searchInput" placeholder="请输入关键字搜索"/>
+						<img src="images/searchicon.png" alt="" class="searchIcon"/>
+					</div>
+				</form>
+				</div>
+				<ul class="mui-table-view customList" id="clientQuestionList">
+					
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/global.js"></script>
+		<script src="js/custom_system_sub.js"></script>
+		<script>
+ 		// mui 初始化
+            mui.init({
+                swipeBack : true, // 启用右滑关闭功能
+                subpages:[{
+                    url:'accept_system_sub.html',
+                    id:'accept_system_sub.html',
+					styles:{
+						top: '45px',
+						bottom: '0px'
+					}
+                }]
+            });
+			$('.mui-icon-search').off().on('click',function(){
+				$('.topInput').removeClass('hide');
+				$('.titleName').addClass('hide');
+				$(this).prev().addClass('hide');
+				$(this).addClass('hide');
+			});
+			
+			
+
+		var wxObjet = {};
+		var url = window.location.href.split("#")[0];
+		if(localStorage.wxUser != null && localStorage.wxCode!=null){
+			var wxCodes = getQueryString("code");
+			var wxdata = JSON.parse(localStorage.wxCode);
+			if(wxdata.code == wxCodes){
+				var data = JSON.parse(localStorage.wxUser);
+			}else{
+				setTimeout(function(){getUserDataInfo()},500);
+			}
+		}else{
+			getUserDataInfo();
+		}
+		
+		$.ajax({
+			url:pathUrl+'/RunErpSystem/getSha1.action',
+			type:'post',
+			data : {
+			url:url,
+			AppId:'SECRET_9999'
+			
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			success:function(data){
+			
+				var test = JSON.parse(data);
+				wxObjet.timestamp = test.timestamp;
+				wxObjet.nonceStr = test.nonceStr;
+				wxObjet.signature = test.signature;
+		
+				wx.config({
+					beta: true,// 调用wx.invoke形式的接口值时，该值必须为true。
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					appId: 'wla377739e7a', // 必填，公众号的唯一标识
+					timestamp: wxObjet.timestamp, // 必填，生成签名的时间戳
+					nonceStr: wxObjet.nonceStr, // 必填，生成签名的随机串
+					signature: wxObjet.signature,// 必填，签名
+					jsApiList: ["getLocation","hideOptionMenu"] // 必填，需要使用的JS接口列表
+				});
+				
+				wx.ready(function(){
+				
+					wx.hideOptionMenu();		
+				});
+		
+				wx.error(function(res){
+				});
+			}		
+		});
+		
+		function getUserDataInfo(){
+			//获取code
+			var code = getQueryString("code");
+			localStorage.removeItem("wxCode");
+			var wxCode = {code:code};
+			var str = JSON.stringify(wxCode);
+			localStorage.wxCode = str;
+			$.ajax({
+					url:pathUrl+'/queryWXUserInfo.action',
+					type:'post',
+					data : {
+					code:code,
+					//AppId:'9999_SECRET'
+					AppId:'SECRET_9999'
+					},
+					async:false,/*同步请求*/
+					dataType:'jsonp',
+					jsonp:'callback',
+					jsonpCallback:'flightHandler',
+					error : function(){
+						alert('授权失败！');
+					},
+					success:function(data){
+						var userData = JSON.parse(data);
+						var message = userData.msg;
+						//alert('00000000000000'+message);
+						if(message.indexOf("success") != -1){
+							localStorage.removeItem("wxUser");
+							var wxUser = {userName:userData.userName,wXUserId:userData.wXUserId,company:userData.departName,phone:userData.mobile};
+							var str = JSON.stringify(wxUser);
+							localStorage.wxUser = str;
+							// alert('===='+userData.wXUserId+'==='+loginKhName);
+						}
+					}    
+			});	
+		}
+
+		//获取url？后的参数
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) return unescape(r[2]);
+			return null;
+		}
+				
+		</script>
+	
+	</body>
+</html>

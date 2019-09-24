@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <!--标准mui.css-->
+	<link rel="stylesheet" href="../../css/mui.min.css">
+    <link href="../../css/mui.picker.css" rel="stylesheet" />
+    <link href="../../css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../css/mui.picker.v1.0.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/app.css">
+</head>
+<style>
+.title{
+	margin: 20px 15px 7px;
+	color: #6d6d72;
+	font-size: 18px;
+}
+.formList li{
+	line-height:50px;
+}
+.formList li .mui-navigate-right{
+	padding:0px;
+}
+.formList li .label{
+	font-size: 17px;
+}
+.formList li .f_input{
+	padding:0px;
+	width:50%;
+	font-size: 17px;
+	margin-top: 10px;
+}
+#Marriage{
+	padding:0px;
+}
+.formList li .mui-switch.mui-table-view-cel{
+	padding:0px;
+}
+.mui-icon-star-filled{color: #FF8C00;font-size: 30px;}
+.mui-switch:before {
+	content: '';
+	color: #999;
+}
+.mui-switch.mui-active:before {
+	content: '';
+	color: #fff;
+}
+#accmoFlag{
+	height: 30px;
+	line-height: 30px;
+}
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a  href="customerReception.html" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">评价关键客户工程</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view">
+			<li class="star-li">
+				<a>响应时长</a>
+				<div class="icons">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+			<li class="star-li">
+				<a>服务专业性</a>
+				<div class="icons">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+			<li class="star-li">
+				<a>客户满意度</a>
+				<div class="icons">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+		</ul>
+	<div id="info" style="50px;"></div>
+	<form id="fm">
+	    <div class="title">申请人基本信息</div>
+	    <ul class="formList"> 	
+	        <li class="clearfix">
+	        	<span class="left label">申请人姓名</span>
+	            <input type="text" id="applicantUserName" class="f_input right wp60" name = "applicantUserName" />
+	        </li>
+	 		<li class="clearfix">
+	            <span class="left label">邀请人姓名</span>
+	            <input type="text" id="inviterName" class="f_input right wp60" name = "inviterUserName" />
+	        </li>
+	        <li class="clearfix">
+	            <span class="left label">邀请人部门</span>
+	            <input type="text" id="deptName" class="f_input right wp60" name = "deptName" />
+	        </li>
+	    </ul>
+		<div class="title">客户接待信息</div>
+	    <ul class="formList">
+			<li class="clearfix">
+	            <span class="left label">客户单位</span>
+	            <input type="text" class="f_input right wp60" name = "customerUnit" id="customerUnit" />
+	        </li>
+			<li class="clearfix">
+	            <span class="left label">带队领导级别</span>
+	            <input type="text" class="f_input right wp60" name = "leadershipLevel" id="leadershipLevel" />
+	        </li>
+			<li class="clearfix" id="adminLevelPicker">
+				<span class="left label">带队领导</span>
+				<input type="text" class="f_input right wp60" name = "leadershipTitle" id="leadershipTitle" />
+			</li>
+			<li class="clearfix">
+	            <span class="left label">陪同人数</span>
+	            <input type="text" class="f_input right wp60" name = "escortNumber" id="escortNumber" />
+	        </li>
+			<li class="clearfix">
+	            <span class="left label">客户联系人</span>
+	            <input type="text" class="f_input right wp60" name = "customerContact" id="customerContact" />
+	        </li>
+			<li class="clearfix">
+	            <span class="left label">联系方式</span>
+	            <input type="text" class="f_input right wp60" name = "contactPhone" id="contactPhone" />
+	        </li>
+			<li class="clearfix">
+	            <span class="left label">航班/列车</span>
+	            <input type="text" class="f_input right wp60" name = "tripInfo" id="tripInfo" />
+	        </li>
+			<li class="clearfix">
+			 	<span class="left label">到站时间</span>
+	            <input type="button" id='arrivalTime' name = "arrivalTime" data-options='{"type":"date"}' class="f_input right label btn mui-btn mui-btn-block wp30" value="到站时间"/>
+	        </li>
+	        <li class="clearfix mui-table-view-cell" id="Marriage">
+				<span class="left label">是否安排住宿</span>
+				<div class="mui-switch mui-switch-blue mui-active"  id ="accmoFlag" name = "accmoFlag" data-on="" data-off="">
+					<div class="mui-switch-handle "></div>
+				</div>
+			</li>
+	        <li class="clearfix">
+	            <span class="left label">住宿数量（晚）</span>
+	            <input type="text" class="f_input right wp60" name = "accommodationNumber" id="accommodationNumber" placeholder="人数*天数"/>
+	        </li>
+	        <li class="clearfix">
+	        	<span class="left label">到达公司时间</span>
+	            <input type="button" id='arrivalCompany' name = "arrivalCompany" data-options='{"type":"date"}' class="f_input right label btnsone mui-btn mui-btn-block wp30" value="到达公司时间"/>
+	            <div id='arriveCompDate' class="ui-alert"></div>
+	        </li>
+			<li class="clearfix">
+				<span class="left label">住宿地点</span>
+	            <input type="text" class="f_input right f_textarea" name = "accommodationAddress" id="accommodationAddress"  />
+	        </li>
+		</ul>
+		<div class="title">其他接待信息</div>
+		<ul class="formList">
+			<li class="clearfix">
+	            <span class="left label">到我司考察次数</span>
+	            <input type="text" class="f_input right" name = "investigationNumber" id="investigationNumber" placeholder="请输入考察次数"/>
+	        </li>
+	        <li class="clearfix">
+				期望交流内容
+				<textarea type="text" class="mui-input-speech t10" name = "communicationContent" id="communicationContent" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+			</li>
+			<li class="clearfix">
+				客户是否有少数民族及禁忌
+	            <textarea type="text" class="mui-input-speech t10" name = "taboo" id="taboo" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+	        </li>
+	        <li class="clearfix">
+				其他 
+	            <textarea type="text" class="mui-input-speech t10" name = "other" id="other" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+	        </li>
+	    </ul>
+		<div class="clearfix bottomLable">
+	 		<input type="hidden" id="operationType" class="f_input right" name = "operationType" />
+			<input type="hidden" id="accommodationFlag" class="f_input right" name = "accommodationFlag" />
+			<input type="hidden" id="arrivalTime" class="f_input right" name = "arrivalTime" />
+			<input type="hidden" id="arrivalCompTime" class="f_input right" name = "arrivalCompTime" />
+			<input type="hidden" id="currentLoginUser" class="f_input right" name = "currentLoginUser" />
+	    </div>
+		<div class="mui-card" style="background-color: transparent;box-shadow: none;text-align: center;">
+			 <button id="btnn" type="button" class="mui-btn mui-btn-primary mui-btn-block">提交评价</button>
+		</div>
+	</form>
+</div>
+<script src="../../js/jquery-1.7.2.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/mui.picker.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script src="../../js/mui.poppicker.js"></script>
+<script src="js/global.js"></script>
+
+<script>
+	var flags="";
+	var flag=1;
+	var arritime=null;
+	var arrilCompany=null;
+	var service_attitude,service_efficiency,service_professionalismm;
+	var loginUserName;
+	if(localStorage.wxUser != null){
+	    var userJson = JSON.parse(localStorage.wxUser);
+		loginUserName = userJson.userName;
+	}else{
+	    showAlert('授权失败');
+	}
+	mui.init();
+	mui('.icons').on('click','i',function(){
+		var index = parseInt(this.getAttribute("data-index"));//获取当前元素的索引值
+		var parent = this.parentNode;//获取当前元素的父节点
+		var children = parent.children;//获取父节点下所有子元素
+		if(this.classList.contains("mui-icon-star")){//判断当前节点列表中是否含有.mui-icon-star元素
+			for(var i=0;i<index;i++){//亮星
+					children[i].classList.remove('mui-icon-star');
+					children[i].classList.add('mui-icon-star-filled');
+			}
+		}else{//重置已经亮星的元素
+			for (var i = index; i < 5; i++) {
+				children[i].classList.add('mui-icon-star')
+				children[i].classList.remove('mui-icon-star-filled')
+			}
+		}
+		document.getElementById("info").innerHTML = parent.previousElementSibling.innerText + "："+index+"星好评";
+		flags=parent.previousElementSibling.innerText;
+		if(flags=="响应时长"){
+			service_efficiency=index;
+		}else if(flags=="服务专业性"){
+			service_professionalismm=index;
+		}else if(flags=="客户满意度"){
+			service_attitude=index;
+	 	}
+	});
+	$("#btnn").on("click",function(){
+		var id = JSON.parse(localStorage.obj).id;
+		$.ajax({
+			url:pathUrl+'/evaluateCustReception.action',
+			type:'post',
+			data :{
+				"id": id,
+				"serviceAttritude":service_attitude,
+				"serviceProfessionalism":service_professionalismm,
+				"serviceEfficiencyAttritude":service_efficiency,
+				"currentLoginUser":loginUserName,
+				"operationType": "9"
+			},
+			async:false,//同步请求
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			dataType:'json',
+			success:function(data){
+				var dataJson = JSON.parse(data);
+				var msg= dataJson.msg;
+				var targetUrl = "customerReception.html";
+	            if (localStorage.wxCode != null) {
+	                var wxdata = JSON.parse(localStorage.wxCode);
+	                if (wxdata) {
+	                    targetUrl = targetUrl + "?code=" + wxdata.code;
+	                }
+	            }
+				var msgArray = ['确定'];
+				if(msg.indexOf("提交成功!") != -1){
+					mui.confirm('操作成功！', '', msgArray, function(e) {
+						$('.mui-popup-backdrop').show();
+							mui.openWindow({
+							url:targetUrl
+						});
+					});
+				}else{
+					mui.confirm('操作失败！', '', msgArray, function(e) {
+						mui.openWindow({
+							url:targetUrl
+						});
+					});
+			     }
+			}
+		});	 
+	});
+	(function($) {
+		$.init();
+		var arriveDate = $('#arrivalTime')[0];
+		var arriveCompDate = $('#arrivalCompany')[0];
+		var btns = $('.btn');
+		var btnso = $('.btnsone');
+		btns.each(function(i, btn) {
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					arriveDate.value = rs.text;
+					arritime=rs.text;
+					picker.dispose();
+				});
+			}, false);
+		});
+		btnso.each(function(i, btn) {
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					arriveCompDate.value =rs.text;
+					arrilCompany=rs.text;
+					picker.dispose();
+				});
+			}, false);
+		});
+	})(mui);
+  //遍历是否住宿
+    mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+		this.addEventListener('toggle', function(event) {
+			if(event.detail.isActive){					
+				flag=1;
+			} else {
+				flag=0; 
+			}
+		});
+	});
+	$(function(){
+		var aid = JSON.parse(localStorage.obj).id;
+		$.ajax({  	   
+			url: pathUrl+'/queryCustReceptionDetail.action',
+			type:'post',
+			data:{
+				id:aid
+			},
+			async:false,//同步请求
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			dataType:'json',
+			success:function(data){
+				var data = JSON.parse(data);
+				var custom = data.data;
+				$("#applicantUserName").val(custom.applicantUserName);
+				$("#deptName").val(custom.deptName);
+			 	$("#inviterName").val(custom.inviterUserName);
+			 	$("#customerUnit").val(custom.customerUnit);
+			 	$("#leadershipLevel").val(custom.leadershipLevel);
+			 	$("#leadershipTitle").val(custom.leadershipTitle);
+			 	$("#escortNumber").val(custom.escortNumber);
+			 	$("#customerContact").val(custom.customerContact);
+			 	$("#contactPhone").val(custom.contactPhone);
+			 	$("#tripInfo").val(custom.tripInfo);
+			 	$("#arrivalTime").val(custom.arrivalTimeStr);
+			 	$("#arrivalCompany").val(custom.arrivalCompTimeStr);
+			 	$("#accommodationNumber").val(custom.accommodationNumber);
+			 	$("#accommodationAddress").text(custom.accommodationAddress);
+			 	$("#investigationNumber").val(custom.investigationNumber);
+			 	$("#communicationContent").text(custom.communicationContent);
+			 	$("#taboo").text(custom.taboo);
+			 	$("#other").text(custom.other);
+				attitude=custom.serviceAttritude;
+				efficiency=custom.serviceEfficiencyAttritude;
+				professionalism=custom.serviceProfessionalism;
+				if(custom.accommodationFlag == 0) {
+					$(".mui-switch").removeClass("mui-active");
+				}
+				if(custom.serviceEfficiencyAttritude!=null&&custom.serviceEfficiencyAttritude!=0){
+					$("#fen").show();
+				}else {
+					$("#fen").hide();
+				}
+				if(custom.serviceAttritude!=null&&custom.serviceAttritude!=0){
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				if(custom.serviceProfessionalism!=null&&custom.serviceProfessionalism!=0){
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				if(custom.accommodationFlag == 0) {
+					$(".mui-switch").removeClass("mui-active");
+				}
+				$("input").attr('disabled','disabled');
+				$("textarea").attr('disabled','disabled');
+				$("#accmoFlag").addClass("mui-disabled");
+			}    
+		});	 
+	});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+header{height:4rem; line-height:4rem; background-color:#009dd9;}
+header h1{font-size:2rem; text-align: center; color: #fff; font-weight: normal;}
+.container{padding: 1rem; height:100%;}
+.dateBox{height:3rem; line-height: 3rem; margin-bottom:1rem; padding:0px 1rem; background-color: #a8e7ff; border-radius:0.5rem;}
+.dateBox span{margin-right:2rem;}
+.attendanceGrid table{width:100%; border:1px solid #a8e7ff;}
+.attendanceGrid th{height:3rem; line-height: 3rem; background-color: #dff6ff; border:1px solid #a8e7ff; text-align: center;}
+.attendanceGrid td{height:2.5rem; line-height: 2.5rem; border:1px solid #a8e7ff; text-align: center;}
+.attendanceStatusRed{display: block; width: 1.5rem; height:1.5rem; margin:0px auto; background-color: #f00; border-radius:0.8rem;}
+.attendanceStatusGreen{display: block; width: 1.5rem; height:1.5rem; margin:0px auto; background-color: #0f0; border-radius:0.8rem;}
+.barWrap{position:fixed; top:0; left:0px; width:100%; height:3rem; line-height:2rem; text-align:center; background:#fff; font-size:1.5rem;}
+.barWrap .btn_back{display:inline-block; width:3rem; height:3rem; background:url(../images/btn_back.jpg) no-repeat;}
+.barWrap .tit{line-height:2rem; color:blue; font-size:1rem;}
+.map{height:100%;}
+.punchClockWrap{position:fixed; bottom:5.5rem; left:50%; margin-left:-50%; width:100%;}
+.punchClockWrap >a{display:inline-block; margin:0 1%; width:22%; height:5.5rem; background:rgba(255,255,255,.5);}
+.punchClockWrap .punch{display:block; width:100%; height:4rem; background:url(../images/icon_punch.png) no-repeat center center;}
+.punchClockWrap .punch.disabled{background:url(../images/icon_punch_disabled.png) no-repeat center center;}
+.punchClockWrap .curTime{display:inline-block; width:100%; line-height:1.5rem; text-align:center; color:#666;}
+.popWrap1,.popWrap2,.popWrap3,.popWrap4{display:none; position:fixed; top:50%; left:50%; padding:2rem; margin:-5rem 0 0 -10rem; width:16rem; height:6rem; background:#fff;  text-align:center;
+border-radius:.5rem;}
+.popWrap1 .msg,.popWrap2 .msg,.popWrap3 .msg,.popWrap4 .msg{margin-bottom:1rem; line-height:2rem;}
+.popWrap1 .btn_sure_res1 ,.popWrap2 .btn_sure_res2,.popWrap3 .btn_sure_res3,.popWrap4 .btn_sure_res4{display:inline-block; margin:0 1rem; width:4rem; height:2rem; line-height:2rem; color:#FFF; background:#7399e6; text-align:center;}
+.popWrap1.btn_close_res1 ,.popWrap2.btn_close_res2,.popWrap3.btn_close_res3,.popWrap4.btn_close_res4{display:inline-block; margin:0 1rem; width:4rem; height:2rem; line-height:2rem; color:#666; background:#ccc; text-align:center;}
+
+.popWrap1 .btn_load_res1,.popWrap2 .btn_load_res2,.popWrap3 .btn_load_res3,.popWrap4 .btn_load_res4{display:inline-block; margin:0 1rem; width:4rem; height:2rem; line-height:2rem; color:#FFF; background:#7399e6; text-align:center;}
+.amap-geolocation-con .amap-geo{position:fixed; bottom:14rem;}
+
+.autoClockBox{position:fixed; top:.2rem; left:50%; margin-left:-50%; width:100%; height:4rem; line-height:4rem; background-color:rgba(255,255,255,0.8); border-bottom:1px solid #ddd; z-index:100;}
+.autoClockLabel{margin-left:1rem; font-size:1.5rem; color:#666;}
+
+/*.u-switch{width:8rem; height:30px; position:relative; margin-top:0.7rem; background-color:#65686c; border-radius:4rem; display:block; cursor:pointer; font-size:1.2rem;}
+.u-switch-slide{position:absolute; width:50px; height:26px; line-height:26px; text-align:center; color:#fff; background:url(../images/sliBtn.png) left center no-repeat; top:2px; left:2px; }
+.u-switch-active{ background:url(../images/slideBtnBackSel.png) left center no-repeat;}
+.u-switch-active .u-switch-slide{ color:#ccc;}*/
+.switchBox{position:relative; /*width:6.5rem;*/ width:80px; height:30px; line-height:30px; position:relative; margin-top:0.7rem; background-color:#b3b3b3; border-radius:4rem; display:block; margin-right:10px; cursor:pointer; font-size:1.2rem;}
+.switchBall{position:absolute; top:2px; left:2px; width:26px; height:26px; border-radius:15px; background-color:#fff;}
+.switchWord{position:absolute; top:0px; left:30px; color:#fff; font-size:1.5rem;}
+
+
+
+
+
+
+
+
+

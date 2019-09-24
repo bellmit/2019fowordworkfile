@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/projects/!svn/ver/379/RunErpSystem/WebRoot/module/customer
+END
+view_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/view_customReception.html
+END
+audit_customerReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/audit_customerReception.html
+END
+updata_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/updata_customReception.html
+END
+update_oldcustRecept.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/update_oldcustRecept.html
+END
+accept_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/accept_customReception.html
+END
+evaluate_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/evaluate_customReception.html
+END
+customerReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/customerReception.html
+END
+add_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/add_customReception.html
+END
+complete_customReception.html
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/complete_customReception.html
+END
+custom_reception_sub.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/558/RunErpSystem/WebRoot/module/customer/custom_reception_sub.html
+END

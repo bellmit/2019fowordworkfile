@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>年度预算变更申请审批</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- <script src="js/vrv-jssdk.js"></script> -->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/myui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/app.css" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.display_none{
+				display: none;
+			}		
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="closePage"></a>
+			<h1 class="mui-title">年度预算变更申请审批</h1>
+		</header>
+		<div class="title mui-content" id="">
+			年度预算变更
+		</div>
+		<ul class="mui-table-view" id="">
+			<li class="mui-table-view-cell mui-media ">
+				<div>申请单号：<span id="sku"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>申请人：<span id="askName"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>申请日期：<span id="askDate"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>申请人一级部门：<span id="askDept1Name"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>申请人二级部门：<span id="askDept2Name"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>变更预算年度：<span id="askYear"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>预算变更范围：<span id="type"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>附件：<span id="askFileName"></span></div>
+			</li>
+			<li class="mui-table-view-cell mui-media ">
+				<div>年费预算变更原因及业务状况分析：
+					<span id="askReason"></span>
+				</div>
+			</li>
+
+		</ul>
+		<div id = "profits">
+		</div>
+		<div class="title">
+			审批
+		</div>
+		<ul class="formList">
+			<li class="clearfix display_none" id = "typeli">
+				<div class="left label">变化类型：<span id="typeInfo"></span></div>
+			</li>
+			<li class="clearfix display_none" id = "leftAmountli">
+				<div class="left label">当前余额：<span id="leftAmount"></span></div>
+			</li>
+			<li class="clearfix display_none" id="useReserve">
+				<div class="left label">是否从预留款中拨出</div>
+				<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+					<button type="button" class="mui-btn mui-btn-primary useReserve t5">是</button>
+				</div>
+				<div class="mui-radio right" style=" display: inline-block; ">
+					<button type="button" class="mui-btn t5">否</button>
+				</div>
+			</li>
+			<li class="clearfix" id="ifAgree">
+				<div class="left label">是否同意</div>
+				<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+					<button type="button" class="mui-btn mui-btn-primary ifAgree t5">是</button>
+				</div>
+				<div class="mui-radio right" style=" display: inline-block; ">
+					<button type="button" class="mui-btn t5">否</button>
+				</div>
+			</li>
+			<li class="clearfix" style="height: auto;">
+				<div class="left label">审批意见：</div>
+				<textarea class="mui-input-speech t10" style="margin-bottom: 0;" id="checkComment" rows="5" placeholder="请输入费用审批意见"></textarea>
+			</li>
+		</ul>
+
+		<div class="mui-card-content" style="border-top: 1px solid #ddd;" id="checkDate">
+			<div class="title">
+				审批记录
+			</div>
+		</div>
+		<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+			<button onclick="checkSubmit()" type="button" class="mui-btn mui-btn-primary mui-btn-block t10">提交</button>
+		</div>
+
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+	</script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/budgetChangeAudit.js?" + Math.random() + "'></s" + "cript>");
+    </script>	
+	<script>
+		function toBackList(){
+			mui.openWindow({
+				url:"vacation-list.html",
+			});
+		}
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary ifAgree');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary ifAgree');
+		})
+		$('#useReserve button').click(function(){
+			$(this).addClass('mui-btn-primary useReserve');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary useReserve');
+		})
+	</script>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>补登申请</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- <script src="js/vrv-jssdk.js"></script> -->
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+	<style>
+		.title{
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 15px;
+		} 
+		
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">补登申请</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="formList">
+				<li class="clearfix">
+					<span class="left label">申请人</span>
+					<span class="f_input right mr" id="applyUser"></span>
+				</li>
+				<li class="clearfix" id="showProPicker">
+					<span class="left label">补登日期</span>
+					<span class="f_input right mr" id="time"></span>
+				</li>
+				<li class="clearfix">
+					<span class="left label">上午上班</span>
+					<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+					<span id="appAmAttend" class="btn right mr" data-options='{"type":"time"}'>09:00</span>
+				</li>
+				<ul class="formList" style="display: none;" id="formList1">
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10" style="margin-bottom: 0;"  rows="3" placeholder="请填入补登理由" id="cause1"></textarea>
+					</li>
+				</ul>
+				<li class="clearfix">
+					<span class="left label">上午下班</span>
+					<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+					<span id="appAmClosing" class="btn right mr" data-options='{"type":"time"}'>12:00</span>
+				</li>
+				<ul class="formList" style="display: none;" id="formList2">
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10" style="margin-bottom: 0;"  rows="3" placeholder="请填入补登理由" id="cause2"></textarea>
+					</li>
+				</ul>
+				<li class="clearfix">
+					<span class="left label">下午上班</span>
+					<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+					<span id="appPmAttend" class="btn right mr" data-options='{"type":"time"}'>13:30</span>
+				</li>
+				<ul class="formList" style="display: none;" id="formList3">
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10" style="margin-bottom: 0;"  rows="3" placeholder="请填入补登理由" id="cause3"></textarea>
+					</li>
+				</ul>
+				<li class="clearfix">
+					<span class="left label">下午下班</span>
+					<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+					<span id="appPmClosing" class="btn right mr" data-options='{"type":"time"}'>18:00</span>
+				</li>
+				<ul class="formList" style="display: none;" id="formList4">
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10" style="margin-bottom: 0;"  rows="3" placeholder="请填入补登理由" id="cause4"></textarea>
+					</li>
+				</ul>
+			</ul>
+			<div class="clear"></div>
+			<!-- <form> -->
+				<div class="mui-card">
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block" id="submitApply">提交</button>
+				</div>
+				
+			<!-- </form> -->
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<!-- <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/relogin-apply.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+	</script>
+	
+</html>

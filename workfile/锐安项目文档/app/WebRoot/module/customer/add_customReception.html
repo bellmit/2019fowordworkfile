@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <title>新增关键客户工程</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.v1.0.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/app.css">
+    </head>
+    <style>
+		.title {
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 18px;
+		}
+		
+		.formList li {
+			line-height: 50px;
+		}
+		
+		.formList li .mui-navigate-right {
+			padding: 0px;
+		}
+		
+		.formList li .label {
+			font-size: 17px;
+		}
+		
+		.formList li .f_input {
+			padding: 0px;
+			width: 50%;
+			font-size: 17px;
+			margin-top: 10px;
+		}
+		
+		#Marriage {
+			padding: 0px;
+		}
+		
+		.formList li .mui-switch.mui-table-view-cel {
+			padding: 0px;
+		}
+		.mui-switch:before {
+			content: '';
+			color: #999;
+		}
+		.mui-switch.mui-active:before {
+			content: '';
+			color: #fff;
+		}
+		#accmoFlag{
+			height: 30px;
+			line-height: 30px;
+		}
+    </style>
+    <body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">新增关键客户工程</h1>
+		</header>
+		<div class="mui-content">
+			<form id="fm">
+				<div class="title">申请人基本信息</div>
+				<ul class="formList">
+					<li class="clearfix">
+						<span class="left label">申请人姓名</span> 
+						<input type="text" id="applicantUserName" class="f_input right wp60" name="customerReception.applicantUserName" placeholder="请输入姓名" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">邀请人姓名</span> 
+						<input type="text" id="inviterUserName" class="f_input right wp60" name="customerReception.inviterUserName" placeholder="请输入姓名" />
+					</li>
+				</ul>
+				<div class="title">客户接待信息</div>
+				<ul class="formList">
+					<li class="clearfix"><span class="left label">客户单位</span> 
+						<input type="text" class="f_input right wp60" name="customerReception.customerUnit" id="cstomer_unit" placeholder="请输入客户单位" />
+				    </li>
+					<li class="clearfix"><span class="left label">带队领导级别</span> 
+						<input type="text" class="f_input right wp60" name="customerReception.leadershipLevel" placeholder="请输入带队领导级别" />
+					</li>
+					<li class="clearfix" id="adminLevelPicker">
+						<span class="left label">带队领导</span> 
+						<input type="text" class="f_input right wp60" name="customerReception.leadershipTitle" placeholder="请输入带队领导" /></li>
+					<li class="clearfix">
+					    <span class="left label">陪同人数</span> 
+					    <input type="text" onblur="validatePeople()" id="escortNumber" class="f_input right wp60" name="customerReception.escortNumber" placeholder="请输入陪同人数" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">客户联系人</span> 
+						<input type="text" class="f_input right wp60" name="customerReception.customerContact" placeholder="请输入客户联系人" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">联系方式</span> 
+						<input type="text" onblur="validatePhone()" id="contactPhone" class="f_input right wp60" name="customerReception.contactPhone" placeholder="请输入联系方式" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">航班/列车</span> 
+						<input type="text" class="f_input right wp60" name="customerReception.tripInfo" placeholder="请输入交通方式" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">到站时间</span> 
+						<input type="button" id='arrivalTimeObj' data-options='{"type":"datetime"}' class="f_input right label btn mui-btn mui-btn-block wp30" value="到站时间" />
+					    <div id='arriveDate' class="ui-alert"></div>
+					</li>
+					<li class="clearfix mui-table-view-cell" id="Marriage" >
+						<span class="left label">是否安排住宿</span>
+						<div class="mui-switch mui-switch-blue mui-active" id="accmoFlag" name="accmoFlag" data-on="" data-off="" >
+						    <div class="mui-switch-handle "></div>
+						</div>
+					</li>
+					<li class="clearfix">
+						<span class="left label">住宿数量（晚）</span> 
+						<input type="text" onblur="validateNight()" id="accNumber" class="f_input right wp60" name="customerReception.accommodationNumber" placeholder="人数*天数" />
+					</li>
+					<li class="clearfix">
+						<span class="left label">到达公司时间</span> 
+						<input type="button" id='arrivalCompanyObj'  data-options='{"type":"datetime"}' class="f_input right label btnsone mui-btn mui-btn-block wp30" value="到达公司时间" />
+						<div id='arriveCompDate' class="ui-alert"></div>
+					</li>
+					<li class="clearfix">
+						<span class="left label">住宿地点</span> 
+						<input type="text" id='dationAddress' class="f_input right f_textarea" name="customerReception.accommodationAddress" placeholder="请输入住宿地点" />
+					</li>
+				</ul>
+				<div class="title">其他接待信息</div>
+				<ul class="formList">
+					<li class="clearfix">
+						<span class="left label">到我司考察次数</span> 
+						<input type="text" onblur="validateDay()" id="invNumber" class="f_input right" name="customerReception.investigationNumber" placeholder="请输入考察次数" /></li>
+					<li class="clearfix">期望交流内容 
+						<textarea type="text" class="mui-input-speech t10" name="customerReception.communicationContent" style="margin-bottom: 0;" id="jobdescript" rows="5" placeholder="请输入期望交流内容"></textarea>
+					</li>
+					<li class="clearfix">客户是否有少数民族及禁忌 
+						<textarea type="text" class="mui-input-speech t10" name="customerReception.taboo" style="margin-bottom: 0;" id="jobdescript" rows="5" placeholder="客户是否有少数民族及禁忌"></textarea>
+					</li>
+					<li class="clearfix">其他
+						<textarea type="text" class="mui-input-speech t10" name="customerReception.other" style="margin-bottom: 0;" id="jobdescript" rows="5" placeholder="其他"></textarea>
+					</li>
+				</ul>
+				<div class="clearfix bottomLable">
+					<!--  input type="hidden" id="inviterUserName" class="f_input right inviterUserName" name="customerReception.inviterUserName" /> -->
+					<input type="hidden" id="operationType" class="f_input right" name="customerReception.operationType" /> 
+					<input type="hidden" id="accommodationFlag" class="f_input right" name="customerReception.accommodationFlag" /> 
+					<input type="hidden" id="arrivalTime" class="f_input right" name="customerReception.arrivalTimeStr" />
+					<input type="hidden" id="arrivalCompTime" class="f_input right" name="customerReception.arrivalCompTimeStr" /> 
+					<input type="hidden" id="currentLoginUser" class="f_input right" name="customerReception.currentLoginUser" /> 
+					<input type="hidden" id="submitType" class="f_input right" name="customerReception.submitType" /> 
+					<input type="hidden" id="deptName" class="f_input right" name="customerReception.deptName" /> 
+					<input type="hidden" id="deptLevelOne" class="f_input right" /> 
+					<input type="hidden" id="deptLevelTwo" class="f_input right" />
+				</div>
+				<div class="mui-card" style="background-color: transparent;box-shadow: none;text-align: center;">
+					<a href="#" onclick="submitForm(1);" class="submitBtnspecial saveAs">草稿</a>
+					<a href="#" onclick="submitForm(2);" class="submitBtnspecial marginB40">提交</a>
+				</div>
+			</form>
+		</div>
+		<script src="../../js/jquery-1.7.2.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="js/global.js"></script>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		
+	    <script>
+			var flag=1;
+			var arriTime=null;
+			var arriCompany=null;
+			localStorage.obj = null;//清除缓存
+		    if(localStorage.wxUser != null){
+				var userJson = JSON.parse(localStorage.wxUser);
+				$("#applicantUserName").val(userJson.userName); 
+				$('#applicantUserName').attr("readonly","readonly");
+				$("#inviterUserName").val(userJson.userName);
+				$("#currentLoginUser").val(userJson.userName); 
+				$("#deptName").val(userJson.company);
+			}else{
+			    showAlert('授权失败');
+			}
+			
+			(function($) {
+				$.init();
+				var arriveDate = $('#arrivalTimeObj')[0];
+				var arriveCompDate = $('#arrivalCompanyObj')[0];
+				var btns = $('.btn');
+				var btnso = $('.btnsone');
+				btns.each(function(i, btn) {
+					btn.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+							arriveDate.value = rs.text;
+							arriTime=rs.text;
+							picker.dispose();
+						});
+					}, false);
+				});
+				btnso.each(function(i, btn) {
+					btn.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+							arriveCompDate.value =rs.text;
+							arriCompany=rs.text;
+							picker.dispose();
+						});
+					}, false);
+				});
+			})(mui);
+		    mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+					this.addEventListener('toggle', function(event) {
+						if(event.detail.isActive){					
+							flag=1;
+							$('#dationAddress').removeAttr("readonly");
+						} else {
+							flag=0;
+							$('#dationAddress').attr("readonly","readonly");
+							$('#dationAddress').val(""); 
+						}
+					});
+			});
+		    function submitForm(a){
+				//客户单位是必填项
+				if($("#cstomer_unit").val()==0){
+					mui.toast("客户单位不可为空！");
+				} else {
+					$("#operationType").val(a);
+					$("#accommodationFlag").val(flag);
+					$("#arrivalTime").val(arriTime);
+					$("#arrivalCompTime").val(arriCompany);
+					$("#submitType").val("create");	
+					$.ajax({
+						url: pathUrl+'/addCustomerReception.action',
+						type:'post',
+						data :$("#fm").serialize(),
+						async:false,//同步请求
+						dataType:'jsonp',
+						jsonp:'callback',
+						jsonpCallback:'flightHandler',
+						dataType:'json',
+						success:function(data){
+							var dataJson = JSON.parse(data);
+							var msg= dataJson.msg;
+							var targetUrl = "customerReception.html";		 
+							//restore the code into URL 
+							if (localStorage.wxCode != null) {
+								var wxdata = JSON.parse(localStorage.wxCode);
+								if (wxdata) {
+									targetUrl = targetUrl + "?code=" + wxdata.code;
+								}
+							}
+							var msgArray = ['确定'];
+							if(msg.indexOf("提交成功!") != -1){
+								mui.confirm('操作成功！', '', msgArray, function(e) {
+									$('.mui-popup-backdrop').show();
+									mui.openWindow({
+										url:targetUrl
+									});
+								});
+							}else{
+								mui.confirm('操作失败！', '', msgArray, function(e) {
+									mui.openWindow({
+										url:targetUrl
+									});
+								});
+							}
+		    			}    
+					});	 
+				}
+			};
+		    $("#cstomer_unit").blur(function(){   		
+				if($("#cstomer_unit").val()==0){
+					mui.toast("客户单位不可为空！");
+				}
+		    });
+		    //验证数字
+		    function validatePeople(){
+		    	if (document.getElementById("escortNumber").value != ""){
+			    	var value = document.getElementById("escortNumber").value;
+			    	var reg=/^\d+$/; 
+			    	if(!reg.test(value)){
+			    		document.getElementById("escortNumber").value='';
+			    		mui.toast("请输入正确的数字！");
+			    		document.getElementById("escortNumber").focus();
+			    		return false;
+			    	}
+		    	}
+		    };
+		    function validateDay(){
+		    	if (document.getElementById("invNumber").value != ""){
+			    	var value = document.getElementById("invNumber").value;
+			    	var reg=/^\d+$/; 
+			    	if(!reg.test(value)){
+			    		document.getElementById("invNumber").value='';
+			    		mui.toast("请输入正确的数字！");
+			    		document.getElementById("invNumber").focus();
+			    		return false;
+			    	}
+		    	}
+		    };
+		    function validateNight(){
+		    	if (document.getElementById("accNumber").value != ""){
+			    	var value = document.getElementById("accNumber").value;
+			    	var reg=/^\d+$/; 
+			    	if(!reg.test(value)){
+						document.getElementById("accNumber").value='';
+						mui.toast("请输入正确的数字！");
+						document.getElementById("accNumber").focus(); 
+						return false;
+			    	}
+		    	}
+		    };
+		    function validatePhone(){
+			    if (document.getElementById("contactPhone").value != ""){
+				    var phone=document.getElementById("contactPhone").value;
+				    var reg =/^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+				    if (!reg.test(phone)){
+						document.getElementById("contactPhone").value='';    
+						mui.toast('对不起，您输入的电话号码有错误');
+						document.getElementById("contactPhone").focus();    
+						return false;
+		    		}    
+			    }   
+		    };
+	    </script>
+    </body>
+</html>

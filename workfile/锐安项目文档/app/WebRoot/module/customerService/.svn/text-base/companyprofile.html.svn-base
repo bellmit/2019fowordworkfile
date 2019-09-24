@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>公司简介</title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/mui.picker.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">走进锐安——公司简介</h1>
+</header>
+<div class="mui-content">
+	
+	
+	
+	
+	
+	
+	<!--<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">-->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="titleList clearfix">
+			<a class="mui-control-item paddingNone left mui-active " href="#item1mobile" data-id="0">企业介绍</a>
+			<a class="mui-control-item paddingNone left" href="#item2mobile" data-id="1">业务领域</a>
+			<a class="mui-control-item paddingNone left" href="#item3mobile" data-id="2">品牌理念</a>
+			<a class="mui-control-item paddingNone left" href="#item4mobile" data-id="3">企业荣誉</a>
+			<input type="hidden" id="status" value="0">
+		</div>
+	</div>
+	<div class="mui-slider-group">
+		<!--全部-->
+		<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+			北京锐安科技有限公司（简称“锐安科技”）正式成立于2003年，是国内领先的大数据信息化解决方案提供商，专注于为客户提供大数据服务、网络安全、信息技术装备三大业务领域的产品、技术与解决方案，致力于构建安全、高效的服务体系。锐安科技拥有员工1000余人，业务遍及全国34个省市，200余地市。总部位于北京，在全国各省、市、自治区设有多个研发中心及区域分公司，拥有覆盖全国的服务网络和客户交付与技术支持中心，为客户提供高效、便捷的服务。
+		</div>
+		<!--待审核-->
+		<div id="item2mobile" class="mui-slider-item mui-control-content">
+			锐安科技始终坚持以客户为中心，用深厚的行业积累和精湛的技术能力，不断提升客户体验和满意度，与客户建立长期的合作共赢关系。目前，为GA、网信、BM、检察、法院、电力、运营商等多个政府部门及企事业单位，全方位地提供各类优质的大数据信息化产品、解决方案及技术服务。
+		</div>
+		<!--派单中-->
+		<div id="item3mobile" class="mui-slider-item mui-control-content">
+			锐安科技以“让信息更有价值”作为企业使命，秉承“客户至上、求实创新、艰苦奋斗、携手共赢”的核心价值观，始终聚焦于大数据领域的创新与变革，紧跟互联网发展趋势，积极构建业务平台、数据平台和运营平台，紧密结合大数据分析和处理技术。在数据采集、数据分析、数据挖掘、数据治理的信息化建设等多个领域取得了巨大的进展，与客户、生态伙伴共同构建了多赢的局面。
+		</div>
+		<!--已完成-->
+		<div id="item4mobile" class="mui-slider-item mui-control-content">
+			锐安科技拥有计算机软件著作权147项、授权专利120项、申请专利421项，荣获“智能海量数据资源中心AyenaV2.1”国家重点新产品奖、“分布式海量数据分析系统”科技进步奖等多项部级荣誉。同时，拥有涉密系统集成资质甲级、计算机系统集成一级资质、重点软件企业称号等30余项资质证书。
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/global.js"></script>
+</body>
+</html>

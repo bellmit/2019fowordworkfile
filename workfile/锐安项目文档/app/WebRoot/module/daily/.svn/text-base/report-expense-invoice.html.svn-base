@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>报工-费用报销</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link href="../../css/mui.min.css" rel="stylesheet" >
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/app.css" rel="stylesheet" />
+		<link href="../../css/myui.css" rel="stylesheet" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.mui-input-group .mui-input-row{
+				height: auto;
+			}
+			.myui-check-label span{
+				 display: inline-block;
+			 }
+			.myui-check-label span:nth-child(1){
+				 width: 30%;
+			 }
+			.myui-check-label span:nth-child(2){
+			 	width: 60%;
+			 }
+			 .myui-check-label span:nth-child(3){
+			 	padding-top:10px;
+			 }
+			 input[type=checkbox]{
+				padding-top:500px;
+
+			}
+		</style>  
+	</head>
+	<body style="position: relative;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">发票池</h1>
+		</header>
+		<div class="mui-content"> 
+			<div class="mui-card">
+				<form class="mui-input-group">
+					<div class="mui-table-view spend-info-view">
+						<ul id="pullrefresh" class="formList" style="border-top: none;">
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div>
+			<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="toAssortPage()">确定</button>
+			</div><div id="info"></div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+ 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> 
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/task-reportExpense.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script>
+	    var wxObjet = {};
+    	var url = window.location.href.split("#")[0];
+    	if(localStorage.wxUser != null && localStorage.wxCode!=null){
+    		var wxCodes = getQueryString("code");
+    		var wxdata = JSON.parse(localStorage.wxCode);
+    		if(wxdata.code == wxCodes){
+    			var data = JSON.parse(localStorage.wxUser);
+    		}else{
+    		    if (wxCodes) {
+    		        setTimeout(function(){getUserDataInfo()},400);	
+    		    }	    		    
+    		}
+    	}else{
+    		getUserDataInfo();
+    	}
+    	function getUserDataInfo(){
+    		//获取code
+    		var code = getQueryString("code");
+    		localStorage.removeItem("wxCode");
+    		var wxCode = {code:code};
+    		var str = JSON.stringify(wxCode);
+    		localStorage.wxCode = str;    		
+    		$.ajax({
+    			url:pathUrl+'/queryWXUserInfo.action',
+    			type:'post',
+    			data : {
+    				code:code,
+    				AppId:'DAILY_RECEIPTION'
+    			},
+    			async:false,/*同步请求*/
+    			dataType:'jsonp',
+    			jsonp:'callback',
+    			jsonpCallback:'flightHandler',
+    			error : function(){
+    				mui.toast('授权失败！');
+    			},
+    			success:function(data){
+    				var userData = JSON.parse(data);
+    				var message = userData.msg;
+    				if(message.indexOf("success") != -1){
+    					localStorage.removeItem("wxUser");
+    					var wxUser = {userName:userData.userName,wXUserId:userData.wXUserId,company:userData.departName,phone:userData.mobile,parentCompany:userData.parentDeptName};
+    					var str = JSON.stringify(wxUser);
+    					localStorage.wxUser = str;
+    				}
+    			}    
+    		});	
+    	}
+    	//获取url？后的参数
+    	function getQueryString(name) {
+    		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    		var r = window.location.search.substr(1).match(reg);
+    		if (r != null) return unescape(r[2]);
+    		return null;
+    	}
+	</script>
+</html>

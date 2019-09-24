@@ -1,0 +1,10 @@
+{
+	"dataList":[
+		{"id":"1","name1":"0001","regio":"aaaa","ort01":"bbbbb","street1":"236","status":"edit"},
+		{"id":"2","name1":"0002","regio":"aaaa","ort01":"bbbbb","street1":"237","status":"commit"},
+		{"id":"3","name1":"0003","regio":"aaaa","ort01":"bbbbb","street1":"236","status":"over"},
+		{"id":"4","name1":"0004","regio":"aaaa","ort01":"bbbbb","street1":"236","status":"edit"},
+		{"id":"5","name1":"0005","regio":"aaaa","ort01":"bbbbb","street1":"236","status":"commit"},
+		{"id":"6","name1":"0006","regio":"aaaa","ort01":"bbbbb","street1":"236","status":"over"}
+	]
+}

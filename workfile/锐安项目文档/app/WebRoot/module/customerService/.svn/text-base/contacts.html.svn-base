@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>联系人</title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/mui.picker.css" rel="stylesheet" />
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">陕西净可为一期工程合同</h1>
+</header>
+<div class="mui-content mui-contractlist-content">
+	<ul class="contacts">
+		<li class="clearfix">
+			<img src="images/temp_1.png" alt="" class="left" />
+			<div class="left contactsDes">
+				<div class="clearfix contactsDesPart_1"><span class="left">尤昕</span><span class="right">陕西代表处主任</span></div>
+				<div class="clearfix contactsDesPart_2"><label>个人简介：</label><span>个人简介个人简介</span></div>
+			</div>
+			<div class="right contactInfomation">
+				<a href="#">电话</a>
+				<a href="#">微信</a>
+			</div>
+		</li>
+		<li class="clearfix">
+			<img src="images/temp_1.png" alt="" class="left" />
+			<div class="left contactsDes">
+				<div class="clearfix contactsDesPart_1"><span class="left">尤昕</span><span class="right">陕西代表处主任</span></div>
+				<div class="clearfix contactsDesPart_2"><label>个人简介：</label><span>个人简介个人简介</span></div>
+			</div>
+			<div class="right contactInfomation">
+				<a href="#">电话</a>
+				<a href="#">微信</a>
+			</div>
+		</li>
+		<li class="clearfix">
+			<img src="images/temp_1.png" alt="" class="left" />
+			<div class="left contactsDes">
+				<div class="clearfix contactsDesPart_1"><span class="left">尤昕</span><span class="right">陕西代表处主任</span></div>
+				<div class="clearfix contactsDesPart_2"><label>个人简介：</label><span>个人简介个人简介</span></div>
+			</div>
+			<div class="right contactInfomation">
+				<a href="#">电话</a>
+				<a href="#">微信</a>
+			</div>
+		</li>
+		<li class="clearfix">
+			<img src="images/temp_1.png" alt="" class="left" />
+			<div class="left contactsDes">
+				<div class="clearfix contactsDesPart_1"><span class="left">尤昕</span><span class="right">陕西代表处主任</span></div>
+				<div class="clearfix contactsDesPart_2"><label>个人简介：</label><span>个人简介个人简介</span></div>
+			</div>
+			<div class="right contactInfomation">
+				<a href="#">电话</a>
+				<a href="#">微信</a>
+			</div>
+		</li>
+		<li class="clearfix">
+			<img src="images/temp_1.png" alt="" class="left" />
+			<div class="left contactsDes">
+				<div class="clearfix contactsDesPart_1"><span class="left">尤昕</span><span class="right">陕西代表处主任</span></div>
+				<div class="clearfix contactsDesPart_2"><label>个人简介：</label><span>个人简介个人简介</span></div>
+			</div>
+			<div class="right contactInfomation">
+				<a href="#">电话</a>
+				<a href="#">微信</a>
+			</div>
+		</li>
+	</ul>
+</div>
+<a href="#" class="bottomBackBtn marginT60">提交</a>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/global.js"></script>
+</body>
+</html>

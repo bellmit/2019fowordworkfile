@@ -1,0 +1,367 @@
+/*
+ *这是单独为项目准备的个性化css，可以覆盖标准mui的css定义；
+ */
+/*头部*/
+/* .mui-bar-nav{
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.mui-bar{
+	background-color: #1b3350;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.mui-bar .mui-title{
+	color: #fff;
+}
+.mui-bar-nav.mui-bar .mui-icon{
+	border:1px solid #fff;
+	border-radius: 50%;
+	color: #fff;
+	padding: 2px;
+	left: 10px;
+	top: 7px;
+} */
+
+/*选型卡*/
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+	border-bottom: none;
+}
+
+
+/*任务详情*/
+.t5{
+	margin-top: 5px;
+}
+.t10{
+	margin-top: 10px;
+}
+.l10{ margin-left: 10px;}
+.l20{ margin-left: 20px;}
+.r10{margin-right: 10px;}
+.clear{
+	clear: both;
+}
+.task-title-lh{
+	line-height: 40px;
+}
+/* 进度条 */
+.mui-progressbar{
+	height: 10px;
+	background-color: #eee;
+}
+.mui-progressbar-success span{
+	background-color: #4cd964;
+}
+/* 任务详情操作按钮 */
+.task-btn{
+	background-color: #000;
+	opacity: 0.4;
+	border-radius: 50%;
+	height: 46px;
+	width: 46px;
+	position: fixed;
+	right: 15px;
+	bottom: 65px;
+	text-align: center;
+	padding-top: 10px;
+}
+.task-btn span{
+	color: #fff;	
+}
+.task-btn-child div:nth-child(1){
+	right: 10px;
+	bottom: 125px;
+}
+.task-btn-child div:nth-child(2){
+	right: 60px;
+	bottom: 105px;
+}
+.task-btn-child div:nth-child(3){
+	right: 70px;
+	bottom: 54px;
+}
+.task-btn-child div:nth-child(4){
+	right: 40px;
+	bottom: 10px;
+}
+.mui-btn-block{
+	margin-bottom: 0;
+	font-size: 0.62222222rem;
+	padding:10px 0;
+}
+
+/* 目录导航 */
+
+
+/* 头部按钮 */
+.mui-bar-nav .mui-btn{
+	padding:5px 12px 5px;
+}
+.formList input,.formList button,.formList label,.formList span,.formList textarea{
+	font-size: 0.62222222rem;
+}
+
+.formList .mui-card-content{
+	font-size: 0.62222222rem;
+}
+.formList button{
+	padding: 3px 12px;
+}
+.user-portal-red{
+	border-radius: 4px;
+	padding:5px;
+	margin-right: 10px;
+	background-color: #F14E41;
+	color: #fff;
+}
+.formList .mr{
+	margin-right: 0.74074074rem;
+}
+.myui-right{
+	text-align: right;
+}
+.myui-baobei-list-icon,.myui-baobei-list-icon-b,.myui-list-title,.myui-circle-list-icon,.myui-circleB-list-icon{
+	background-color: #F14E41;
+	border-radius: 5px;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	padding-top: 5px;
+	margin-right: 10px;
+}
+.myui-circleB-list-icon{
+	height: 60px;
+	width: 60px;
+	display: inline-block;
+	border-radius: 50%;
+	background-color: #4cd964;
+}
+.myui-circle-list-icon{
+	border-radius: 50%;
+	background-color:#EC971F;
+	
+}
+.myui-list-title{
+	width: auto;
+	padding: 5px 10px 0 10px;
+}
+.myui-baobei-list-icon-b{
+	background-color: #007aff;
+}
+.myui-baobei-list-icon img,.myui-baobei-list-icon-b img{
+	height: 26px;
+}
+.myui-baobei-list-icon span,.myui-baobei-list-icon-b span,.myui-list-title span,.myui-circle-list-icon span{
+	color: #fff;
+	font-size: 0.68333333rem;
+	line-height: 1.18333333rem;
+}
+.myui-circleB-list-icon span{
+	color: #fff;
+	font-size: 1.38333333rem;
+	line-height: 50px;
+}
+.myui-list-title{
+	font-size: 0.58333333rem;
+}
+
+.fixBox{
+	margin-bottom: 10px;;
+}
+/* 筛选 */
+.mui-choose{
+	display: inline-block;
+	width: 20%;
+	margin: 0 10px;
+}
+.mui-choose span{
+	font-size: 0.63333333rem;
+}
+.red{
+	color:red ;
+}
+.mui-massege-red{
+	background-color: #ffebeb;
+	padding: 10px 0;
+	font-size: 0.63333333rem;
+	text-align: center;
+	color: red;
+}
+.line{
+	height: 1px;
+	border-top: 1px dotted #ddd;
+	width: 100%;
+	margin: 5px 0;
+}
+.mui-h4,h4{
+	font-size: 0.73333333rem;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+	font-size: 1.0625rem ;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	font-size: 0.775rem ;
+}
+.myui-menu li img{
+	height: 1.75rem  ;
+}
+.mui-grid-view.mui-grid-9.myui-menu{
+	background-color: #fff !important;
+}
+.mui-grid-view.mui-grid-9:after{
+	content: '';
+	height: 0;
+}
+.mui-radio input,.mui-radio label{
+	vertical-align: middle;
+}
+.mui-radio input[type=radio]{
+	top:0.25rem  ;
+}
+.form-address-img{
+	height: 1.05rem;
+	display: inline-block;
+	width: 1.05rem;
+	vertical-align: middle;
+	margin: 0 0.74074074rem;
+	position: relative;
+	top: 0.75rem ;
+}
+.myui-table-view .mui-media{
+	border:0;
+	border-top: 1px solid #ddd;
+	margin-top:13px ;
+	padding-top: 13px;
+}
+.myui-table-view li{
+	margin-top: 10px;
+	background-color: #fff;
+}
+
+.add-btn,.btn-search{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 10px 0;
+	font-size: 0.53333333rem;
+}
+.add-btn span{
+	border:1px solid #007aff;
+	border-radius: 50%;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	text-align: center;
+	margin-right: 10px;
+	font-size: 0.53333333rem;
+}
+.mui-h5{
+	font-size: 0.53333333rem;
+}
+.mui-content .myui-slider-link{
+	 color: #666;
+	 padding: 10px 0;
+ }
+ .wp40{
+	 width:40%!important;
+ }
+.formList{
+	padding-right: 15px;
+}
+.mui-card-content{
+	font-size: 0.53333333rem;
+}
+/* 展开更多 */
+.myui-more{
+	 width: 100%;
+	 text-align: center;
+	 display: inline-block;
+	 border-top: 1px solid #ddd;
+	 padding: 10px 0;
+	 margin-top: 10px;
+	 color: #007aff;
+	 font-size: 0.53333333rem;
+}
+.myui-more span{
+	 font-size: 0.73333333rem;
+	 border:1px solid #ccc;
+	 border-radius: 50%;
+	 color: #ccc;
+	 margin-left: 5px;
+}
+.formList li:last-child{
+	border-bottom: none;
+}
+/* flag */
+.myui-flag-bg{
+	background: url(../images/arrow-bg.png) repeat-x; 
+	width: 100%; 
+	height: 10px;
+}
+.myui-flag-content{
+	background-color: #fff;
+	padding: 30px 15px 20px 15px;
+}
+.myui-flag-content span{
+	font-size: 14px;
+}
+.myui-flag-content label{
+	font-size: 1.5rem ;
+	padding: 0 10px;
+	color: #007aff;
+}
+.center{
+	text-align: center;
+}
+.mui-table-view:after,.mui-table-view:before{
+	content: '';
+	height: 0;
+}
+.grey{
+	color: #666;
+}
+.green{
+	color: #008000;
+}
+.black{
+	color: #333;
+}
+.myui-child-pd div{
+	padding: 2px 0;
+}
+.myui-acceptance-icon img{
+	height: 18px;
+	margin: -2px 5px 0 0;
+}
+.myui-acceptance-icon img,.myui-acceptance-icon em{
+	vertical-align: middle;
+}
+/* 弹窗 */
+.mui-popup,.mui-popup-inner,.mui-popup-button:first-child,.mui-popup-button:last-child{
+	border-radius: 0;
+}
+.myui-bg-tec{
+	background-color: #fff ;
+	width: 86%;
+	padding: 20px 0;
+	margin-left: 7%;
+	margin-top: 10px;
+	position: relative;
+	display: block;
+}
+.myui-bg-tec em{
+    width:0;
+    height:0;
+    border-width:30px;
+    border-style:solid;
+    border-color:#efeff4 #efeff4 transparent transparent ;/*透明 灰 透明 透明 */
+    position:absolute;
+	top: 0;
+	right: -26px;
+}
+.myui-bg-tec .num{
+	padding: 10px 16px;
+	font-size: 0.53333333rem;
+	
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 消息推送 -->
+<hibernate-mapping package="com.bjrun.message.entity">
+	<class name="Message" table="message_send">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="agent_id" column="agent_id"></property>
+		<property name="to_user_name" column="to_user_name"></property>
+		<property name="to_wx_user_id" column="to_wx_user_id"></property>
+		<property name="to_telephone" column="to_telephone"></property>
+		<property name="from_user_name" column="from_user_name"></property>
+		<property name="status" column="status"></property>
+		<property name="title" column="title"></property>
+		<property name="content" column="content"></property>
+		<property name="from_platForm" column="from_platform"></property>
+		<property name="module" column="module"></property>
+		<property name="wx_msg_type" column="wx_msg_type"></property>
+		<property name="type" column="type"></property>
+		<property name="create_time" column="create_time"></property>
+		<property name="update_time" column="update_time"></property>
+	</class>
+</hibernate-mapping>
+

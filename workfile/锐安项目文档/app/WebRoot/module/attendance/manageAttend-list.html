@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>考勤管理视图</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet"/>
+		<link href="../../css/mui.poppicker.css" rel="stylesheet"/>
+		<link href="../../css/app.css" rel="stylesheet" />
+		<link href="../../css/myui.css" rel="stylesheet" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav"></header>
+		<div class="mui-content">
+			<ul  class="mui-table-view fixBox" style="position: absolute;top:1px;width: 100%;">
+				<li class=" mui-media relative mui-table-view-cell">
+				筛选：
+					<span class="mui-choose" style="width: 50%;">
+						<font id="queryDate" data-options='{"type":"date","beginYear":2000,"endYear":2099}' class="btn">时间</font> 
+						<span class="mui-icon mui-icon-arrowdown"></span>
+					</span>
+				</li>
+			</ul>
+		</div>
+	
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" class="mui-content" style="padding-top:60px;">
+			<div class="mui-scroll" id ="tishi">
+				<div class="topSearch" id="inputSearch">
+					<form id="myform" action="" onsubmit="return false;">
+						<div class="relative">
+							<input type="search" id=queryUserName class="f_input searchInput" placeholder="请输入关键字搜索如姓名"/>
+							<img src="../../images/searchicon.png" alt="" class="searchIcon"/>
+						</div>
+					</form>
+				</div>
+				<!-- 循环体 -->
+				<ul id="mui-alist-view" class="mui-table-view fixBox myui-table-view" style="background-color:transparent;">
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/city.data.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/global.js"></script>
+	
+	<script>
+		var wxObjet = {};
+    	var url = window.location.href.split("#")[0];
+    	if(localStorage.wxUser != null && localStorage.wxCode!=null){     
+    		var wxCodes = getQueryString("code");
+    		var wxdata = JSON.parse(localStorage.wxCode);
+    		if(wxdata.code == wxCodes){
+    			var data = JSON.parse(localStorage.wxUser);
+    		}else{
+    		    if (wxCodes) {
+    		        setTimeout(function(){
+    		        	getUserDataInfo()
+    		        },400);	
+    		    }	    		    
+    		}
+    	}else{
+    		getUserDataInfo();
+    	}
+    	
+    	$.ajax({
+			url:pathUrl+'/RunErpSystem/getSha1.action',
+			type:'post',
+			data : {
+				url:url,
+				AppId:'ATTENDANCE_MANAGEMENT'
+			},
+			async:false,/*同步请求*/
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			success:function(data){
+			
+				var test = JSON.parse(data);
+				wxObjet.timestamp = test.timestamp;
+				wxObjet.nonceStr = test.nonceStr;
+				wxObjet.signature = test.signature;
+		
+				wx.config({
+					beta: true,// 调用wx.invoke形式的接口值时，该值必须为true。
+					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					appId: 'wla377739e7a', // 必填，公众号的唯一标识
+					timestamp: wxObjet.timestamp, // 必填，生成签名的时间戳
+					nonceStr: wxObjet.nonceStr, // 必填，生成签名的随机串
+					signature: wxObjet.signature,// 必填，签名
+					jsApiList: ["getLocation","hideOptionMenu"] // 必填，需要使用的JS接口列表
+				});
+				
+				wx.ready(function(){
+					wx.hideOptionMenu();		
+				});
+		
+				wx.error(function(res){
+				});
+			}		
+		});
+    	
+    	function getUserDataInfo(){
+    		//获取code
+    		var code = getQueryString("code");
+    		localStorage.code = code;
+    		localStorage.removeItem("wxCode");
+    		var wxCode = {code:code};
+    		var str = JSON.stringify(wxCode);
+    		localStorage.wxCode = str;
+    		$.ajax({
+    			url:pathUrl+'/queryWXUserInfo.action',
+    			type:'post',
+    			data : {
+    				code:code,
+    				AppId:'LEAVE_RECEIPTION'
+    			},
+    			async:false,/*同步请求*/
+    			dataType:'jsonp',
+    			jsonp:'callback',
+    			jsonpCallback:'flightHandler',
+    			error : function(){
+    				mui.toast('授权失败！');
+    			},
+    			success:function(data){
+    				var userData = JSON.parse(data);
+    				var message = userData.msg;
+    				if(message.indexOf("success") != -1){
+    					localStorage.removeItem("wxUser");
+    					var wxUser = {userId:userData.userId,userName:userData.userName,wXUserId:userData.wXUserId,company:userData.departName,phone:userData.mobile,parentCompany:userData.parentDeptName};
+    					var str = JSON.stringify(wxUser);
+    					localStorage.wxUser = str;
+    				}
+    			}    
+    		});	
+    	}
+    	//获取url？后的参数
+    	function getQueryString(name) {
+    		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    		var r = window.location.search.substr(1).match(reg);
+    		if (r != null) return unescape(r[2]);
+    		return null;
+    	}
+	</script>
+	<script src="js/manageAttend-list.js"></script>
+</html>

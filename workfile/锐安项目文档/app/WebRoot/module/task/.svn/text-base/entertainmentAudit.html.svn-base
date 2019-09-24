@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>员工招待费调整审批</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<!-- <script src="../../js/vrv-jssdk.js"></script> -->
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+
+	<style>
+		.title{
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		
+	
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">员工招待费调整审批页面</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view fixBox">
+				<li class="mui-media relative mui-table-view-cell">
+					<div>
+						<div class="myui-baobei-list-icon mui-pull-left" style="width: 60px;"><span id="">招待费</span></div>
+						<div class="mui-media-body mui-pull-left">
+							<span id="">申请人：</span><span id="applyUserName"></span>
+							<p class="mui-ellipsis clearfix">申请部门：<span id="applyDepart"></span></p>
+							<p class='mui-ellipsis clearfix'>申请日期：<span id="applyTime"></span></p>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul id="checkDate" class="mui-table-view fixBox">
+			</ul>
+			<ul class="mui-table-view fixBox">
+				<li class="mui-media relative mui-table-view-cell">
+					<div>申请原因：<span id="askReason"></span></div>
+					<div>相关附件： <span id="fileName"></span></div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix" id="ifAgree">
+					<div class="left label">是否同意</div>
+					<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+						<button type="button" class="mui-btn mui-btn t5">不同意</button>
+					</div>
+					<div class="mui-radio right" style=" display: inline-block; ">
+						<button type="button" class="mui-btn mui-btn-primary t5">同意</button>
+					</div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix"  style="height: auto;">
+					<textarea class="mui-input-speech t10" id="comment" rows="5" placeholder="请输入审批意见"></textarea>
+				</li>
+			</ul>
+
+			<div class="mui-card">
+				<button type="button" onclick="checkleave()" class="mui-btn mui-btn-primary mui-btn-block">提交</button>
+			</div>
+				
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/entertainmentAudit.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+	</script>
+</html>

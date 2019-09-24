@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="true" package="com.bjrun.mobile.entity.wxApp">
+	<class name="WxAppInfo" table="app_wx_info">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="appKey" column="app_key"></property>
+		<property name="appValue" column="app_value"></property>
+		<property name="appId" column="appId"></property>
+		<property name="expired_date" column="expired_date"></property>
+		<property name="create_date" column="creatDate"></property>
+	</class>
+</hibernate-mapping>

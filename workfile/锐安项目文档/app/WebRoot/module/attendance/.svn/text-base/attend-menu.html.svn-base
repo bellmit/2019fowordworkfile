@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>考勤管理目录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/myui.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../../css/app.css"/>
+		<script src="../../js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="js/attend-menu.js"></script>
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>    
+		<header class="mui-bar mui-bar-nav">
+			<a id = "closePage" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">考勤管理目录</h1>
+		</header>     
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view mui-grid-9 myui-menu">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="attendance-list.html">
+						<img src="../../images/attendance-menu5.png" alt="">
+						<div class="mui-media-body">考勤明细</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="manageAttend-list.html">
+						<img src="../../images/acceptance-icon6.png" alt="">
+						<div class="mui-media-body">管理者视图</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="vacation-list.html">
+						<img src="../../images/acceptance-icon6.png" alt="">
+						<div class="mui-media-body">请假记录</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="apply-holidays.html">
+						<img src="../../images/attendance-menu4.png" alt="">
+						<div class="mui-media-body">假期明细</div>
+					</a>
+				</li>
+			</ul> 		
+		</div>
+	</body>
+
+	<script>
+		var wxObjet = {};
+    	var url = window.location.href.split("#")[0];
+    	if(localStorage.wxUser != null && localStorage.wxCode!=null){     
+    		var wxCodes = getQueryString("code");
+    		var wxdata = JSON.parse(localStorage.wxCode);
+    		if(wxdata.code == wxCodes){
+    			var data = JSON.parse(localStorage.wxUser);
+    		}else{
+    		    if (wxCodes) {
+    		        setTimeout(function(){getUserDataInfo()},400);	
+    		    }	    		    
+    		}
+    	}else{
+    		getUserDataInfo();
+    	}
+    	function getUserDataInfo(){
+    		//获取code
+    		var code = getQueryString("code");
+    		localStorage.code = code;
+    		localStorage.removeItem("wxCode");
+    		var wxCode = {code:code};
+    		var str = JSON.stringify(wxCode);
+    		localStorage.wxCode = str;
+    		$.ajax({
+    			url:pathUrl+'/queryWXUserInfo.action',
+    			type:'post',
+    			data : {
+    				code:code,
+    				AppId:'ATTENDANCE_MANAGEMENT'
+    			},
+    			async:false,/*同步请求*/
+    			dataType:'jsonp',
+    			jsonp:'callback',
+    			jsonpCallback:'flightHandler',
+    			error : function(){
+    				mui.toast('授权失败！');
+    			},
+    			success:function(data){
+    				var userData = JSON.parse(data);
+    				var message = userData.msg;
+    				if(message.indexOf("success") != -1){
+    					localStorage.removeItem("wxUser");
+    					var wxUser = {userId:userData.userId,userName:userData.userName,wXUserId:userData.wXUserId,company:userData.departName,phone:userData.mobile,parentCompany:userData.parentDeptName};
+    					var str = JSON.stringify(wxUser);
+    					localStorage.wxUser = str;
+    				}
+    			}    
+    		});	
+    	}
+    	//获取url？后的参数
+    	function getQueryString(name) {
+    		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    		var r = window.location.search.substr(1).match(reg);
+    		if (r != null) return unescape(r[2]);
+    		return null;
+    	}
+	</script>
+</html>

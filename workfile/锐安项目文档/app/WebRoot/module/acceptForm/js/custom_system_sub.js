@@ -1,0 +1,630 @@
+
+$(function () {
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				callback: pullupRefresh
+			}
+		}
+	});
+	if(localStorage.wxUser!=null){
+	 getCustomList();
+	}
+   
+	
+	//点击页面隐藏自动补全提示框
+	document.onclick = function(e) {
+		var e = e ? e : window.event;
+		var tar = e.srcElement || e.target;
+		if (tar.id != "autoInput") {
+			if ($("#auto_div").is(":visible")) {
+				$("#auto_div").css("display", "none");
+				$('.mui-table-view').removeClass('hide');
+			}
+		}
+	};
+	//查看按钮
+	$('.chkBtn').die().live('touchend',function(){
+		$(this).toggleClass('slt');
+		
+		if($(this).text()=='查看'){
+		//alert(1);
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+		    mui.openWindow({
+			    url:"accept_chkquestion.html"
+			});
+		}else if($(this).text()=='确认'){
+		//alert(2);
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+			mui.openWindow({
+				 url:"accept_serverconfirm.html"
+			});
+		}else if($(this).text()=='评价'){
+		//alert(3);
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+			mui.openWindow({
+				url:"accept_serverevaluate.html"
+			});
+		}
+	});
+	//题目点击
+	$('.customList .titleText').die().live('touchend',function(){
+		$(this).toggleClass('slt');
+		if($(this).next().text()=='查看'){
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+			mui.openWindow({
+				url:"accept_chkquestion.html"
+			});
+		}else if($(this).next().text()=='确认'){
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+			mui.openWindow({
+				url:"accept_serverconfirm.html"
+			});
+		}else if($(this).next().text()=='评价'){
+			var aid = $(this).parent().parent().attr("value");
+			var obj = {id:aid};
+			var str = JSON.stringify(obj);
+			localStorage.obj = str;
+			mui.openWindow({
+				url:"accept_serverevaluate.html"
+			});
+		}
+	});
+});
+
+/**
+ * 下拉刷新具体业务实现
+ */
+function pulldownRefresh() {
+	setTimeout(function() {
+		// addData();
+		getCustomList();
+		mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		mui('#pullrefresh').pullRefresh().refresh(true); //上拉后可以再次加载
+		// mui.toast("加载了两条数据");
+	}, 1500);
+}
+var count = 0;
+
+$('#myform').bind('search',function(){
+	getCustomList();
+	document.activeElement.blur();
+})
+
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+	setTimeout(function() {
+		
+		// mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+		var loginUser = JSON.parse(localStorage.wxUser);
+		var loginKhName=loginUser.userName ;
+		var table = $('.mui-table-view');
+		var cells = $('.customList');
+		var newCount = cells.length>0?5:5;//首次加载10条，满屏
+		var lastId = $("#clientQuestionList li:last-child").attr("value");
+		var condition = $("#condition").val();
+		$.ajax({
+			url: pathUrl+'/getAcceptInfoToMobile.action',
+			type:"post",
+			data:{
+				condition:condition,
+				name:loginKhName,
+				pageSize:10,
+				lastId:lastId
+			},
+			async:false,/*同步请求*/
+			dataType:"jsonp",
+			jsonp:"callback",
+			jsonpCallback:'flightHandler',
+			success:function(data){
+			//处理数据格式
+			  var data = JSON.parse(data);
+			  
+			  var dataList = "";
+			  mui('#pullrefresh').pullRefresh().endPullupToRefresh((data.dataSize == 0)); //参数为true代表没有更多数据了。
+			 if(data.dataSize == 0 && condition=='' && $("#clientQuestionList").html()==''){
+  			   $("#tishi").html('');
+  			  	 dataList = '<div class="nodata" style="height:'+document.documentElement.clientHeight+'px">'+
+							'<P>'+
+							'您还未在政务微信中提交过9999问题，如需提问请点右上角+'+
+							'</P>'+
+							'</div>'
+  			   	$("#tishi").append(dataList);
+  			   }
+			  $.each(data.dataList,function(i,custom){			
+			  //处理数据格式
+		  		 custom = JSON.stringify(custom);
+		  		 custom =JSON.parse(custom);
+		  		  
+				 if(custom.status=='1'){
+					    dataList='<li class="customList" value="'+custom.acId+'">'+
+								 '<div class="listTitle clearfix">'+
+								  	'<span class="left status red">已提交</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								 '</div>'+
+								 '<div class="bordergrey nocolor"></div>'+
+								 '</li>';
+				  }else if(custom.status=='2'){
+						dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">已派发</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">受理时间：'+custom.acceptDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }else if(custom.status=='3'){
+				  	if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">处理中</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+										'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  	}else if (custom.executor==''){
+				  		dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">处理中</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+		
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  	}
+						
+				  }else if(custom.status=='5'){
+				  if(custom.executor!=''){dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">待确定</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">确认</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+										'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+										
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';}
+								else if(custom.executor==''){
+								dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">待确定</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">确认</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+										
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';}
+						
+				  }else if(custom.status=='6'){
+				  if(custom.executor!=''){
+				  	 dataList='<li class="customList" value="'+custom.acId+'">'+
+										'<div class="listTitle clearfix">'+
+											'<span class="left status yellow">待评价</span>'+
+											'<h6 class="left titleText">'+custom.title+'</h6>'+
+											'<a href="javascript:;" class="right chkBtn">评价</a>'+
+										'</div>'+
+										'<div class="bordergrey"></div>'+
+										'<dl class="bottomCon">'+
+											'<dd class="clearfix">'+
+												'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+												'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+												
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+											'</dd>'+
+										'</dl>'+
+										'</li>';
+				  }else if(custom.executor==''){
+				  	 dataList='<li class="customList" value="'+custom.acId+'">'+
+										'<div class="listTitle clearfix">'+
+											'<span class="left status yellow">待评价</span>'+
+											'<h6 class="left titleText">'+custom.title+'</h6>'+
+											'<a href="javascript:;" class="right chkBtn">评价</a>'+
+										'</div>'+
+										'<div class="bordergrey"></div>'+
+										'<dl class="bottomCon">'+
+											'<dd class="clearfix">'+
+												'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+											'</dd>'+
+										'</dl>'+
+										'</li>';
+				  }
+						 
+				  }else if(custom.status=='4'){
+				  if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+									'<div class="listTitle clearfix">'+
+										'<span class="left status green">已完成</span>'+
+										'<h6 class="left titleText">'+custom.title+'</h6>'+
+										'<a href="javascript:;" class="right chkBtn">查看</a>'+
+									'</div>'+
+									'<div class="bordergrey"></div>'+
+									'<dl class="bottomCon">'+
+										'<dd class="clearfix">'+
+											'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+											'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+										'</dd>'+
+									'</dl>'+
+								'</li>';
+				  }else if(custom.executor==''){
+				  dataList='<li class="customList" value="'+custom.acId+'">'+
+									'<div class="listTitle clearfix">'+
+										'<span class="left status green">已完成</span>'+
+										'<h6 class="left titleText">'+custom.title+'</h6>'+
+										'<a href="javascript:;" class="right chkBtn">查看</a>'+
+									'</div>'+
+									'<div class="bordergrey"></div>'+
+									'<dl class="bottomCon">'+
+										'<dd class="clearfix">'+
+											'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+										'</dd>'+
+									'</dl>'+
+								'</li>';
+								}
+						
+				  }
+				 $("#clientQuestionList").append(dataList);
+				  
+			 });
+			
+		   }    
+   });
+	
+	}, 1500);
+}
+
+
+
+function getCustomList(){
+	var condition = $("#condition").val();
+	var loginUser = JSON.parse(localStorage.wxUser);
+	var loginKhName=loginUser.userName ;
+	$.ajax({
+			url: pathUrl+'/getAcceptInfoToMobile.action',
+			type:"post",
+			data:{
+				condition:condition,
+				name:loginKhName,
+				pageSize:10
+			},
+			async:false,/*同步请求*/
+			dataType:"jsonp",
+			jsonp:"callback",
+			jsonpCallback:'flightHandler',
+			error : function(){
+				alert("获取登录用户信息失败！");
+			},
+			success:function(data){
+			  //处理数据格式
+			  var data = JSON.parse(data);
+			  
+			  var dataList = "";
+  			  $("#clientQuestionList").html('');
+  			   if(data.dataSize == 0 && condition==''){
+  			   $("#tishi").html('');
+  			  	 dataList = '<div class="nodata" style="height:'+document.documentElement.clientHeight+'px">'+
+							'<P>'+
+							'您还未在政务微信中提交过9999问题，如需提问请点右上角+'+
+							'</P>'+
+							'</div>'
+  			   	$("#tishi").append(dataList);
+  			   }
+			  
+			  $.each(data.dataList,function(i,custom){	
+			  //处理数据格式
+		  		 custom = JSON.stringify(custom);
+		  		 custom =JSON.parse(custom);
+		  		 
+				  if(custom.status=='1'){
+					    dataList='<li class="customList" value="'+custom.acId+'">'+
+								 '<div class="listTitle clearfix">'+
+								  	'<span class="left status red">已提交</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								 '</div>'+
+								 '<div class="bordergrey nocolor"></div>'+
+								 '</li>';
+				  }else if(custom.status=='2'){
+						dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">已派发</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">受理时间：'+custom.acceptDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }else if(custom.status=='3'){
+				  if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">处理中</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+										'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }else if(custom.executor==''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">处理中</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">查看</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }
+						
+				  }else if(custom.status=='5'){
+				  if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">待确定</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">确认</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+										'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+										
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }else if(custom.executor==''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+								'<div class="listTitle clearfix">'+
+									'<span class="left status yellow">待确定</span>'+
+									'<h6 class="left titleText">'+custom.title+'</h6>'+
+									'<a href="javascript:;" class="right chkBtn">确认</a>'+
+								'</div>'+
+								'<div class="bordergrey"></div>'+
+								'<dl class="bottomCon">'+
+									'<dd class="clearfix">'+
+										'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+									
+									
+										
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+									'</dd>'+
+									'<dd class="clearfix">'+
+										'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+									'</dd>'+
+								'</dl>'+
+								'</li>';
+				  }
+						
+				  }else if(custom.status=='6'){
+				  if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+										'<div class="listTitle clearfix">'+
+											'<span class="left status yellow">待评价</span>'+
+											'<h6 class="left titleText">'+custom.title+'</h6>'+
+											'<a href="javascript:;" class="right chkBtn">评价</a>'+
+										'</div>'+
+										'<div class="bordergrey"></div>'+
+										'<dl class="bottomCon">'+
+											'<dd class="clearfix">'+
+												'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+												'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+												
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+											'</dd>'+
+										'</dl>'+
+										'</li>';
+				  }else if(custom.executor==''){
+				  		dataList='<li class="customList" value="'+custom.acId+'">'+
+										'<div class="listTitle clearfix">'+
+											'<span class="left status yellow">待评价</span>'+
+											'<h6 class="left titleText">'+custom.title+'</h6>'+
+											'<a href="javascript:;" class="right chkBtn">评价</a>'+
+										'</div>'+
+										'<div class="bordergrey"></div>'+
+										'<dl class="bottomCon">'+
+											'<dd class="clearfix">'+
+												'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+												
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+											'</dd>'+
+											'<dd class="clearfix">'+
+												'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+											'</dd>'+
+										'</dl>'+
+										'</li>';
+				  }
+						  
+				  }else if(custom.status=='4'){
+				  if(custom.executor!=''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+									'<div class="listTitle clearfix">'+
+										'<span class="left status green">已完成</span>'+
+										'<h6 class="left titleText">'+custom.title+'</h6>'+
+										'<a href="javascript:;" class="right chkBtn">查看</a>'+
+									'</div>'+
+									'<div class="bordergrey"></div>'+
+									'<dl class="bottomCon">'+
+										'<dd class="clearfix">'+
+											'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+											'<span class="left marginR60">执行人：'+custom.executor+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+										'</dd>'+
+									'</dl>'+
+								'</li>';
+				  }else if(custom.executor==''){
+				  	dataList='<li class="customList" value="'+custom.acId+'">'+
+									'<div class="listTitle clearfix">'+
+										'<span class="left status green">已完成</span>'+
+										'<h6 class="left titleText">'+custom.title+'</h6>'+
+										'<a href="javascript:;" class="right chkBtn">查看</a>'+
+									'</div>'+
+									'<div class="bordergrey"></div>'+
+									'<dl class="bottomCon">'+
+										'<dd class="clearfix">'+
+											'<span class="left marginR60">受理人：'+custom.acceptPerson+'</span>'+	
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">预计完成时间：'+custom.expectDate+'</span>'+
+										'</dd>'+
+										'<dd class="clearfix">'+
+											'<span class="left">实际完成时间：'+custom.completeDate+'</span>'+
+										'</dd>'+
+									'</dl>'+
+								'</li>';
+				  }
+						
+				  }
+				 $("#clientQuestionList").append(dataList);
+				  
+			 });
+			 
+			// var searchList='<div class="relative">'+
+			//						'<input type="text" id="condition" class="f_input searchInput" placeholder="请输入关键字搜索"/>'+
+			//						'<img src="images/searchicon.png" alt="" class="searchIcon"/>'+
+			//					'</div>';
+			//alert(2);
+			// $("#pullrefresh").append(searchList);
+		   }    
+   });    
+} 

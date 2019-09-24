@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- <script src="../../js/vrv-jssdk.js"></script> -->
+		<!--标准mui.css-->
+	    <link rel="stylesheet" href="../../css/mui.min.css">
+	    <link href="../../css/mui.picker.css" rel="stylesheet" />
+	    <link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	    <link href="../../css/app.css" rel="stylesheet" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			/*跨webview需要手动指定位置*/		
+			.mui-plus header.mui-bar {
+				display: none!important;
+			}
+			.mui-plus .mui-bar-nav~.mui-content {
+				padding: 0!important;
+			}
+			
+			.mui-plus .plus{
+				display: inline;
+			}
+			
+			.plus{
+				display: none;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			p {
+				text-indent: 22px;
+			}
+			.mui-popover {
+				height: 150px;
+				width: 100%;
+				z-index: 999999;
+			}
+			.mui-content {
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-col-xs-6 left" style="line-height: 40px;border-bottom: 3px solid #007AFF;">
+					报工信息
+				</a>
+				<!--<a class="mui-col-xs-4 left" stylel.="color: #000;line-height: 40px;" href="report-work.html">
+					具体工作
+				</a>-->
+				<a class="mui-col-xs-6 left" style="color: #000;line-height: 40px;"  onclick="toExpense();">
+					费用报销
+				</a>
+			</div>
+			<ul class="mui-table-view fixBox">
+				<li class=" mui-media relative mui-table-view-cell">
+					<div class="left mui-col-xs-9">
+						日期：
+						<span class="mui-choose" style="width: 50%;"><font id="dailyDate" data-options='{"type":"date","beginYear":2000,"endYear":2099}' class="btn">时间</font> <span class="mui-icon mui-icon-arrowdown"></span></span>
+					</div>
+					<div class="right mui-col-xs-3" style="text-align: right;">
+						<div class="mui-btn mui-btn-primary" id="subState"></div>
+					</div>
+				</li>
+				<li class=" mui-media relative mui-table-view-cell">
+					<div class="left mui-col-xs-6">
+						自我评价：
+						<span class="mui-choose" style="width: 50%;"><font id="evaluate"  class="btn">B</font> <span class="mui-icon mui-icon-arrowdown"></span></span>
+					</div>
+					<div class="right mui-col-xs-6">
+						<input type="text" class="f_input right mr wp100" placeholder="自我评价描述" id="evaluateDisc" />
+					</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view"> 
+	        <li class="mui-table-view-cell mui-collapse mui-active"><!--默认选中-->
+	            <a class="mui-navigate-right title" href="javascipt:;">考勤信息</a>
+	            <div class="mui-table-view mui-collapse-content">
+				<div class="mui-card-header" id="showSitePicker">
+					<span class="left"><span class="mui-icon mui-icon-map user-portal-red"></span><span id="site"></span></span>
+				</div>
+				<div class="clear"></div>
+				<ul class="mui-table-view fixBox">
+					<li class="mui-table-view-cell mui-media detailMsg">
+						<div>
+							<span class="mui-col-xs-4 left" id="amAttendStr"></span>
+							<span class="mui-col-xs-4 left" id="site1"></span>
+							<span class="mui-col-xs-4 left" id="describe1"></span>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<li class="mui-table-view-cell mui-media detailMsg fadeBox">
+						<div>
+							<span class="mui-col-xs-4 left" id="amClosingStr"></span>
+							<span class="mui-col-xs-4 left" id="site2"></span>
+							<span class="mui-col-xs-4 left" id="describe2"></span>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<li class="mui-table-view-cell mui-media detailMsg">
+						<div>
+							<span class="mui-col-xs-4 left" id="pmAttendStr"></span>
+							<span class="mui-col-xs-4 left" id="site3"></span>
+							<span class="mui-col-xs-4 left" id="describe3"></span>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<li class="mui-table-view-cell mui-media detailMsg fadeBox">
+						<div>
+							<span class="mui-col-xs-4 left" id="pmClosingStr"></span>
+							<span class="mui-col-xs-4 left" id="site4"></span>
+							<span class="mui-col-xs-4 left" id="describe4"></span>
+						</div>
+						<div class="clear"></div>
+					</li>
+				</ul>
+	            </div>
+	        </li>
+	    </ul>
+			<!-- 具体工作 -->
+			<div class="title">
+				今日计划
+			</div>
+			<div>
+				<ul class="mui-table-view fixBox myui-table-view" id="planCurr-content" style="background-color:transparent;">
+					<!--<li class=" mui-media relative mui-table-view-cell">
+						<div>今日计划(暂无)</div>	
+					</li>-->
+				</ul>
+			</div>
+			<div id="workList">
+			</div>
+			<div class="title">
+				明日计划
+			</div>
+			<ul class="formList" id="plan-content">
+				
+			</ul>
+					<div id='div'></div>	
+			<div id="middlePopover" class="mui-popover">
+			    <div class="mui-popover-arrow"></div>
+			    <div class="mui-scroll-wrapper">
+				    <div class="mui-scroll">
+					    <div style="float: left;padding-left: 3%;width: 40%;">
+						    <select id="deptSelection" onchange="initManagerInfo(this)">
+							    <option id="deptOptions" >请选择部门</option>
+						    </select>
+					    </div>
+					    <div style="float: left;padding-left: 3%;width: 40%;">
+						    <select id="memberSelection" onchange="selectMember(this,null)">
+							    <option id="memberOptions" >请选择人员</option>
+						    </select>
+					    </div>
+					    <div style="float:left;" id="projectText">
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+					
+			<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+				<button id='confirmBtn' onclick="submitDaily('0')" type="button" class="mui-btn mui-btn-warning mui-btn-block">草稿</button>
+				<button onclick="submitDaily('1')" type="button" class="mui-btn mui-btn-primary mui-btn-block t10">提交</button>
+			</div><div id="info"></div>
+			<!-- table -->
+			<div id="formList">
+			<ul class="formList" id="checkData">
+			</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="js/global.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script src="../../js/mui.dtpicker.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="../../js/city.data.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/task-reportInfo.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+</html>

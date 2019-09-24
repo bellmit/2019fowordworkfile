@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">客户信息</h1>
+			<a href="addcompany.html" class="mui-icon mui-icon-plus mui-icon-right-nav mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+		</div>
+		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/global.js"></script>
+		<script>
+            // mui 初始化
+            mui.init({
+                swipeBack : true, // 启用右滑关闭功能
+                subpages:[{
+                    url:'custominfo_sub.html',
+                    id:'custominfo_sub.html',
+					styles:{
+						top: '45px',
+						bottom: '0px'
+					}
+                }]
+            });
+		</script>
+	</body>
+</html>

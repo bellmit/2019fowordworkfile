@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bjrun.task.entity">
+	<class name="AgencyKeys" table="app_agency_list">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="agencyKeys" column="agency_key"></property>
+		<property name="agencyName" column="agency_name"></property>
+		<property name="agencyRemarks" column="agency_remark"></property>
+	</class>
+</hibernate-mapping>

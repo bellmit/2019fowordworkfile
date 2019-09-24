@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日报审批</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- <script src="../../js/vrv-jssdk.js"></script> -->
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../../css/feedback.css" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body style="position: relative;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">日报审批</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-table-view">
+				<div class="mui-card-header">
+					<span class="left"><span class="mui-icon mui-icon-contact user-portal-red"></span><span id="applyUser"></span></span>
+					<span class="mui-h5 right" style="color: #007AFF;" id="dailyDate"></span>
+				</div>
+				<div class="mui-card-content" id="baseInfo">
+					<div class="mui-card-content-inner">
+						<span class="mui-pull-left">工时合计<b class="mui-badge mui-badge-danger mui-badge-inverted" id="workHour"></b></span>
+						<span class="mui-badge mui-badge-primary mui-pull-right" id="subState"></span>
+						<div class="clear"></div>
+						<p class="mui-h5 t10" id="submitDate"></p>
+						<p class="mui-h5 t10" id="site"></p>
+						<div>今日计划</div>						
+						<ul class="mui-table-view fixBox myui-table-view" id="todayPlan" style="background-color:transparent;">
+			            </ul>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- 具体工作 -->
+			<div class="title">
+				具体工作
+			</div>
+			<div>
+				<ul id="work" class="mui-table-view fixBox myui-table-view" style="background-color:transparent;">
+					
+				</ul>
+			</div>
+			<!-- 自我评价 -->
+			<div class="title">
+				自我评价
+			</div>
+			<ul class="mui-table-view fixBox myui-table-view" style="background-color:transparent;">
+				<li class=" mui-media relative mui-table-view-cell" style="text-align: center;">
+					<span class="myui-circleB-list-icon"><span id="evaluate"></span></span>
+					<div class="t10" id="evaluateDisc"></div>
+				</li>
+			</ul>
+			<!-- 明日计划 -->
+			<div class="title">
+				明日计划
+			</div>
+			<ul class="mui-table-view fixBox myui-table-view" id="plan" style="background-color:transparent;">
+			</ul>
+			<!-- 明日计划 -->
+			<div class="title">
+				费用报销
+			</div>
+			<div class="mui-table-view" id="spend">
+				<div class="mui-card-content">
+				    <ul class="formList" style="border-top: none;" id="spend">
+					</ul>
+					<div class="clear"></div>
+					<ul id="assort">
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="mui-card-content" style="border-top: 1px solid #ddd;" id="auditHis">
+			</div>
+			<ul class="formList">
+				<li class="clearfix">
+					<div class="left label">
+						<span style="color: red">
+							负责审核该笔费用是否是必要，预算号是否正确，支出金额是否合理，以及是否符合公司费用的定义、标准、规范；是费用支出的经办负责人，承担《费用申请及支出管理办法》所规定的经办负责人职责。
+						</span>
+					</div>
+				</li>
+			</ul>		
+			<ul class="formList">
+				<li class="clearfix" id="ifAgree">
+					<div class="left label">是否肯定</div>
+					<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+						<button type="button" class="mui-btn mui-btn-primary t5">是</button>
+					</div>
+					<div class="mui-radio right" style=" display: inline-block; ">
+						<button type="button" class="mui-btn t5">否</button>
+					</div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix" style="height: auto;">
+					<textarea class="mui-input-speech t10" style="margin-bottom: 0;" id="dailyCheck" rows="5" placeholder="请输入费用审批意见"></textarea>
+				</li>
+			</ul>
+			<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+				<button id='confirmBtn'  type="button" class="mui-btn mui-btn-primary mui-btn-block t10">提交</button>
+			</div><div id="info"></div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/dailyCost.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script type="text/javascript" charset="utf-8">
+		//mui初始化
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var info = document.getElementById("info");	
+		document.getElementById("confirmBtn").addEventListener('tap', function() {
+			var btnArray = ['否', '是'];
+			mui.confirm('您确定要提交吗？', '', btnArray, function(e) {
+				if (e.index == 1) {
+					checkDaily();
+				}
+			})
+		});
+		// 是否肯定
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+		$('#ifReport button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+		
+	</script>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>补登审批</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../../css/feedback.css" />
+	<style>
+		.title{
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">审批详情-补登</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-table-view">
+				<div class="mui-card-header">
+					<span class="left"><span class="mui-icon mui-icon-contact user-portal-red"></span><span id="applyUser"></span></span>
+					<span class="mui-h5 right" style="color: #007AFF;" id="remedyDate"></span>
+				</div>
+				<div class="mui-card-content" id="baseInfo">
+					<div class="mui-card-content-inner">
+						<p class="mui-h5 t10" id="applyDate"></p>
+						<p class="mui-h5 t10" id="auditStatus"></p>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		
+			<div class="title">
+				上午 上班
+			</div>
+			<div class="mui-table-view" id="amAttending">
+				<div class="mui-card-content">
+				    <ul class="formList" style="border-top: none;" id="amAttending">
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="title">
+				上午 下班
+			</div>
+			<div class="mui-table-view" id="amClosing">
+				<div class="mui-card-content">
+				    <ul class="formList" style="border-top: none;" id="amClosing">
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="title">
+				下午 上班
+			</div>
+			<div class="mui-table-view" id="pmAttending">
+				<div class="mui-card-content">
+				    <ul class="formList" style="border-top: none;" id="pmAttending">
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="title">
+				下午 下班
+			</div>
+			<div class="mui-table-view" id="pmClosing">
+				<div class="mui-card-content">
+				    <ul class="formList" style="border-top: none;" id="pmClosing">
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<ul class="formList">
+				<li class="clearfix" id="ifAgree">
+					<div class="left label">是否同意</div>
+					<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+						<button type="button" class="mui-btn t5">不同意</button>
+					</div>
+					<div class="mui-radio right" style=" display: inline-block; ">
+						<button type="button" class="mui-btn mui-btn-primary t5">同意</button>
+					</div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix"  style="height: auto;">
+					<textarea class="mui-input-speech t10" id="remedyCheck" rows="5" placeholder="请输入审批意见"></textarea>
+				</li>
+			</ul>
+			<!-- <form> -->
+			<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+				<button id='confirmBtn'  type="button" class="mui-btn mui-btn-primary mui-btn-block t10">提交</button>
+			</div>
+				
+			<!-- </form> -->
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/global.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/remedyApproval.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script type="text/javascript" charset="utf-8">
+		//mui初始化
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var info = document.getElementById("info");	
+		document.getElementById("confirmBtn").addEventListener('tap', function() {
+			var btnArray = ['否', '是'];
+			mui.confirm('您确定要提交吗？', '', btnArray, function(e) {
+				if (e.index == 1) {
+					checkRemedy();
+				}
+			})
+		});
+		// 是否肯定
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+	</script>
+</html>

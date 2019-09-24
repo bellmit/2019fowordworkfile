@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>报工-费用报销</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<link href="../../css/mui.min.css" rel="stylesheet">
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/app.css" rel="stylesheet" />
+		<link href="../../css/myui.css" rel="stylesheet" />
+		<style>
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.mui-input-group .mui-input-row{
+				height: auto;
+			}
+			.myui-check-label span{
+				 display: inline-block;
+			 }
+			.myui-check-label span:nth-child(1){
+				 width: 30%;
+			 }
+			.myui-check-label span:nth-child(2){
+			 	width: 60%;
+			 }
+			 .myui-check-label span:nth-child(3){
+			 	padding-top:10px;
+			 }
+		</style>
+	</head>
+	<body style="position: relative;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="backDailyList()"></a>
+			<h1 class="mui-title">报工-费用报销</h1>
+			<span id="addReceipt" class="mui-icon mui-icon-close right" style="transform:rotate(45deg)"></span>
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-col-xs-6 left" style="color: #000;line-height: 40px;" onclick="toWorkPage()">
+					报工信息
+				</a>
+				<!--<a class="mui-col-xs-4 left" style="color: #000;line-height: 40px;" href="report-work.html">
+					具体工作
+				</a>-->
+				<a class="mui-col-xs-6 left" style="line-height: 40px;border-bottom: 3px solid #007AFF;"  >
+					费用报销
+				</a>
+			</div>
+			
+			<div id="expense-receipt">
+				<div style="margin-bottom:10px;display: none;" >
+					<!-- 报销单 -->
+					<div class="mui-table-view spend-info-view">
+						<div class="mui-card-header">
+							<span class="left"><span class="mui-icon mui-icon-list user-portal-red"></span>报销单号：<span  name="spendNo" >spendNo_1</span>单</span>
+							<div id="expenseDel_1" onclick="javascript:delExpense(this);" class="mui-icon mui-icon-trash right"></div>
+						</div>
+						<div class="mui-card-content" >
+							<ul class="formList" style="border-top: none;">
+								<li class="clearfix">
+									<span class="left label">预算编号</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+									<span class="right content" name="proNo" id="proNo_0" onclick="addSelectPro(this);">请选择</span>
+									<input type="hidden" name= "projectNo" id='projectNo_0' />
+									<input type="hidden" name= "projectType" id='projectType_0' />
+								</li>
+								<li class="clearfix">
+									<span class="left label">花销分类</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+									<span class="right content" name="budgetType" id="budgetType_0" onclick="addSelectFee(this);">请选择</span>
+									<input type="hidden" name= "budgetNo" id='budgetNo_0' />
+									<input type="hidden" name= "budgetTypeCode" id='budgetTypeCode_0' />
+									<input type="hidden" name= "budgetAvailable" id='budgetAvailable_0' />
+								</li>
+								<li class="clearfix">
+									<span class="left label">消费类型</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+									<span class="right content" name="spendType" id="spendType_0" onclick="javascript:addSelectType(this);">请选择</span>
+								</li>
+								<li class="clearfix">
+									<div class="left label">划卡消费日期</div>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+									<span name="spendDate" id="spendDate_0" class="btn right mr" data-options='{"type":"date","beginYear":2018,"endYear":2021}' onclick="addDateSelect(this)">划卡消费日期</span> 
+								</li>
+								<li class="clearfix">
+									<div class="left label">花费统计</div>
+									<span class="right content" name="spendTotal" id="spendTotal_0"></span>
+								</li>
+							</ul>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="mui-table-view t10">
+						<a id="addReceipt_1" onclick="javascript:addReceipt(this);" class="add-btn" href="#"> <span>+</span>票据</a>
+					</div>
+					<!-- 报销单 end -->
+					<div id="allreceipt_1" name="allreceipt">
+						<div class="alone-receipt assort-info-view" id="oneReceipt_0">
+							<div class="title">
+								票据 — 报销单号:<span id="spendNo" name='spendNo' class='spendNo'>assortSpend</span>单
+								<div id="receiptDel_1" onclick="javascript:delReceipt(this);" class="mui-icon mui-icon-trash right"></div>
+							</div>
+							<ul class="formList">
+								<li class="clearfix">
+									<span class="left label">操作类型</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>	
+									<span class="right content" name="operationType" id="operationType_0" onclick="addSelectOpe(this);">请选择</span>
+								</li>
+								<li class="clearfix">
+									<span class="left label">发票类型</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>
+									<span class="right content" name="ticketType" id="ticketType_0" onclick="addSelectTicket(this);">请选择</span>
+								</li>
+								<li class="clearfix">
+									<span class="left label">花销金额</span>
+									<input type="text" name="spendMoney" id="spendMoney" class="f_input right wp60" placeholder="请输入花销金额"/>
+								</li>
+								<li class="clearfix">
+									<span class="left label">税率</span>
+									<img src="../../images/rightarr.png" alt="" class="right rightArr"/>
+									<span class="right content" name="rate" id="rate_0" onclick="addSelectRate(this);">请选择</span>
+								</li>
+								<li class="clearfix"> 
+									<span class="left label">报销单号(后4位)</span>
+									<input type="text" name="code" id="code" class="f_input right wp60" placeholder="请输入报销单号"/>
+								</li>
+								<li class="clearfix">
+									<span class="left label">开票单位</span>
+									<input type="text" name="ticketCom" id="ticketCom" class="f_input right wp60" placeholder="请输入开票单位"/>
+								</li>
+								<li class="clearfix">
+									<span class="left label">发票内容</span>
+									<input type="text" name="ticketInfo" id="ticketInfo" class="f_input right wp60" placeholder="请输入发票内容"/>
+								</li>
+								<li class="clearfix">
+									<span class="left label">乘车原因/时间</span>
+									<input type="text" name="rideType" id="rideType" class="f_input right wp60" placeholder="请输入乘车原因/时间"/>
+								</li>
+								<li class="clearfix" style="display: none;">
+									<span class="left label">团建日期和地点</span>
+									<input type="text" name="teamSite" id="teamSite_0" class="f_input right wp60" placeholder="请输入团建日期和地点"/>
+								</li>
+								<li class="clearfix" style="display: none;">
+									<span class="left label">团建人员</span>
+									<input type="text" name="teamUser" id="teamUser_0" class="f_input right wp60" placeholder="请输入团建人员"/>
+								</li>
+								<li class="clearfix" style="height: auto;">
+									<textarea class="mui-input-speech t10" style="margin-bottom: 0;" name="remark" id="remark" rows="5" placeholder="请输入备注"></textarea>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- 发票 -->
+			    </div>
+			</div>
+			<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+				<button id='confirmBtn' type="button" class="mui-btn mui-btn-warning mui-btn-block t10" onclick="submitDaily(0)">草稿</button>
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="submitDaily(1)">提交</button>
+			</div><div id="info"></div>
+		</div>
+	</body>
+
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/global.js"></script>
+	<script src="../../js/city.data.js"></script>
+	<script type="text/javascript">
+        //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+        document.write("<s" + "cript type='text/javascript' src='js/task-receipt.js?" + Math.random() + "'></s" + "cript>");
+    </script>
+	<script>
+		    var wxObjet = {};
+	    	var url = window.location.href.split("#")[0];
+	    	if(localStorage.wxUser != null && localStorage.wxCode!=null){
+	    		var wxCodes = getQueryString("code");
+	    		var wxdata = JSON.parse(localStorage.wxCode);
+	    		if(wxdata.code == wxCodes){
+	    			var data = JSON.parse(localStorage.wxUser);
+	    		}else{
+	    		    if (wxCodes) {
+	    		        setTimeout(function(){getUserDataInfo()},400);	
+	    		    }	    		    
+	    		}
+	    	}else{
+	    		getUserDataInfo();
+	    	}
+	    	function getUserDataInfo(){
+	    		//获取code
+	    		var code = getQueryString("code");
+	    		localStorage.removeItem("wxCode");
+	    		var wxCode = {code:code};
+	    		var str = JSON.stringify(wxCode);
+	    		localStorage.wxCode = str;    		
+	    		$.ajax({
+	    			url:pathUrl+'/queryWXUserInfo.action',
+	    			type:'post',
+	    			data : {
+	    				code:code,
+	    				AppId:'DAILY_RECEIPTION'
+	    			},
+	    			async:false,/*同步请求*/
+	    			dataType:'jsonp',
+	    			jsonp:'callback',
+	    			jsonpCallback:'flightHandler',
+	    			error : function(){
+	    				mui.toast('授权失败！');
+	    			},
+	    			success:function(data){
+	    				var userData = JSON.parse(data);
+	    				var message = userData.msg;
+	    				if(message.indexOf("success") != -1){
+	    					localStorage.removeItem("wxUser");
+	    					var wxUser = {userName:userData.userName,wXUserId:userData.wXUserId,company:userData.departName,phone:userData.mobile,parentCompany:userData.parentDeptName};
+	    					var str = JSON.stringify(wxUser);
+	    					localStorage.wxUser = str;
+	    				}
+	    			}    
+	    		});	
+	    	}
+	    	//获取url？后的参数
+	    	function getQueryString(name) {
+	    		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	    		var r = window.location.search.substr(1).match(reg);
+	    		if (r != null) return unescape(r[2]);
+	    		return null;
+	    	}
+	</script>
+	<script>
+		<!--离开当前焦点的时候，收起键盘	-->
+		document.querySelector('body').addEventListener('touchend', function(e) {
+			document.activeElement.blur();
+        });
+	</script>
+</html>

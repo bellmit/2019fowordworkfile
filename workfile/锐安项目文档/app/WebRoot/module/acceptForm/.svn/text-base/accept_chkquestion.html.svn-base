@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- 
+			<a href="javascript:;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			-->
+			<h1 class="mui-title"><span class="titleName">受理单进度</span></h1>
+		</header>
+		<div class="mui-content" >
+			<div class="questionType">
+				<div class="listTitle clearfix relative">
+					<h6 class="left titleText" id="titleClient"></h6>
+					<img src="images/toparr.png" alt="" class="right rightToggle"/>
+				</div>
+				<div class="toggleHeight hideText" id="descClient"></div>
+			</div>
+			<div class="questionType overhide">
+				<ul class="timeroute" id="custom_chk" >
+				</ul>
+			</div>
+		</div>
+		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/global.js"></script>
+		
+		<script>
+			$(function () {
+			    //头部展开收起
+			    $('.rightToggle').die().live('touchend',function(){
+			        if($(this).hasClass('slt')){
+			            $(this).removeClass('slt');
+			            $(this).attr('src','images/toparr.png');
+			            $('.toggleHeight').addClass('hideText');
+			            $('.titleText').addClass('hideText');
+			        }else{
+			            $(this).addClass('slt');
+			            $(this).attr('src','images/toparrslt.png');
+			            $('.toggleHeight').removeClass('hideText');
+			            $('.titleText').removeClass('hideText');
+			        }
+			    });
+			     $('.titleText').die().live('touchend',function(){
+			        if($(this).hasClass('slt')){
+			            $(this).removeClass('slt');
+			            $(this).next().attr('src','images/toparr.png');
+			            $('.toggleHeight').addClass('hideText');
+			            $('.titleText').addClass('hideText');
+			        }else{
+			            $(this).addClass('slt');
+			            $(this).next().attr('src','images/toparrslt.png');
+			            $('.toggleHeight').removeClass('hideText');
+			            $('.titleText').removeClass('hideText');
+			        }
+			    });
+				getQueLogList();
+			});
+			
+			function getQueLogList(){
+				var id = JSON.parse(localStorage.obj).id;
+				
+				$.ajax({
+						url: pathUrl+'/getAcceptListToMobile.action',
+						type:"post",
+						data:{
+							id:id
+						},
+						async:false,/*同步请求*/
+						dataType:"jsonp",
+						jsonp:"callback",
+						jsonpCallback:'flightHandler',
+						success:function(data){
+						//处理数据格式
+						  var data = JSON.parse(data);
+						  var dataList1 = "";
+						  $("#custom_chk").html('');
+						  
+						  var len = data.dataList.length;
+						  $.each(data.dataList,function(i,custom){	
+						  	var img = '5';
+						  	
+						  	if(i==0){
+						  		img= '3';
+						  	}
+						  //处理数据格式
+					  		 custom = JSON.stringify(custom);
+					  		 custom =JSON.parse(custom);
+							  if(custom.status=='1'){
+									$("#titleClient").html(custom.title);
+									var htm = $("#descClient").html();
+									if(custom.desc!=null && custom.desc!=''){
+									$("#descClient").html(htm+'问题描述：'+custom.desc);
+									}
+									
+								       dataList1='<li class="red relative">'+
+												'<div class="outline"></div>'+
+												'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+												'<div class="clearfix">'+
+													'<span class="listStatus left">已提交</span>'+
+													'<span class="right colorGrey">'+custom.currDate+'</span>'+
+												'</div>'+
+												'<div class="routeDes">您的问题我们已经收到，正在紧急处理中...</div>'+
+												'</li>';
+							  }else if(custom.status=='2'){
+									   dataList1='<li class="yellow relative">'+
+												'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+												'<div class="clearfix">'+
+													'<span class="listStatus left yellow">已派发</span>'+
+													'<span class="right colorGrey">'+custom.currDate+'</span>'+
+												'</div>'+
+												'<div class="routeDes clearfix">'+
+													'<span class="left marginR50">受理人：'+custom.person+'</span>'+
+												'</div>'+
+												'</li>';
+							  }else if(custom.status=='3'){
+								    	dataList1='<li class="yellow relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">处理中</span>'+
+														'<span class="right colorGrey">'+custom.currDate+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">'+
+													'<span class="left marginR50">执行人：'+custom.person+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">预计完成时间：'+custom.comDate+'</div>'+
+												'</li>';
+							  }else if(custom.status=='5'){
+							  if(custom.acceptRecord!=null &&　custom.acceptRecord!=''){
+							  	var ht = $("#descClient").html();
+							  	$("#descClient").html(ht+'受理信息：'+custom.acceptRecord+' <br/>');
+							  }
+									    dataList1='<li class="blue relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">待确认</span>'+
+														'<span class="right colorGrey">'+custom.currDate+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">'+
+														'<div>您的执行人已经处理</div>'+
+														'<div>实际完成时间：'+custom.comDate+'</div>'+
+													'</div>'+
+												'</li>';
+							  }else if(custom.status=='6'){
+									    dataList1='<li class="blue relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">待评价</span>'+
+														'<span class="right colorGrey">'+custom.currDate+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">'+
+														'<div>您的受理人已经处理</div>'+
+														'<div>实际完成时间：'+custom.comDate+'</div>'+
+													'</div>'+
+												'</li>';
+							  }else if(custom.status=='4'){
+										dataList1='<li class="green relative">'+
+													'<img src="images/route_'+img+'.png" alt="" class="imageCircle"/>'+
+													'<div class="clearfix">'+
+														'<span class="listStatus left yellow">已完成</span>'+
+														'<span class="right colorGrey">'+custom.currDate+'</span>'+
+													'</div>'+
+													'<div class="routeDes clearfix">您的问题已处理完毕，感谢您对我们工作的支持</div>'+
+												'</li>';
+							  }
+							 $("#custom_chk").append(dataList1);
+							  
+						 });
+					   }    
+			   });
+			}
+			
+		</script>
+	</body>
+</html>

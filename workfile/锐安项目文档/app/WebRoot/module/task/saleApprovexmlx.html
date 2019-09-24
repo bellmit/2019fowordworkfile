@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <title>销售立项审批详情</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/app.css">
+    </head>
+    <style>
+		.title {
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 18px;
+		}
+		.formList li .f_input {
+			font-size: 12px;
+		}
+		p {
+			text-indent: 22px;
+		}
+		.mui-popover {
+			height: 50%;
+			width: 98%;
+			z-index: 99999;
+		}
+    </style>
+    <body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">销售立项审批详情</h1>
+		</header>
+		<div class="mui-content">
+			<form id="fm">
+				<div class="title">基本信息</div>
+				<ul class="formList">
+					<li class="clearfix"><span class="left label">立项申请日期：</span>
+						<input type='text' id='dateOfApplicantion' class='f_input right wp60'>
+				    </li>
+					<li class="clearfix"><span class="left label">申请人：</span>
+						<input type='text' id='applicantName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">申请部门：</span>
+						<input type='text' id='deptName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">是否垫资转合同：</span>
+						<input type='text' id='ifSigned' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">关联项目：</span>
+						<span type="text" id="relatedItems" class="f_input mui-pull-right" style="padding-right:10px"></span>
+						
+					</li>
+					<li class="clearfix"><span class="left label">项目经理：</span>
+						<input type='text' id='proManagerName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">客户负责人：</span>
+						<input type='text' id='enterpriseCustomerContractName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>费用承担部门：</span>
+						<input type='text' id='costDeptName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">合同主体负责人：</span>
+						<input type='text' id='subjectContractName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>合同主体成本名：</span>
+						<input type='text' id='costCenterName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">合同主体成本中心码：</span>
+						<input type='text' id='costCenterCode' class='f_input right' style='width:50%'>
+					</li>
+					<li class="clearfix"><span class="left label">合同主体成本一级部门：</span>
+						<input type='text' id='contractDeptName' class='f_input right' style='width:50%'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>解决方案负责人：</span>
+						<input type='text' id='solutionPersonName' class='f_input right' style='width:55%'>
+					</li>
+					<li class="clearfix"><span class="left label">履行负责人：</span>
+						<input type='text' id='responsiblePersonName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">客户预算是否通过：</span>
+						<input type='text' id='customerBudgetPass' class='f_input right' style='width:55%'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>是否是大项目：</span>
+						<input type='text' id='bigProject' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>其他项目成员：</span>
+						<input type='text' id='procInstStartUser' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">销售组织：</span>
+						<input type='text' id='saleGroupName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">前序项目名称：</span>
+						<input type='text' id='preProjectName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">前序项目编号：</span>
+						<input type='text' id='preProjectCode' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">最终用户名称：</span>
+						<input type='text' id='finalUserName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>项目省份：</span>
+						<input type='text' id='provinceName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>项目地市：</span>
+						<input type='text' id='cityName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">项目区县：</span>
+						<input type='text' id='countyName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">行业一级分类：</span>
+						<input type='text' id='firstIndustryName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">行业二级分类：</span>
+						<input type='text' id='secondIndustryName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>客户单位名称：</span>
+						<input type='text' id='enterpriseCustomerName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">组织结构：</span>
+						<input type='text' id='firstBigdataName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">大数据行业分类：</span>
+						<input type='text' id='secondBigdataName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>分销渠道：</span>
+						<input type='text' id='distributionChannelName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>成交概率：</span>
+						<input type='text' id='turnoverRate' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>合同额(万元)：</span>
+						<input type='text' id='totalContractBudget' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>预计签单时间：</span>
+						<input type='text' id='signedTime' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">业务类型：</span>
+						<input type='text' id='businessTypeName' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">销售项目编号：</span>
+						<input type='text' id='startDate' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>项目名称：</span>
+						<span id="projectName" class="f_input right" style="padding-right:10px"></span>
+					</li>
+					<li class="clearfix"><span class="left label">预算合计(元)：</span>
+						<input type='text' id='totalBudget' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">产品主数据：</span>
+						<input type='text' id='productMainDataNames' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">期次阶段：</span>
+						<input type='text' id='qcjd' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">销售项目目标：</span>
+						<span id="target" class="f_input right" style="padding-right:10px"></span>
+					</li>
+					<li class="clearfix"><span class="left label">利润中心：</span>
+						<input type='text' id='profitCenterCode' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">是否有售后：</span>
+						<input type='text' id='isAfterSaleStage' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">售后描述：</span>
+						<span id="afterSaleStageMemo" class="f_input right" style="padding-right:10px"></span>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>预算到位时间：</span>
+						<input type='text' id='budgetArrivalTime' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label"><span style="color: red">*</span>客户预算金额(万元)：</span>
+						<input type='text' id='customerBudgetAmount' class='f_input right' style='width:50%'>
+					</li>
+				</ul>
+				
+				<div class="title">接入分流设备</div>
+				<ul class="formList" id="sumType">
+					
+				</ul>
+				<div class="title">里程碑</div>
+				<ul class="formList" id="milestone">
+					
+				</ul>
+				<div class="title">客户联系人</div>
+				<ul class="formList" id="contact">
+					
+				</ul>
+				<div class="title">审批记录</div>
+				<ul class="formList" id="commentsList">
+				</ul>
+				
+				<div class="title">审批</div>
+				<ul class="formList">
+					<li class="clearfix"><span class="left label">审批人：</span>
+						<input type='text' id='taskUser' class='f_input right wp60'>
+					</li>
+					<li class="clearfix"><span class="left label">审批时间：</span>
+						<span type="text" id="approvalDate" class="f_input mui-pull-right" style="padding-right:10px">+list.taskCreateTime+</span>
+					</li>
+					<li class="clearfix "><span class="left label">审批结果：</span> 
+						<span class="result right">
+							<input type="radio" name="check" value="1"/>同意
+							<input type="radio" name="check" value="2"/>不同意
+						</span>
+					</li>
+					<li class="clearfix" style="height: auto;">
+						<textarea class="mui-input-speech t10 result" style="margin-bottom: 0;" id="opinion" rows="5" placeholder="请输入审批意见"></textarea>
+					</li>	
+				</ul>
+				<div class="mui-card" style="background-color: transparent;box-shadow: none;">
+					<button id="btns" type="button" class="mui-btn mui-btn-primary mui-btn-block t10" onclick="submits()">提交</button>
+				</div>
+						
+
+			</form>
+		</div>
+		<script src="../../js/jquery-1.7.2.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="js/global.js"></script>
+	     <script >
+            //为了兼容高版本chrome浏览器，此处不能读取缓存，故采用加随机数方式引入脚本
+            document.write("<s" + "cript type='text/javascript' src='js/saleApprovexmlx.js?" + Math.random() + "'></s" + "cript>");
+        </script>
+    </body>
+</html>

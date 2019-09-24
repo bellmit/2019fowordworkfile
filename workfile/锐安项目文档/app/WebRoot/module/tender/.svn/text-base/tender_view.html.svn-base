@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="../../css/mui.min.css">
+    <link href="../../css/mui.picker.css" rel="stylesheet" />
+    <link href="../../css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/app.css">
+</head>
+<style>
+input{
+margin-bottom:0px!important;
+}
+
+</style>
+<body>
+<header class="mui-bar mui-bar-nav">
+   <!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <h1 class="mui-title">查看招标申请</h1>
+</header>
+<div class="mui-content tender_content">
+	<div class="title">招标基本信息</div>
+	<ul class="formList">
+		<li class="clearfix">
+			<span class="left label">申请人</span> 
+			<input id="user" type="text" readonly="readonly" class="f_input right wp60" />
+		</li>
+		<li class="clearfix">
+			<span class="left label">项目名称</span> 
+			<input type="text" id="projectName" class="f_input right wp60" placeholder="请输入项目名称" />
+		</li>
+		<li class="clearfix">
+			<span class="left label">省份/地市</span> 
+			<div class="right label wp50" id="showSitePicker">
+				<span id="site">请选择地点</span><span class="mui-icon mui-icon-arrowdown"></span>
+			</div>
+		</li>
+		<li class="clearfix">
+			<span class="left label">客户预算（万元）</span> 
+			<input type="text" id="budget" class="f_input right wp60" placeholder="请输入客户预算金额" />
+		</li>
+		<li class="clearfix">
+			<span class="left label">客户投标日期</span> 
+			<span class="right label wp50"><font id="dailyDate" data-options='{"type":"date","beginYear":2000,"endYear":2099}' class="btn">请选择日期</font> <span class="mui-icon mui-icon-arrowdown"></span></span>
+		</li>
+		<li class="clearfix">备注
+			<textarea type="text" id="remark" class="mui-input-speech t10" style="margin-bottom: 0;" rows="5" placeholder="请填写备注，不超过100字" onfocus="limitTextarea(this,'.inputChange .textNum',20);"></textarea>
+		</li>
+	</ul>
+	
+     <div id="questionComfirm">
+			<div class="title">中标信息</div>
+			<ul class="formList">
+				<li class="clearfix">
+				  <span class="left label">我司是否中标</span>
+				  <span class="mui-choose right"><input type="button" onclick="tenderChangeStatus(this)" class="gload" data-status="3" value="中标"><input onclick="tenderChangeStatus(this)" class="gload" data-status="2" type="button" value="未中标"></span>
+			   </li>
+				<li class="clearfix">
+				  <span class="left label">中标金额（万元）</span>
+				  <input type="text" id="price" class="f_input right wp60" placeholder="请输入客户预算金额" />
+			   </li>
+				<li class="clearfix">
+				  <span class="left label">中标公司</span>
+				  <input type="text" id="company" class="f_input right wp60"  placeholder="请输入中标公司"/>
+			   </li>
+			   <li class="clearfix" id="reason">备注
+					   <textarea type="text" id="remark" class="mui-input-speech t10" style="margin-bottom: 0;" rows="5" placeholder="" onfocus="limitTextarea(this,'.inputChange .textNum',20);"></textarea>
+				   </li>
+		   </ul>
+    </div>
+    <div class="tender_formbtns witdh100">
+        <a href="tender_list.html" class="cancelbtn left witdh100" id="confirmBtn">返回</a>
+    </div>
+</div>
+<input type="hidden" id="renderIdForEdit">
+<input type="hidden" id="renderTypeForEdit">
+<script src="../../js/jquery-1.7.2.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/city.data.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+<script src="js/tender_add.js"></script>	
+
+<script>
+	mui.init({
+    swipeBack:false //启用右滑关闭功能
+});
+
+mui.ready(function() {
+	$("#user").val($.parseJSON(localStorage.wxUser).userName);
+	
+})
+  
+</script>
+</body>
+</html>

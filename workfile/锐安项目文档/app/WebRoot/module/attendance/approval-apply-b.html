@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>审批详情-补登</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../css/mui.min.css">
+	<link href="../../css/mui.picker.css" rel="stylesheet" />
+	<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+	<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	<link href="../../css/app.css" rel="stylesheet" />
+	<link href="../../css/myui.css" rel="stylesheet" />
+	<style>
+		.title{
+			margin: 20px 15px 7px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		
+	</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">审批详情-补登</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view fixBox">
+				<li class=" mui-media relative mui-table-view-cell">
+					<div>
+						<div class="myui-baobei-list-icon mui-pull-left"><span>补登</span></div>
+						<div class="mui-media-body mui-pull-left">
+							张三<span class="l10 blue">XXX事业群 - 第一事业部 -  YY产品线</span>
+							<p class='mui-ellipsis clearfix'>请假日期：2018-7-30</p>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media detailMsg fadeBox">
+					<div>时间：08:59</div>
+					<div>原因说明：XXX  </div>
+					<div class="line"></div>
+					<div>时间：08:59</div>
+					<div>原因说明：XXX  </div>
+					<div class="line"></div>
+					<div>时间：08:59</div>
+					<div>原因说明：XXX  </div>
+					<div class="line"></div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix" id="ifAgree">
+					<div class="left label">是否同意</div>
+					<div class="mui-radio right" style=" display: inline-block;margin:0  0.24074074rem;">
+						<button type="button" class="mui-btn t5">不同意</button>
+					</div>
+					<div class="mui-radio right" style=" display: inline-block; ">
+						<button type="button" class="mui-btn mui-btn-primary t5">同意</button>
+					</div>
+				</li>
+			</ul>
+			<ul class="formList">
+				<li class="clearfix"  style="height: auto;">
+					<textarea class="mui-input-speech t10" id="textarea" rows="5" placeholder="请输入审批意见"></textarea>
+				</li>
+			</ul>
+			<!-- <form> -->
+				<div class="mui-card">
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block">提交</button>
+				</div>
+				
+			<!-- </form> -->
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery-1.7.2.min.js"></script>
+	<script src="../../js/mui.picker.js"></script>
+	<script src="../../js/mui.poppicker.js"></script>
+	<script src="../../js/mui.picker.min.js"></script>
+	<script src="../../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/global.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		$('#ifAgree button').click(function(){
+			$(this).addClass('mui-btn-primary');
+			$(this).parent().siblings('.mui-radio').children().removeClass('mui-btn-primary');
+		})
+		
+	</script>
+	
+</html>

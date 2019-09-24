@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ajax" extends="json-default,struts-default" >
+		<!--政务微信用户登录 -->
+		<action name="login" class="userManager" method="userLogin">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询考勤打卡记录  -->
+		<action name="querySignInfo" class="userManager" method="querySignInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--更新考勤打卡记录  -->
+		<action name="userSign" class="userManager" method="userSign">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!--密码修改功能  -->
+		<action name="updatePassWord" class="userManager" method="updateUserPassWord">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- access_token获取 
+		
+		<action name="queryAppInfo" class="AppUserInfo" method="queryAppInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		-->
+		<!--前端页面查询政务微信用户信息  -->
+		<action name="queryWXUserInfo" class="userManager" method="queryWXUserInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--前端页面获取微信加密签名  -->
+		<action name="getSha1" class="userManager" method="getSha1">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!--政务微信服务协议 -->
+		<action name="agreeDis" class="agreeDeclare" method="agreeDis">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!--自动打卡状态设置 -->
+		<action name="updateAutoPunch" class="userManager" method="updateAutoPunch">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>		
+		<!-- 老家园系统登陆校验 -->
+		<action name="loginCheck" class="userManager" method="loginCheck">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 酒店接口调用 -->
+		<action name="hotelOrderList" class="hotelOrderManger" method="hotelOrderList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 手动生成附件 -->
+		<action name="handelCreateFile" class="hotelOrderManger" method="handelCreateFile">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 400获取标题主列表 -->
+		<action name="getClientInfoToMobile" class="clientQuestion" method="clientInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 400提交问题 -->
+		<action name="addQuestionFromMobile" class="clientQuestion" method="addQuestion">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 400提交评价 -->
+		<action name="addEstimateFromMobile" class="clientQuestion" method="addEstimate">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 400确认是否解决 -->
+		<action name="addResultFromMobile" class="clientQuestion" method="addResult">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 400获取进度列表 -->
+		<action name="getClientListToMobile" class="clientQuestion" method="getClientList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 400上传文件 -->
+		<action name="clientQueFileMobile" class="MobileFile" method="clientQueFileMobile">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	<!-- 400推送手机端消息 -->
+    	<action name="sendMessage" class="SendMessage" method="sendMessage">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	<!-- 9999获取标题主列表 -->
+		<action name="getAcceptInfoToMobile" class="acceptanceForm" method="clientInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 9999提交问题 -->
+		<action name="addAcceptFromMobile" class="acceptanceForm" method="addQuestion">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 9999提交评价 -->
+		<action name="addAcceptEstimate" class="acceptanceForm" method="addEstimate">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 9999确认是否解决 -->
+		<action name="addAcceptResult" class="acceptanceForm" method="addResult">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 9999获取进度列表 -->
+		<action name="getAcceptListToMobile" class="acceptanceForm" method="getClientList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 9999上传文件 -->
+		<action name="acceptQueFileMobile" class="acceptanceFile" method="clientQueFileMobile">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	<!-- 9999推送手机端消息 -->
+    	<action name="sendAcceptMessage" class="sendAcceptMessage" method="sendMessage">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	
+    	<!-- 消息接收 -->
+    	<action name="msgReceive" class="msgReceive" method="msgReceive">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	
+    	
+    	<!-- 通讯录变更 -->
+    	<action name="addressBook" class="addressBook" method="addressBook">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	
+    	<!-- 消息推送 -->
+    	<action name="msgSend" class="msgSend" method="msgSend">
+    		<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+    	</action>
+    	
+    	<!-- 考勤打卡APP start-->
+    	<!-- 考勤App用户登录-->
+    	<action name="autoPunchUserLogin" class="userManager" method="autoSignLogin">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 自动打卡事件处理-->
+    	<action name="autoPunchEvenHandler" class="userManager" method="autoSignHandler">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 获取自动打卡时间时间间隔-->
+    	<action name="getAutoPunchInterval" class="userManager" method="getInterval">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 获取用户打卡信息-->
+    	<action name="getUserSignInformation" class="userManager" method="getAutoSignInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!--获取考勤App最新版本 -->
+		<action name="getAppLatestVersion" class="userManager" method="getAppNewVersion">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 更新用户自动打卡标志 -->
+    	<action name="updateAutoPunchFlag" class="userManager" method="updAutoFlag">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 清除Redis缓存信息 -->
+    	<action name="manualCleanCache" class="userManager" method="cleanUpCache">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 获取用户打卡缓存信息 -->
+    	<action name="getSignCache" class="userManager" method="getSignCache">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 获取Redis缓存键值集合 -->
+    	<action name="getSignCachedKeys" class="userManager" method="getSignCachedKeys">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 考勤打卡APP end-->
+		
+        <!-- 客户接待 start -->
+        <!-- 查询客户接待任务列表 -->
+		<action name="queryCustomerReceptionList" class="customerReceptionManager" method="queryCustReceptList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 新增客户接待任务 -->
+		<action name="addCustomerReception" class="customerReceptionManager" method="addCustRecept">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 审批通过客户接待任务 -->
+		<action name="approveCustReception" class="customerReceptionManager" method="apprvCustRecept">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 审批驳回客户接待任务 -->
+		<action name="rejectCustReception" class="customerReceptionManager" method="rejectCustRecept">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 评价客户接待任务 -->
+		<action name="evaluateCustReception" class="customerReceptionManager" method="evalCustRecept">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 删除客户接待任务 -->
+		<action name="deleteCustomerRecption" class="customerReceptionManager" method="delCustRecpt">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 查询客户接待任务详细信息 -->
+		<action name="queryCustReceptionDetail" class="customerReceptionManager" method="getCustReceptDetail">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 更新客户接待任务 -->
+		<action name="updatedCustomerReception" class="customerReceptionManager" method="updCustRecept">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 查询部门列表信息 -->
+		<action name="queryDepartMentInfos" class="customerReceptionManager" method="getDeptInfos">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 查询部门用户列表信息 -->
+		<action name="queryDeptUserInfos" class="customerReceptionManager" method="getDeptUserInfos">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  客户接待 end -->
+		
+		<!--  日报 Start-->
+		<!-- 查询日报列表 -->
+		<action name="queryDailyList" class="dailyAction" method="queryDailyList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  撤回日报 -->
+		<action name="backDailyInfo" class="dailyAction" method="backDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  删除日报 -->
+		<action name="delDailyInfo" class="dailyAction" method="delDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  登陆校验 -->
+		<action name="logInAction" class="dailyAction" method="logInAction">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看日报详细信息 -->
+		<action name="viewDailyInfo" class="dailyAction" method="viewDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取部门列表 -->
+		<action name="getDeptInfo" class="dailyAction" method="getDeptInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取员工列表 -->
+		<action name="getUserList" class="dailyAction" method="getUserList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 发票池 -->
+		<action name="getInvoice" class="dailyAction" method="getInvoice">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取项目编号 -->
+		<action name="getProjectInfo" class="dailyAction" method="getProjectInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取打卡信息 -->
+		<action name="getAttendInfo" class="dailyAction" method="getAttendInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+        <!-- 查询打卡日期 -->
+		<action name="getDailyDate" class="dailyAction" method="getDailyDate">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询上一次日报信息 -->
+		<action name="getPreDailyInfo" class="dailyAction" method="getPreDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询滴滴记录 -->
+		<action name="getDidiInfo" class="dailyAction" method="getDiDi">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询酒店记录 -->
+		<action name="getHotelInfo" class="dailyAction" method="getHotel">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询机票记录 -->
+		<action name="getFlightInfo" class="dailyAction" method="getFlightInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询机票记录 -->
+		<action name="selectBosom" class="dailyAction" method="selectBosom">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 保存日报 -->
+		<action name="saveDailyInfo" class="dailyAction" method="saveDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询异常时间 -->
+		<action name="getExceptionData" class="dailyAction" method="getExceptionData">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询用户岗位驻地 -->
+		<action name="getUserLocation" class="dailyAction" method="getProvince">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询费用类别 -->
+		<action name="getFeeTypeList" class="dailyAction" method="getFeeTypeList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询预算信息 -->
+		<action name="getBudgetInfo" class="dailyAction" method="getBudgetInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 编辑日报信息 -->
+		<action name="editDailyInfo" class="dailyAction" method="editDailyInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<!--  日报 End-->
+		
+		<!-- 保存项目招标 -->
+		<action name="addTenderInfo" class="tenderAction" method="addTenderInfo">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 项目投标列表 -->
+		<action name="tenderList" class="tenderAction" method="tenderList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 项目投标总数 -->
+		<action name="tenderCount" class="tenderAction" method="tenderCount">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 根据id查询数据 -->
+		<action name="tenderGetObj" class="tenderAction" method="tenderGetObj">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  项目招标 End-->	
+
+
+		<!-- 待办列表  Start-->
+		<!-- 获取待办列表-->
+		<action name="agencyList" class="agencyAction" method="queryAgencyList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看日报待办详细信息-->
+		<action name="viewDailyAudit" class="agencyAction" method="viewDailyAudit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 日报待办审批-->
+		<action name="auditDaily" class="agencyAction" method="auditDaily">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 加班审批详情-->
+		<action name="approvalAppView" class="agencyAction" method="approvalAppView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 加班审批-->
+		<action name="adjustOvertimeApply" class="agencyAction" method="adjustOvertimeApply">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看考勤补登待办详细信息-->
+		<action name="viewRemedyAudit" class="agencyAction" method="viewRemedyAudit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 考勤补登待办审批-->
+		<action name="auditRemedy" class="agencyAction" method="auditRemedy">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看考勤异常申请详细信息-->
+		<action name="unusualAppView" class="agencyAction" method="unusualAppView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 考勤异常申请审批-->
+		<action name="adjustUnusualApply" class="agencyAction" method="adjustUnusualApply">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看请假申请审批-->
+		<action name="viewLeaveAudit" class="agencyAction" method="viewLeaveAudit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 请假申请审批-->
+		<action name="adjustApply" class="agencyAction" method="adjustApply">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看员工招待费调整审批-->
+		<action name="entertainmentView" class="agencyAction" method="entertainmentView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 员工招待费调整审批-->
+		<action name="entertainmentCheck" class="agencyAction" method="entertainmentCheck">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看请假撤销审批-->
+		<action name="toLeavBackAudit" class="agencyAction" method="toLeavBackAudit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 请假撤销审批-->
+		<action name="adjustApplyBack" class="agencyAction" method="adjustApplyBack">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 日报费用查看 -->
+		<action name="dailyCost" class="agencyAction" method="dailyCost">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 日报费用审批 -->
+		<action name="CheckDailySpend" class="agencyAction" method="CheckDailySpend">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看年度预算变更审批-->
+		<action name="budgetChangeView" class="agencyAction" method="budgetChangeView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 年度预算变更审批-->
+		<action name="budgetChangeCheck" class="agencyAction" method="budgetChangeCheck">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 待办列表  End-->
+		<!-- 考勤明细  Start-->
+		<!-- 考勤明细列表-->
+		<action name="appAttendance" class="attendanceAction" method="attendList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看考勤详情-->
+		<action name="attendanceView" class="attendanceAction" method="viewAttend">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 考勤补登申请-->
+		<action name="attendanceRelogin" class="attendanceAction" method="attendRelogin">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 文件下载 -->
+		<action name="fileDownload" class="agencyAction" method="fileDownload">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 考勤明细  Ended-->
+		<!-- 代办查询 -->
+		<!-- 代办列表 -->
+		<action name="pendingList" class="pendingAction" method="pendingList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 代办详情 -->
+		<action name="getPendingDetail" class="pendingAction" method="getPendingDetail">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询个人工作流统计数据 -->
+		<action name="statistics" class="pendingAction" method="statistics">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--  代办查询 End-->	
+		<!-- 我发送的代办Start -->
+		<!-- 我发送的代办列表 -->
+		<action name="mySendTaskList" class="mySendTaskAction" method="mySendTaskList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查询工作流审批记录 -->
+		<action name="getTaskHistory" class="mySendTaskAction" method="getTaskHistory">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!--  我发送的代办 End-->
+		<!-- 请假申请 start-->
+		<action name="appLeave" class="leaveAction" method="appLeave">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 查看请假详情 -->
+		<action name="leaveAppView" class="leaveAction" method="leaveAppView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 校验申请时间是否在正常工作日-->
+		<action name="ajaxValidateTime" class="leaveAction" method="ajaxValidateTime">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 校验申请时间是否在正常工作日-->
+		<action name="ajaxValidateTime2" class="leaveAction" method="ajaxValidateTime2">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 得到小时-->
+		<action name="getWorkDay" class="leaveAction" method="getWorkDay">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 休假类型剩余时间-->
+		<action name="getSurplus" class="leaveAction" method="getSurplus">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 休假类型剩余时间-->
+		<action name="appleavelSave" class="leaveAction" method="appleavelSave">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 文件上传 -->
+		<action name="FileMobile" class="leaveAction" method="FileMobile">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 校验假期 -->
+		<action name="checkLeaveType" class="leaveAction" method="checkLeaveType">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 撤销请假 -->
+		<action name="revokeLeave" class="leaveAction" method="revokeLeave">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 假期明细 -->
+		<action name="getholidays" class="leaveAction" method="getholidays">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 删除请假 -->
+		<action name="deleteLeave" class="leaveAction" method="deleteLeave">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 请假撤回保存 -->
+		<action name="saveBackForm" class="leaveAction" method="saveBackForm">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取工作时间 -->
+		<action name="getWorkTime" class="leaveAction" method="getWorkTime">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 撤销详情 -->
+		<action name="leaveAppViewBack" class="leaveAction" method="leaveAppViewBack">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 撤销编辑 -->
+		<action name="leaveApplyEdit" class="leaveAction" method="leaveApplyEdit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 请假申请 end-->		
+		<!-- 管理者视图-考勤明细列表-->
+		<action name="getAttendList" class="manageAttend" method="getAttendList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 管理者视图-员工位置轨迹-->
+		<action name="getAttendLocusList" class="manageAttend" method="getUserLocus">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<!-- 协议开始 -->	
+		<action name="approvalNPageNdcg" class="agencyAction" method="approvalNPageNdcg">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<!-- 审批协议 -->
+		<action name="approvalAgreement" class="agencyAction" method="approvalAgreement">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<!-- 年度采购撤销 -->
+		<action name="purchaseRevoke" class="agencyAction" method="purchaseRevoke">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<!-- 年度采购撤销审批 -->
+		<action name="approvalCancelNPage" class="agencyAction" method="approvalCancelNPage">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--合同信息  strat-->
+		<!-- 合同信息列表-->
+		<action name="reviewList" class="contractAction" method="reviewList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 获取echart数据-->
+		<action name="getEchartData" class="contractAction" method="getEchartData">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 保存评价数据-->
+		<action name="saveEvaluation" class="contractAction" method="saveEvaluation">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 保存周报信息-->
+		<action name="saveDevop" class="contractAction" method="saveDevop">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--合同信息  end-->
+		<!--锐安资讯相关方法 strat-->
+		<!-- 合同信息列表-->
+		<action name="customServerList" class="customServerAction" method="customServerList">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!--锐安资讯相关方法 edn-->
+		<!-- 费用资金作废 -->
+		<action name="voidApproval" class="agencyAction" method="voidApproval">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 费用资金作废审批 -->
+		<action name="voidSubmit" class="agencyAction" method="voidSubmit">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 费用资金 -->
+		<action name="approval" class="agencyAction" method="approval">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 费用资金审批 -->
+		<action name="checkApproval" class="agencyAction" method="checkApproval">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 资金直接支付申请 -->
+		<action name="costPaymentApply" class="agencyAction" method="costPaymentApply">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 资金文件上传-->
+		<action name="attFileMobile" class="agencyAction" method="attFileMobile">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 资金文件保存-->
+		<action name="submitFile" class="agencyAction" method="submitFile">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 资金直接支付申请审批 -->
+		<action name="payApproval" class="agencyAction" method="payApproval">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 销售立项审批查看 -->
+		<action name="saleApproveView" class="agencyAction" method="saleApproveView">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 销售立项审批 -->
+		<action name="saleApproveCheck" class="agencyAction" method="saleApproveCheck">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- -->
+		<action name="uploadAppLog" class="userManager" method="uploadAppOpLog">
+			<result type="json">
+				<param name="callbackParameter">callback</param>
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		
+		
+	</package>	
+</struts>

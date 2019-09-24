@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <!--标准mui.css-->
+	<link rel="stylesheet" href="../../css/mui.min.css">
+    <link href="../../css/mui.picker.css" rel="stylesheet" />
+    <link href="../../css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../css/mui.picker.v1.0.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/app.css">	
+</head>
+<style>
+.title{
+	margin: 20px 15px 7px;
+	color: #6d6d72;
+	font-size: 18px;
+}
+.formList li{
+	line-height:50px;
+}
+.formList li .mui-navigate-right{
+	padding:0px;
+}
+.formList li .label{
+	font-size: 17px;
+}
+.formList li .f_input{
+	padding:0px;
+	width:50%;
+	font-size: 17px;
+	margin-top: 10px;
+}
+#Marriage{
+	padding:0px;
+}
+.formList li .mui-switch.mui-table-view-cel{
+	padding:0px;
+}
+.mui-icon-star-filled{color: #FF8C00;font-size: 30px;}
+.mui-switch:before {
+	content: '';
+	color: #999;
+}
+.mui-switch.mui-active:before {
+	content: '';
+	color: #fff;
+}
+#accmoFlag{
+	height: 30px;
+	line-height: 30px;
+}
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a  href="customerReception.html" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">查看关键客户工程</h1>
+	</header>
+<div class="mui-content">
+<form id="fm">
+    <div class="title">申请人基本信息</div>
+    <ul class="formList"> 	
+        <li class="clearfix">
+        	<span class="left label">申请人姓名</span>
+            <input type="text" id="applicantUserName" class="f_input right wp60" name = "applicantUserName" />
+        </li>
+ 		<li class="clearfix">
+            <span class="left label">邀请人姓名</span>
+            <input type="text" id="inviterName" class="f_input right wp60" name = "inviterUserName" />
+        </li>
+        <li class="clearfix">
+            <span class="left label">邀请人部门</span>
+            <input type="text" id="deptName" class="f_input right wp60" name = "deptName" />
+        </li>
+    </ul>
+	<div class="title">客户接待信息</div>
+    <ul class="formList">
+		<li class="clearfix">
+            <span class="left label">客户单位</span>
+            <input type="text" class="f_input right wp60" name = "customerUnit" id="customerUnit" />
+        </li>
+		<li class="clearfix">
+            <span class="left label">带队领导级别</span>
+            <input type="text" class="f_input right wp60" name = "leadershipLevel" id="leadershipLevel" />
+        </li>
+		<li class="clearfix" id="adminLevelPicker">
+			<span class="left label">带队领导</span>
+			<input type="text" class="f_input right wp60" name = "leadershipTitle" id="leadershipTitle" />
+		</li>
+		 <li class="clearfix">
+            <span class="left label">陪同人数</span>
+            <input type="text" class="f_input right wp60" name = "escortNumber" id="escortNumber" />
+        </li>
+		<li class="clearfix">
+            <span class="left label">客户联系人</span>
+            <input type="text" class="f_input right wp60" name = "customerContact" id="customerContact" />
+        </li>
+		<li class="clearfix">
+            <span class="left label">联系方式</span>
+            <input type="text" class="f_input right wp60" name = "contactPhone" id="contactPhone" />
+        </li>
+		<li class="clearfix">
+            <span class="left label">航班/列车</span>
+            <input type="text" class="f_input right wp60" name = "tripInfo" id="tripInfo" />
+        </li>
+		 <li class="clearfix">
+		 	<span class="left label">到站时间</span>
+            <input type="button" id='arrivalTime' name = "arrivalTime" data-options='{"type":"date"}' class="f_input right label btn mui-btn mui-btn-block wp30" value="到站时间"/>
+        </li>
+        <li class="clearfix mui-table-view-cell" id="Marriage">
+			<span class="left label">是否安排住宿</span>
+			<div class="mui-switch mui-switch-blue mui-active"  id ="accmoFlag" name = "accmoFlag" data-on="" data-off="">
+				<div class="mui-switch-handle "></div>
+			</div>
+		</li>
+        <li class="clearfix">
+            <span class="left label">住宿数量（晚）</span>
+            <input type="text" class="f_input right wp60" name = "accommodationNumber" id="accommodationNumber" placeholder="人数*天数"/>
+        </li>
+        <li class="clearfix">
+        	<span class="left label">到达公司时间</span>
+            <input type="button" id='arrivalCompany' name = "arrivalCompany" data-options='{"type":"date"}' class="f_input right label btnsone mui-btn mui-btn-block wp30" value="到达公司时间"/>
+            <div id='arriveCompDate' class="ui-alert"></div>
+        </li>
+		<li class="clearfix">
+			<span class="left label">住宿地点</span>
+            <input type="text" class="f_input right f_textarea" name = "accommodationAddress" id="accommodationAddress"  />
+        </li>
+	</ul>
+	<div class="title">其他接待信息</div>
+	<ul class="formList">
+		<li class="clearfix">
+            <span class="left label">到我司考察次数</span>
+            <input type="text" class="f_input right" name = "investigationNumber" id="investigationNumber" />
+        </li>
+        <li class="clearfix">
+			期望交流内容
+			<textarea type="text" class="mui-input-speech t10" name = "communicationContent" id="communicationContent" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+		</li>
+
+		<li class="clearfix">
+			客户是否有少数民族及禁忌
+            <textarea type="text" class="mui-input-speech t10" name = "taboo" id="taboo" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+        </li>
+        <li class="clearfix">
+			其他 
+            <textarea type="text" class="mui-input-speech t10" name = "other" id="other" style="margin-bottom: 0;" id="jobdescript" rows="5" ></textarea>
+        </li>
+    </ul>
+	<div class="mui-content" id="fen" >
+		<ul class="mui-table-view">
+			<li class="star-li">
+				<a>响应时长</a>
+				<div class="icons" id="efficiency">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+			<li class="star-li">
+				<a>服务专业性</a>
+				<div class="icons" id="professionalism">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+			<li class="">
+				<a>客户满意度</a>
+				<div class="" id="attitude">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="mui-card" style="background-color: transparent;box-shadow: none;text-align: center;">
+		<a href="#" onclick = "returnToMain();" class="submitBtnspecial saveAs">返回</a>
+	</div>
+</form>
+</div>
+<script src="../../js/jquery-1.7.2.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/mui.picker.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script src="../../js/mui.poppicker.js"></script>
+<script src="js/global.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+<script>
+	var flag=1;
+	var arriTime=null;
+	var arriCompany=null;
+	var service_attitude,service_efficiency,service_professionalismm;
+	var loginUserName;
+	if(localStorage.wxUser != null){
+	    var userJson = JSON.parse(localStorage.wxUser);
+		loginUserName = userJson.userName;
+	}else{
+	    showAlert('授权失败');
+	}
+	(function($) {
+		$.init();
+		var arriveDate = $('#arrivalTime')[0];
+		var arriveCompDate = $('#arrivalCompany')[0];
+		var btns = $('.btn');
+		var btnso = $('.btnsone');
+		btns.each(function(i, btn) {
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					arriveDate.value = rs.text;
+					arriTime=rs.text;
+					picker.dispose();
+				});
+			}, false);
+		});
+		btnso.each(function(i, btn) {
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var picker = new $.DtPicker(options);
+				picker.show(function(rs) {
+					arriveCompDate.value =rs.text;
+					arriCompany=rs.text;
+					picker.dispose();
+				});
+			}, false);
+		});
+	})(mui);
+    mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+		this.addEventListener('toggle', function(event) {
+			if(event.detail.isActive){					
+				flag=1;
+			} else {
+				flag=0; 
+			}
+		});
+	});
+	$(function(){
+		var id = JSON.parse(localStorage.obj).id;
+		$.ajax({  	   
+			url: pathUrl+'/queryCustReceptionDetail.action',
+			type:'post',
+			data:{
+				id:id
+			},
+			async:false,//同步请求
+			dataType:'jsonp',
+			jsonp:'callback',
+			jsonpCallback:'flightHandler',
+			success:function(data){		   
+				var data = JSON.parse(data);
+				var custom = data.data;
+				$("#applicantUserName").val(custom.applicantUserName);
+				$("#deptName").val(custom.deptName);
+			 	$("#inviterName").val(custom.inviterUserName);
+			 	$("#customerUnit").val(custom.customerUnit);
+			 	$("#leadershipLevel").val(custom.leadershipLevel);
+			 	$("#leadershipTitle").val(custom.leadershipTitle);
+			 	$("#escortNumber").val(custom.escortNumber);
+			 	$("#customerContact").val(custom.customerContact);
+			 	$("#contactPhone").val(custom.contactPhone);
+			 	$("#tripInfo").val(custom.tripInfo);
+			 	$("#arrivalTime").val(custom.arrivalTimeStr);
+			 	$("#arrivalCompany").val(custom.arrivalCompTimeStr);
+			 	$("#accommodationNumber").val(custom.accommodationNumber);
+			 	$("#accommodationAddress").val(custom.accommodationAddress);
+			 	$("#investigationNumber").val(custom.investigationNumber);
+			 	$("#communicationContent").text(custom.communicationContent);
+			 	$("#taboo").val(custom.taboo);
+			 	$("#other").val(custom.other);
+				attitude = custom.serviceAttritude;
+				efficiency = custom.serviceEfficiencyAttritude;
+				professionalism = custom.serviceProfessionalism;
+				if(custom.accommodationFlag == 0) {
+			  		$(".mui-switch").removeClass("mui-active");
+			 	}
+				if(custom.serviceEfficiencyAttritude!=null&&custom.serviceEfficiencyAttritude!=0){
+					$("#fen").show();
+				}else {
+					$("#fen").hide();
+				}
+				if(custom.serviceAttritude!=null&&custom.serviceAttritude!=0){
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				if(custom.serviceProfessionalism!=null&&custom.serviceProfessionalism!=0){
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				if(custom.accommodationFlag == 0) {
+			  		$(".mui-switch").removeClass("mui-active");
+			 	}
+				if(custom.serviceEfficiencyAttritude!=null&&custom.serviceEfficiencyAttritude!=0){
+					for(var i=0;i<=efficiency;i++){//亮星
+						$("#efficiency i:nth-child("+i+")").removeClass("mui-icon-star");
+						$("#efficiency i:nth-child("+i+")").addClass("mui-icon-star-filled");
+					};
+					$("#fen").show();
+				}else {
+					$("#fen").hide();
+				}
+				if(custom.serviceAttritude!=null&&custom.serviceAttritude!=0){
+					for(var i=0;i<=attitude;i++){//亮星
+		    		 	$("#attitude i:nth-child("+i+")").removeClass("mui-icon-star");
+		    		 	$("#attitude i:nth-child("+i+")").addClass("mui-icon-star-filled");
+					}
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				if(custom.serviceProfessionalism!=null&&custom.serviceProfessionalism!=0){
+					for(var i=0;i<=professionalism;i++){//亮星
+						$("#professionalism i:nth-child("+i+")").removeClass("mui-icon-star");
+						$("#professionalism i:nth-child("+i+")").addClass("mui-icon-star-filled");
+					}
+					$("#fen").show();
+				}else{
+					$("#fen").hide();
+				}
+				$("input").attr('disabled','disabled');
+				$("textarea").attr('disabled','disabled');
+				$("#accmoFlag").addClass("mui-disabled");
+			}    
+		});	 
+	});
+    function returnToMain(){
+		var targetUrl = "customerReception.html";		 
+		//restore the code into URL 
+        if (localStorage.wxCode != null) {
+            var wxdata = JSON.parse(localStorage.wxCode);
+            if (wxdata) {
+                targetUrl = targetUrl + "?code=" + wxdata.code;
+            }
+        }
+        mui.openWindow({url:targetUrl});
+    };
+</script>
+</body>
+</html>
