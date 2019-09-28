@@ -1,0 +1,492 @@
+-- 行业业绩
+SELECT * FROM ods_fi_ind_perform;--明细数据表
+SELECT * FROM ods_fi_indpf_target;--事业部目标表
+SELECT * FROM ods_fi_indpf_pltarget;--解决方案经理目标表
+SELECT * FROM dw_fi_indpf_dept;--事业部行业业绩
+select * from dw_fi_indpf_manger ;--解决方案经理行业业绩
+
+-- 确认收入：
+select * from  ods_fi_rgic_target ;--目标表
+select * from  ods_fi_recog_income ;--明细数据表
+select * from dw_fi_rgic_dept ;--事业部确认收入
+select * from dw_fi_rgic_represent;--代表处确认收入
+
+
+prompt
+prompt Creating table DW_FI_INDPF_DEPT
+prompt ===============================
+prompt
+create table RUN.DW_FI_INDPF_DEPT
+(
+  GROUP_ID       VARCHAR2(200),
+  GROUP_NAME     VARCHAR2(200),
+  FIRST_DEPT_ID  VARCHAR2(200),
+  FIRST_DEPT     VARCHAR2(200),
+  SECOND_DEPT_ID VARCHAR2(200),
+  SECOND_DEPT    VARCHAR2(200),
+  Z_QUARTER      VARCHAR2(10),
+  ISCPX          VARCHAR2(10),
+  ACTUAL         NUMBER,
+  TARGET         NUMBER,
+  MTAR           NUMBER,
+  MACT           NUMBER,
+  ETL_TIME       DATE default sysdate,
+  IS_NEW         VARCHAR2(10)
+);
+comment on table RUN.DW_FI_INDPF_DEPT
+  is '事业部行业业绩';
+comment on column RUN.DW_FI_INDPF_DEPT.GROUP_ID
+  is '事业群ID';
+comment on column RUN.DW_FI_INDPF_DEPT.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.DW_FI_INDPF_DEPT.FIRST_DEPT_ID
+  is '一级部门ID';
+comment on column RUN.DW_FI_INDPF_DEPT.FIRST_DEPT
+  is '一级部门名称';
+comment on column RUN.DW_FI_INDPF_DEPT.SECOND_DEPT_ID
+  is '二级部门ID';
+comment on column RUN.DW_FI_INDPF_DEPT.SECOND_DEPT
+  is '二级部门名称';
+comment on column RUN.DW_FI_INDPF_DEPT.Z_QUARTER
+  is '季度';
+comment on column RUN.DW_FI_INDPF_DEPT.ISCPX
+  is '是否产品线【1 是 0 否】';
+comment on column RUN.DW_FI_INDPF_DEPT.ACTUAL
+  is '实际值';
+comment on column RUN.DW_FI_INDPF_DEPT.TARGET
+  is '目标值';
+comment on column RUN.DW_FI_INDPF_DEPT.MTAR
+  is '动态目标值';
+comment on column RUN.DW_FI_INDPF_DEPT.MACT
+  is '动态实际值';
+comment on column RUN.DW_FI_INDPF_DEPT.ETL_TIME
+  is 'etl时间';
+comment on column RUN.DW_FI_INDPF_DEPT.IS_NEW
+  is '是否是最新【1 是 0 否】';
+
+prompt
+prompt Creating table DW_FI_INDPF_MANGER
+prompt =================================
+prompt
+create table RUN.DW_FI_INDPF_MANGER
+(
+  Z_QUARTER VARCHAR2(100),
+  MANGER    VARCHAR2(100),
+  TARGET    NUMBER,
+  ACTUAL    NUMBER,
+  MTAR      NUMBER,
+  MACT      NUMBER,
+  ETL_TIME  DATE default sysdate,
+  IS_NEW    VARCHAR2(10)
+);
+comment on table RUN.DW_FI_INDPF_MANGER
+  is '解决方案经理行业业绩';
+comment on column RUN.DW_FI_INDPF_MANGER.Z_QUARTER
+  is '季度';
+comment on column RUN.DW_FI_INDPF_MANGER.MANGER
+  is '解决方案经理';
+comment on column RUN.DW_FI_INDPF_MANGER.TARGET
+  is '目标';
+comment on column RUN.DW_FI_INDPF_MANGER.ACTUAL
+  is '实际';
+comment on column RUN.DW_FI_INDPF_MANGER.MTAR
+  is '动态目标';
+comment on column RUN.DW_FI_INDPF_MANGER.MACT
+  is '动态实际';
+comment on column RUN.DW_FI_INDPF_MANGER.ETL_TIME
+  is 'etl时间';
+comment on column RUN.DW_FI_INDPF_MANGER.IS_NEW
+  is '是否最新【1 是 0 否】';
+
+prompt
+prompt Creating table DW_FI_RGIC_DEPT
+prompt ==============================
+prompt
+create table RUN.DW_FI_RGIC_DEPT
+(
+  GROUP_ID       VARCHAR2(200),
+  GROUP_NAME     VARCHAR2(200),
+  FIRST_DEPT_ID  VARCHAR2(200),
+  FIRST_DEPT     VARCHAR2(200),
+  SECOND_DEPT_ID VARCHAR2(200),
+  SECOND_DEPT    VARCHAR2(200),
+  Z_QUARTER      VARCHAR2(10),
+  ISCPX          VARCHAR2(10),
+  ACTUAL         NUMBER,
+  TARGET         NUMBER,
+  MTAR           NUMBER,
+  MACT           NUMBER,
+  ETL_TIME       DATE,
+  IS_NEW         VARCHAR2(10)
+);
+comment on table RUN.DW_FI_RGIC_DEPT
+  is '事业部确认收入';
+comment on column RUN.DW_FI_RGIC_DEPT.GROUP_ID
+  is '事业群ID';
+comment on column RUN.DW_FI_RGIC_DEPT.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.DW_FI_RGIC_DEPT.FIRST_DEPT_ID
+  is '一级部门ID';
+comment on column RUN.DW_FI_RGIC_DEPT.FIRST_DEPT
+  is '一级部门';
+comment on column RUN.DW_FI_RGIC_DEPT.SECOND_DEPT_ID
+  is '二级部门ID';
+comment on column RUN.DW_FI_RGIC_DEPT.SECOND_DEPT
+  is '二级部门';
+comment on column RUN.DW_FI_RGIC_DEPT.Z_QUARTER
+  is '季度';
+comment on column RUN.DW_FI_RGIC_DEPT.ISCPX
+  is '是否产品线';
+comment on column RUN.DW_FI_RGIC_DEPT.ACTUAL
+  is '实际值';
+comment on column RUN.DW_FI_RGIC_DEPT.TARGET
+  is '目标值';
+comment on column RUN.DW_FI_RGIC_DEPT.MTAR
+  is '动态目标值';
+comment on column RUN.DW_FI_RGIC_DEPT.MACT
+  is '动态实际值';
+comment on column RUN.DW_FI_RGIC_DEPT.ETL_TIME
+  is 'etl时间';
+comment on column RUN.DW_FI_RGIC_DEPT.IS_NEW
+  is '是否最新数据';
+
+prompt
+prompt Creating table DW_FI_RGIC_REPRESENT
+prompt ===================================
+prompt
+create table RUN.DW_FI_RGIC_REPRESENT
+(
+  GROUP_ID      VARCHAR2(200),
+  GROUP_NAME    VARCHAR2(200),
+  FIRST_DEPT_ID VARCHAR2(200),
+  FIRST_DEPT    VARCHAR2(200),
+  Z_QUARTER     VARCHAR2(10),
+  ACTUAL        NUMBER,
+  TARGET        NUMBER,
+  MTAR          NUMBER,
+  MACT          NUMBER,
+  ETL_TIME      DATE,
+  IS_NEW        VARCHAR2(10)
+);
+comment on table RUN.DW_FI_RGIC_REPRESENT
+  is '代表处确认收入';
+comment on column RUN.DW_FI_RGIC_REPRESENT.GROUP_ID
+  is '事业群ID';
+comment on column RUN.DW_FI_RGIC_REPRESENT.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.DW_FI_RGIC_REPRESENT.FIRST_DEPT_ID
+  is '一级部门ID';
+comment on column RUN.DW_FI_RGIC_REPRESENT.FIRST_DEPT
+  is '一级部门';
+comment on column RUN.DW_FI_RGIC_REPRESENT.Z_QUARTER
+  is '季度';
+comment on column RUN.DW_FI_RGIC_REPRESENT.ACTUAL
+  is '实际值';
+comment on column RUN.DW_FI_RGIC_REPRESENT.TARGET
+  is '目标值';
+comment on column RUN.DW_FI_RGIC_REPRESENT.MTAR
+  is '动态目标值';
+comment on column RUN.DW_FI_RGIC_REPRESENT.MACT
+  is '动态实际值';
+comment on column RUN.DW_FI_RGIC_REPRESENT.ETL_TIME
+  is 'etl时间';
+comment on column RUN.DW_FI_RGIC_REPRESENT.IS_NEW
+  is '是否最新数据';
+
+prompt
+prompt Creating table ODS_FI_INDPF_PLTARGET
+prompt ====================================
+prompt
+create table RUN.ODS_FI_INDPF_PLTARGET
+(
+  STAFF_NAME VARCHAR2(100),
+  FIRST_DEPT VARCHAR2(200),
+  HYFX       VARCHAR2(100),
+  POST_ID    VARCHAR2(100),
+  Z_QUARTER  VARCHAR2(100),
+  TARGET     NUMBER,
+  ETL_TIME   DATE default sysdate
+);
+
+prompt
+prompt Creating table ODS_FI_INDPF_TARGET
+prompt ==================================
+prompt
+create table RUN.ODS_FI_INDPF_TARGET
+(
+  GROUP_ID       VARCHAR2(100),
+  GROUP_NAME     VARCHAR2(200),
+  FIRST_DEPT_ID  VARCHAR2(100),
+  FIRST_DEPT     VARCHAR2(200),
+  SECOND_DEPT_ID VARCHAR2(100),
+  SECOND_DEPT    VARCHAR2(200),
+  Z_QUARTER      VARCHAR2(100),
+  TARGET         NUMBER,
+  ISCPX          VARCHAR2(100)
+);
+comment on table RUN.ODS_FI_INDPF_TARGET
+  is '行业业绩事业部目标表';
+comment on column RUN.ODS_FI_INDPF_TARGET.GROUP_ID
+  is '事业群id';
+comment on column RUN.ODS_FI_INDPF_TARGET.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.ODS_FI_INDPF_TARGET.FIRST_DEPT_ID
+  is '一级部门id';
+comment on column RUN.ODS_FI_INDPF_TARGET.FIRST_DEPT
+  is '一级部门名称';
+comment on column RUN.ODS_FI_INDPF_TARGET.SECOND_DEPT_ID
+  is '二级部门id';
+comment on column RUN.ODS_FI_INDPF_TARGET.SECOND_DEPT
+  is '二级部门名称';
+comment on column RUN.ODS_FI_INDPF_TARGET.Z_QUARTER
+  is '季度';
+comment on column RUN.ODS_FI_INDPF_TARGET.TARGET
+  is '目标值';
+comment on column RUN.ODS_FI_INDPF_TARGET.ISCPX
+  is '是否产品线【1 是 0 否】';
+
+prompt
+prompt Creating table ODS_FI_IND_PERFORM
+prompt =================================
+prompt
+create table RUN.ODS_FI_IND_PERFORM
+(
+  ID                  VARCHAR2(200),
+  CONTRACTCODE        VARCHAR2(200),
+  PROVINCE            VARCHAR2(200),
+  CITY                VARCHAR2(200),
+  ZJL                 VARCHAR2(200),
+  DEPT_NAME           VARCHAR2(200),
+  HANGYE              VARCHAR2(200),
+  SELLPERSON          VARCHAR2(200),
+  CONTRACTPRONAME     VARCHAR2(500),
+  LAST_USER           VARCHAR2(500),
+  PROCODE             VARCHAR2(200),
+  SECONDDEPT          VARCHAR2(200),
+  CONTRACTSIGNDATE    DATE,
+  CONTRACTPRICEDOUBLE NUMBER,
+  RECORDDATE          DATE,
+  PERFORMRECORDNUM    NUMBER,
+  CLIENTCOMPANYNAME   VARCHAR2(200),
+  FANGANJL            VARCHAR2(200),
+  JLYJ                NUMBER,
+  GROUP_ID            VARCHAR2(200),
+  GROUP_NAME          VARCHAR2(200),
+  FIRST_DEPT_ID       VARCHAR2(200),
+  FIRST_DEPT          VARCHAR2(200),
+  SECOND_DEPT_ID      VARCHAR2(200),
+  SECOND_DEPT         VARCHAR2(200),
+  HYYJ                NUMBER,
+  CHECK_FLAG          VARCHAR2(200),
+  ISCPX               VARCHAR2(10)
+);
+comment on table RUN.ODS_FI_IND_PERFORM
+  is '行业业绩明细表';
+comment on column RUN.ODS_FI_IND_PERFORM.ID
+  is '编号';
+comment on column RUN.ODS_FI_IND_PERFORM.CONTRACTCODE
+  is '合同号';
+comment on column RUN.ODS_FI_IND_PERFORM.PROVINCE
+  is '省份';
+comment on column RUN.ODS_FI_IND_PERFORM.CITY
+  is '地市';
+comment on column RUN.ODS_FI_IND_PERFORM.ZJL
+  is '总经理';
+comment on column RUN.ODS_FI_IND_PERFORM.DEPT_NAME
+  is '部门';
+comment on column RUN.ODS_FI_IND_PERFORM.HANGYE
+  is '行业';
+comment on column RUN.ODS_FI_IND_PERFORM.SELLPERSON
+  is '销售人员';
+comment on column RUN.ODS_FI_IND_PERFORM.CONTRACTPRONAME
+  is '合同名称';
+comment on column RUN.ODS_FI_IND_PERFORM.LAST_USER
+  is '最终用户名称';
+comment on column RUN.ODS_FI_IND_PERFORM.PROCODE
+  is '项目编号';
+comment on column RUN.ODS_FI_IND_PERFORM.SECONDDEPT
+  is '合同主体成本中心名称';
+comment on column RUN.ODS_FI_IND_PERFORM.CONTRACTSIGNDATE
+  is '合同签订日期';
+comment on column RUN.ODS_FI_IND_PERFORM.CONTRACTPRICEDOUBLE
+  is '合同总金额';
+comment on column RUN.ODS_FI_IND_PERFORM.RECORDDATE
+  is '业绩记录日期';
+comment on column RUN.ODS_FI_IND_PERFORM.PERFORMRECORDNUM
+  is '业绩记录金额';
+comment on column RUN.ODS_FI_IND_PERFORM.CLIENTCOMPANYNAME
+  is '合同甲方名称';
+comment on column RUN.ODS_FI_IND_PERFORM.FANGANJL
+  is '解决方案经理';
+comment on column RUN.ODS_FI_IND_PERFORM.JLYJ
+  is '解决方案经理行业业绩';
+comment on column RUN.ODS_FI_IND_PERFORM.GROUP_ID
+  is '事业群ID';
+comment on column RUN.ODS_FI_IND_PERFORM.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.ODS_FI_IND_PERFORM.FIRST_DEPT_ID
+  is '一级部门id';
+comment on column RUN.ODS_FI_IND_PERFORM.FIRST_DEPT
+  is '一级部门名称';
+comment on column RUN.ODS_FI_IND_PERFORM.SECOND_DEPT_ID
+  is '二级部门（产品线）id';
+comment on column RUN.ODS_FI_IND_PERFORM.SECOND_DEPT
+  is '二级部门名称';
+comment on column RUN.ODS_FI_IND_PERFORM.HYYJ
+  is '行业业绩';
+comment on column RUN.ODS_FI_IND_PERFORM.CHECK_FLAG
+  is '核对';
+comment on column RUN.ODS_FI_IND_PERFORM.ISCPX
+  is '是否是产品线';
+
+prompt
+prompt Creating table ODS_FI_RECOG_INCOME
+prompt ==================================
+prompt
+create table RUN.ODS_FI_RECOG_INCOME
+(
+  ID                  VARCHAR2(200),
+  CONTRACTCODE        VARCHAR2(200),
+  PROVINCE            VARCHAR2(200),
+  CITY                VARCHAR2(200),
+  ZJL                 VARCHAR2(200),
+  DEPT_NAME           VARCHAR2(200),
+  HANGYE              VARCHAR2(200),
+  SELLPERSON          VARCHAR2(200),
+  CONTRACTPRONAME     VARCHAR2(500),
+  LAST_USER           VARCHAR2(500),
+  PROCODE             VARCHAR2(200),
+  SECONDDEPT          VARCHAR2(200),
+  CONTRACTSIGNDATE    DATE,
+  CONTRACTPRICEDOUBLE NUMBER,
+  RECORDDATE          DATE,
+  PERFORMRECORDNUM    NUMBER,
+  GROUP_ID            VARCHAR2(200),
+  GROUP_NAME          VARCHAR2(200),
+  FIRST_DEPT_ID       VARCHAR2(200),
+  FIRST_DEPT          VARCHAR2(200),
+  SECOND_DEPT_ID      VARCHAR2(200),
+  SECOND_DEPT         VARCHAR2(200),
+  ISCPX               VARCHAR2(10),
+  IS_SYB              VARCHAR2(10),
+  PRO_TYPE            VARCHAR2(200),
+  TAX                 NUMBER,
+  JF_DEPT             VARCHAR2(200),
+  JF_DEPTID           VARCHAR2(100),
+  CHECK_TIME          DATE,
+  FINISHED_TIME       DATE,
+  COMFIRM_TIME        DATE,
+  COMFIRM_RATE        VARCHAR2(100),
+  COMFIRM_AMOUNT      NUMBER
+);
+comment on table RUN.ODS_FI_RECOG_INCOME
+  is '确认收入明细';
+comment on column RUN.ODS_FI_RECOG_INCOME.ID
+  is '编号';
+comment on column RUN.ODS_FI_RECOG_INCOME.CONTRACTCODE
+  is '合同号';
+comment on column RUN.ODS_FI_RECOG_INCOME.PROVINCE
+  is '省份';
+comment on column RUN.ODS_FI_RECOG_INCOME.CITY
+  is '地市';
+comment on column RUN.ODS_FI_RECOG_INCOME.ZJL
+  is '总经理';
+comment on column RUN.ODS_FI_RECOG_INCOME.DEPT_NAME
+  is '部门';
+comment on column RUN.ODS_FI_RECOG_INCOME.HANGYE
+  is '行业';
+comment on column RUN.ODS_FI_RECOG_INCOME.SELLPERSON
+  is '销售人员';
+comment on column RUN.ODS_FI_RECOG_INCOME.CONTRACTPRONAME
+  is '合同名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.LAST_USER
+  is '最终用户名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.PROCODE
+  is '项目编号';
+comment on column RUN.ODS_FI_RECOG_INCOME.SECONDDEPT
+  is '合同主体成本中心名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.CONTRACTSIGNDATE
+  is '合同签订日期';
+comment on column RUN.ODS_FI_RECOG_INCOME.CONTRACTPRICEDOUBLE
+  is '合同总金额';
+comment on column RUN.ODS_FI_RECOG_INCOME.RECORDDATE
+  is '业绩记录日期';
+comment on column RUN.ODS_FI_RECOG_INCOME.PERFORMRECORDNUM
+  is '业绩记录金额';
+comment on column RUN.ODS_FI_RECOG_INCOME.GROUP_ID
+  is '事业群id';
+comment on column RUN.ODS_FI_RECOG_INCOME.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.FIRST_DEPT_ID
+  is '一级部门id';
+comment on column RUN.ODS_FI_RECOG_INCOME.FIRST_DEPT
+  is '一级部门名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.SECOND_DEPT_ID
+  is '二级部门id';
+comment on column RUN.ODS_FI_RECOG_INCOME.SECOND_DEPT
+  is '二级部门名称';
+comment on column RUN.ODS_FI_RECOG_INCOME.ISCPX
+  is '是否产品线【1 是 0 否】';
+comment on column RUN.ODS_FI_RECOG_INCOME.IS_SYB
+  is '是否事业部【1 是 0 否】';
+comment on column RUN.ODS_FI_RECOG_INCOME.PRO_TYPE
+  is '项目类型';
+comment on column RUN.ODS_FI_RECOG_INCOME.TAX
+  is '税率';
+comment on column RUN.ODS_FI_RECOG_INCOME.JF_DEPT
+  is '交付部门';
+comment on column RUN.ODS_FI_RECOG_INCOME.JF_DEPTID
+  is '交付部门id';
+comment on column RUN.ODS_FI_RECOG_INCOME.CHECK_TIME
+  is '验收报告时间';
+comment on column RUN.ODS_FI_RECOG_INCOME.FINISHED_TIME
+  is '完工报告时间';
+comment on column RUN.ODS_FI_RECOG_INCOME.COMFIRM_TIME
+  is '确认收入时间';
+comment on column RUN.ODS_FI_RECOG_INCOME.COMFIRM_RATE
+  is '确认收入比例';
+comment on column RUN.ODS_FI_RECOG_INCOME.COMFIRM_AMOUNT
+  is '确认收入金额(万元)';
+
+prompt
+prompt Creating table ODS_FI_RGIC_TARGET
+prompt =================================
+prompt
+create table RUN.ODS_FI_RGIC_TARGET
+(
+  GROUP_ID       VARCHAR2(100),
+  GROUP_NAME     VARCHAR2(200),
+  FIRST_DEPT_ID  VARCHAR2(100),
+  FIRST_DEPT     VARCHAR2(200),
+  SECOND_DEPT_ID VARCHAR2(100),
+  SECOND_DEPT    VARCHAR2(200),
+  Z_QUARTER      VARCHAR2(100),
+  TARGET         NUMBER,
+  ISCPX          VARCHAR2(100),
+  IS_SYB         VARCHAR2(100)
+);
+comment on table RUN.ODS_FI_RGIC_TARGET
+  is '确认收入目标表';
+comment on column RUN.ODS_FI_RGIC_TARGET.GROUP_ID
+  is '事业群id';
+comment on column RUN.ODS_FI_RGIC_TARGET.GROUP_NAME
+  is '事业群名称';
+comment on column RUN.ODS_FI_RGIC_TARGET.FIRST_DEPT_ID
+  is '一级部门id';
+comment on column RUN.ODS_FI_RGIC_TARGET.FIRST_DEPT
+  is '一级部门名称';
+comment on column RUN.ODS_FI_RGIC_TARGET.SECOND_DEPT_ID
+  is '二级部门id';
+comment on column RUN.ODS_FI_RGIC_TARGET.SECOND_DEPT
+  is '二级部门名称';
+comment on column RUN.ODS_FI_RGIC_TARGET.Z_QUARTER
+  is '季度';
+comment on column RUN.ODS_FI_RGIC_TARGET.TARGET
+  is '目标值';
+comment on column RUN.ODS_FI_RGIC_TARGET.ISCPX
+  is '是否产品线【1 是 0 否】';
+comment on column RUN.ODS_FI_RGIC_TARGET.IS_SYB
+  is '是否事业部【1 是 0 否】';
+
+
+

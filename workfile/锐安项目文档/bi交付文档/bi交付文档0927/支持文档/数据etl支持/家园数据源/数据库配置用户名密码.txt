@@ -1,0 +1,28 @@
+    
+字符集：
+set names utf8
+characterEncoding utf8
+
+老家园测试：192.168.0.88    root   www.run.com@123
+新家园测试：192.168.0.131   root   admin123
+Oracle测试：192.168.0.105   run    admin123
+
+老家园正式：192.168.0.28    BI     admin123
+新家园正式：192.168.0.174   BIUser Meiguihua@77
+oracle正式：192.168.0.103   run    admin123
+
+
+
+ 锐安协同办公系统 新：http://192.168.0.149:8000/YJT_Admin
+
+ 锐安协同办公系统 老：http://192.168.0.88/administrator.do
+
+ 锐安协同办公系统 正式老 http://www.run.com/administrator.do 管理员/biewenwo
+ 锐安协同办公系统 正式新 http://www.yjt.run.com/YJT_Admin/#  李晓东/lixaiodong
+
+
+ ERP测试系统 HANA数据库 192.168.0.16 用户 system 密码 Runqas_2013
+
+ ERP正式系统 HANA数据库 192.168.0.13 用户  密码  
+
+ 正式环境kettle ：192.168.0.170 用户 administrator 密码 Admin@123

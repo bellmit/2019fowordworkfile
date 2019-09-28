@@ -1,0 +1,44 @@
+SELECT 
+        YEAR(t1.reality_start_time) AS z_year                                                 -- 实际立项时间年【例：2019】
+       ,concat(YEAR(t1.reality_start_time),"Q",quarter(t1.reality_start_time)) AS z_quarter   -- 实际立项时间季度【例：2019q1】
+       ,date_format(t1.reality_start_time, '%Y-%m') AS z_month                                -- 实际立项时间月【例：2019-01】
+       ,t1.reality_start_time                                                                 -- 实际立项时间
+       ,t1.realreleasetime                                                                    -- 实际发布时间
+       ,t1.project_serial_num AS procode                                                      -- 项目编号
+       ,t1.ch_version AS pro_ch_version                                                       -- 项目中文描述
+       ,t1.english_version as pro_eng_version                                                 -- 项目英文描述
+       ,t1.first_dept_id                                                                      -- 一级部门id
+       ,t1.first_dept                                                                         -- 一级部门
+       ,t1.second_dept_id                                                                     -- 二级部门id
+       ,t1.second_dept                                                                        -- 二级部门
+       ,t1.pro_type                                                                           -- 项目类型 
+       ,t1.current_milepost as stage                                                          -- 当前阶段 
+       ,t1.scale_project as plan_workhour                                                     -- 计划工作量（人月）
+       ,SUM(ifnull(t2.workhour, 0)) as act_workhour                                           -- 实际工作量（人月）
+       ,AVG(ifnull(t3.STANDARD, 0)) as score                                                  -- 过程质量得分
+       ,AVG(ifnull(t3.asset_sub_rate, 0)) as submit_rate                                      -- 过程资产提交率
+       ,CASE                                                                                  
+         WHEN date_format(realreleasetime, '%Y-%m') =                                            
+              date_format(SYSDATE(), '%Y-%m') THEN
+          '1'
+         ELSE
+          ''         
+       END AS is_month                                                                        -- 是否当月发布
+	   ,sysdate() as etl_time                                                                 -- etl时间
+  FROM t_pro_setup_apply t1
+  LEFT JOIN m_daily_work t2 ON t1.item_name = t2.projectid
+  LEFT JOIN t_pro_quality_score t3 ON t1.id = t3.project_id
+ WHERE t1.project_serial_num IS NOT NULL
+   AND reality_start_time IS NOT NULL
+ GROUP BY t1.reality_start_time
+         ,t1.realreleasetime
+         ,t1.project_serial_num
+         ,t1.ch_version
+         ,t1.english_version
+         ,t1.first_dept_id
+         ,t1.first_dept
+         ,t1.second_dept_id
+         ,t1.second_dept
+         ,t1.pro_type
+         ,t1.current_milepost
+         ,t1.scale_project

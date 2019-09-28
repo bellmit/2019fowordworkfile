@@ -1,0 +1,93 @@
+SELECT YEAR(a.reality_finished_time) AS z_year                                                     -- 实际完成时间年【例：2019】
+       ,concat(YEAR(a.reality_finished_time), "Q", quarter(a.reality_finished_time)) AS z_quarter  -- 实际完成时间季度【例：2019q1】 
+       ,date_format(a.reality_finished_time, '%Y-%m') AS z_month                                   -- 实际完成时间月【例：2019-01】
+       ,a.reality_finished_time                                                                    -- 实际完成时间
+       ,b.project_serial_num AS procode                                                            -- 项目编号
+       ,b.ch_version as pro_ch_version                                                             -- 项目中文描述
+       ,b.english_version  as pro_eng_version                                                      -- 项目英文描述
+       ,b.first_dept_id                                                                            -- 一级部门id
+       ,b.first_dept                                                                               -- 一级部门
+       ,b.second_dept_id                                                                           -- 二级部门id
+       ,b.second_dept                                                                              -- 二级部门
+       ,b.pro_type_name  as pro_type                                                               -- 项目类型 
+       ,a.milepost_name  as milestone                                                              -- 阶段-里程碑 
+	   ,c.active                                                                                   -- 里程碑-活动 
+       ,SUM(ifnull(c.plan_value, 0)) AS plan_workhour                                              -- 计划工作量（人月）
+       ,SUM(ifnull(c.real_value, 0)) AS act_workhour                                               -- 实际工作量（人月）
+  FROM t_pro_milepost a
+  JOIN t_pro_setup_apply b ON a.pro_id = b.id
+  JOIN (SELECT a.milepost_id
+              ,a.milepost_name
+              ,a.active
+              ,SUM(plan_value) plan_value
+              ,SUM(real_value) real_value
+          FROM (SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'需求' active
+                      ,SUM(ifnull(a.plan_demand, 0)) AS plan_value
+                      ,SUM(ifnull(a.real_demand2, 0)) AS real_value
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name
+                UNION ALL
+                SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'设计' active
+                      ,SUM(ifnull(a.plan_design, 0))
+                      ,SUM(ifnull(a.real_design, 0))
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name
+                UNION ALL
+                SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'编码' active
+                      ,SUM(ifnull(a.plan_coding, 0))
+                      ,SUM(ifnull(a.real_coding, 0))
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name
+                UNION ALL
+                SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'测试' active
+                      ,SUM(ifnull(a.plan_test, 0))
+                      ,SUM(ifnull(a.real_test, 0))
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name
+                UNION ALL
+                SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'项目管理' active
+                      ,SUM(ifnull(a.plan_pro_manage, 0))
+                      ,SUM(ifnull(a.real_pro_manage, 0))
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name
+                UNION ALL
+                SELECT a.milepost_id
+                      ,a.milepost_name
+                      ,'其他工时' active
+                      ,SUM(ifnull(a.plan_other, 0))
+                      ,SUM(ifnull(a.real_other, 0))
+                  FROM t_pro_workload a
+                 GROUP BY a.milepost_id
+                         ,a.milepost_name) a
+         GROUP BY a.milepost_id
+                 ,a.milepost_name
+                 ,a.active) c ON c.milepost_id = a.id
+ WHERE b.project_serial_num IS NOT NULL
+   AND YEAR(a.reality_finished_time) = YEAR(SYSDATE())
+ GROUP BY a.reality_finished_time
+         ,b.project_serial_num
+         ,b.ch_version
+         ,b.english_version
+         ,a.first_dept_id
+         ,a.first_dept
+         ,a.second_dept_id
+         ,a.second_dept
+         ,a.pro_type_id
+         ,a.pro_type
+         ,a.milepost_name
+		 ,c.active;

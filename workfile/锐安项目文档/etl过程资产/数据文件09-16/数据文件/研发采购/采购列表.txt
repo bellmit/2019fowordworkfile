@@ -1,0 +1,26 @@
+SELECT  YEAR(a.applydate) AS z_year -- 提交日期年【例：2019】
+       ,concat(YEAR(a.applydate), "Q", quarter(a.applydate)) AS z_quarter -- 提交日期季度【例：2019Q1】
+       ,date_format(a.applydate, '%Y-%m') AS z_month -- 提交日期月份【例：2019-01】
+       ,a.applydate AS submit_date -- 提交日期
+       ,b.pmh AS procode -- 项目编号
+       ,b.pm_name AS proname -- 项目描述
+       ,c.lifnr AS supplier_code -- 供应商编号
+       ,a.cg_gys AS supplier_name -- 供应商名称
+       ,SUM(ifnull(b.subtotal, 0)) AS purchase_amount -- 采购金额
+       ,SUM(ifnull(d.qt_amt, 0)) AS contract_amount -- 合同金额
+       ,SYSDATE() AS etl_time
+  FROM cg_sp a
+  LEFT JOIN cg_sp_et b ON a.id = b.cg_sp_id
+  LEFT JOIN (SELECT DISTINCT a.cg_sp_id
+                            ,a.lifnr
+                            ,a.offername
+               FROM cg_sp_offer a) c ON a.id = c.cg_sp_id
+                                    AND a.cg_gys = c.offername
+  LEFT JOIN (SELECT DISTINCT pspnr
+                            ,qt_amt
+               FROM sd_yszk) d ON b.pmh = d.pspnr
+ GROUP BY a.applydate -- 提交日期
+         ,b.pmh -- 项目编号
+         ,b.pm_name -- 项目描述
+         ,c.lifnr -- 供应商编号
+         ,a.cg_gys;

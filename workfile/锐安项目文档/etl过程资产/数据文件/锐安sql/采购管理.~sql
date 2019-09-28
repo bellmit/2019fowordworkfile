@@ -1,0 +1,19 @@
+--采购管理
+  --采购管理分析
+    --按供应商汇总采购金额 "(统计期间内) " 
+    select a.cg_gys, --供应商
+           a.LASTINDATE, --最后一次入库日期
+           sum(gysmoney) --采购总金额
+      from dw_cg_sp a
+     group by a.cg_gys, a.LASTINDATE;
+    
+    --项目采购金额及合同额对比关系"(统计期间内)”      
+    select a.procode, --项目编号
+           a.z_year, --年份
+           sum(a.contractpricedouble), --合同额
+           sum(b.gysmoney) --采购额
+      from DW_BI_REPORT_YGSJ A
+      JOIN dw_cg_sp B 
+        ON A.PROCODE = B.Xmbh
+       and a.z_year = to_char(b.applydate, 'yyyy')
+     group by a.procode, a.z_year;

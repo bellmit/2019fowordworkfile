@@ -1,0 +1,146 @@
+--工程售后管理：
+  --工程售后项目分析
+ select * from DW_PAS_TIMELY_COMP_RATE 
+  select sum(a.contract_comp_rate) contract_comp_rate,
+         sum(a.check_comp_rate) check_comp_rate,
+         sum(a.advance_startup_rate) advance_startup_rate,
+         sysdate etl_time
+    from (
+          --工程项目的按时完成率
+          select b.tq_xm / a.all_xm contract_comp_rate,
+                  0 check_comp_rate,
+                  0 advance_startup_rate --项目完成率
+            from (select count(construct_project_id) all_xm
+                     from dw_construct_milestone) a,
+                  (select count(construct_project_id) tq_xm
+                     from dw_construct_milestone a
+                    where a.actual_finish_date > a.plan_finish_date
+                      and a.milestone_name = '完工') b
+          union all
+          --验收项目的按时完成率
+          select 0 contract_comp_rate,
+                 b.tq_xm / a.all_xm check_comp_rate,
+                 0 advance_startup_rate --验收完成率
+            from (select count(check_project_id) all_xm
+                    from dw_check_milestone) a,
+                 (select count(check_project_id) tq_xm
+                    from dw_check_milestone a
+                   where a.actual_finish_date > a.plan_finish_date
+                     and a.milestone_name = '终验') b
+          union all
+          --工程项目的提前启动率     
+          select 0 contract_comp_rate,
+                 0 check_comp_rate,
+                 b.tq_xm / a.all_xm advance_startup_rate --提前启动率 
+            from (select count(construct_project_id) all_xm
+                    from dw_construct_milestone) a,
+                 (select count(construct_project_id) tq_xm
+                    from dw_construct_milestone a
+                   where a.actual_finish_date > a.plan_finish_date
+                     and a.milestone_name = '项目启动') b) a;
+                     
+                  
+     --工程售后项目费用情况
+   select * from DW_PAS_CONTRACR_EXPENSE 
+      select a.id, --编号
+             a.project_sku projcode, --项目
+             a.project_name projname, --项目名
+             sum(a.out_amount) expense,--费用
+             sysdate etl_time
+        from dw_budget_project a
+       group by a.id, a.project_sku, a.project_name;
+       
+     --工程售后项目总人工时 、日均人工时    *挂起时间不确定*
+     
+     DW_CONSTRUCT_PROJECT_TEMP
+     DW_DAILY_WORK_TEMP
+     
+     select * from  DW_PAS_MANHOUR  
+      select a.id, --项目id
+              to_char(a.UPDATED_AT,'yyyymmdd') - to_char(a.project_date,'yyyymmdd')day,--日期=立项时间-结项时间（立项状态是结项的数据更新时间）             
+             sum(b.work_hour)hour ,--项目人工时
+             sum(b.work_hour)/( to_char(a.UPDATED_AT,'yyyymmdd') - to_char(a.project_date,'yyyymmdd')) hour_avg,--日均人工时
+             sysdate etl_time
+        from DW_CONSTRUCT_PROJECT_TEMP a
+       join DW_DAILY_WORK_TEMP b on a.id = b.PROJECT_ID
+       --或者join dw_NEW_m_daily_work b on a.PROJECT_NAME = b.PRO_NO
+        where a.project_state='结项'
+       group by a.id, to_char(a.UPDATED_AT,'yyyymmdd') - to_char(a.project_date,'yyyymmdd');
+       
+      
+      
+  --售后400分析
+  
+    --分类汇总售后400问题数量    
+    select * from DW_PAS_FH_QUANTITY  
+    select  -- a.questiontype,
+     case
+       when b.value is null then
+        '其他'
+       else
+        b.value
+     end type,--问题类型
+     count(a.id)quantity,--数量
+     sysdate etl_time
+      from dw_m_question a
+      left join dw_m_question_classify b on a.questiontype = b.value
+     group by  --a.questiontype,
+              b.value;
+              
+    --计算平均响应时长
+    SELECT * FROM  DW_PAS_FH_AVG_REPONSE_TIME   
+      select a.questiondepartment department,--部门
+             count quantity,
+             time minutes,
+             case
+               when count = 0 or count is null then
+                0
+               else
+                time / count
+             end avg_minutes,--平均响应时长
+             sysdate etl_time
+        from (select a.questiondepartment,--部门
+                     count(a.questiondepartment) count,--部门数量
+                     nvl(sum(to_number(to_date(substr(cnyhtime, 1, 16),
+                                               'YYYY-MM-DD HH24:MI:SS') -
+                                       to_date(substr(questioncreatetime,
+                                                      1,
+                                                      16),
+                                               'YYYY-MM-DD HH24:MI:SS')) * 24 * 60),
+                         0) time--响应总时长
+                from dw_m_question a
+               where questiondepartment is not null
+               group by a.questiondepartment) a;
+               
+    --解决问题时长
+    select * from  DW_PAS_FH_FINISHED_TIME   
+     select a.id, --编号
+            a.questiondepartment, --部门
+            to_date(substr(questioncreatetime, 1, 16),
+                    'yyyy-mm-dd hh24:mi:ss') start_time, --提出问题时间
+            to_date(substr(sjtime, 1, 16), 'yyyy-mm-dd hh24:mi:ss') sjtime, --实际解决时间                         
+            to_number(to_date(substr(sjtime, 1, 16),
+                              'yyyy-mm-dd hh24:mi:ss') -
+                      to_date(substr(questioncreatetime, 1, 16),
+                              'yyyy-mm-dd hh24:mi:ss')) * 24 * 60 finished_time, --解决问题时长（分钟）
+            sysdate etl_time
+       from dw_m_question a
+     -- where questiondepartment is not null
+      order by questiondepartment, id;
+      
+    --客户评价
+    select * from  DW_PAS_FH_CUSTOMER_REVIEW  
+     select -- a.id,--编号
+      a.questionisover department,--部门
+      b.datavalue status,--问题状态
+      sum(questionmydfkbm) feedback_score,--反馈部门响应及时性分数
+      sum(questionmydjjbm) solve_score,--解决部门响应及时性分数
+      sum(questionmydfwtd) service_score,--服务态度分数
+      sum(questionmydjfzl) pay_score,--支付质量分数
+      sysdate etl_time
+       from dw_m_question a
+       left join dw_m_question_basicdata b on a.questionisover = b.id
+      where b.id in ('102', '101')
+      group by --a.id, 
+               a.questionisover,
+               b.datavalue;
