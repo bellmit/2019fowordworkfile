@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+	 	    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	 	    http://www.springframework.org/schema/tx 
+	  		http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+			http://www.springframework.org/schema/aop 
+	  		http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+		
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<!-- 连接SqlServer2005 -->
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url"
+			    value="jdbc:mysql://202.189.0.20:3306/bjrun_mobile?characterEncoding=UTF-8" />
+			<property name="username" value="root" />
+			<property name="password" value="chongzhuang@2020sql" />		 
+		</bean>
+
+	<!-- blob clob 操作 -->
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true">
+	</bean>
+
+	<!-- 创建sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- 获得数据源，用来创建sessionFactory -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- blob clob 操作 -->
+		<property name="lobHandler">
+			<ref bean="lobHandler" />
+		</property>
+		<property name="mappingResources">
+			<list>
+					<value>com/bjrun/mobile/entity/sign/Sign.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/sign/UserSignRule.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/sign/UserSignAudit.hbm.xml</value>				
+					<value>com/bjrun/mobile/entity/user/User.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/wxApp/WxAppInfo.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/declare/Declare.hbm.xml</value>
+			      	<value>com/bjrun/mobile/entity/workCalendar/WorkCalendar.hbm.xml</value>
+			      	<value>com/bjrun/mobile/entity/autoPunch/AutoPunchLog.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/wxApp/WxAppConfig.hbm.xml</value>
+					<value>com/bjrun/hotelOrder/entity/HotelOrder.hbm.xml</value>
+					<value>com/bjrun/clientQuestion/entity/AppMsdLog.hbm.xml</value>
+					<value>com/bjrun/message/entity/Message.hbm.xml</value>
+					<value>com/bjrun/mobile/entity/sign/SignAppVersion.hbm.xml</value>
+					<value>com/bjrun/task/entity/AgencyKeys.hbm.xml</value>	
+			</list>
+		</property>
+				<!--
+		<property name="mappingDirectoryLocations">
+			<value>WEB-INF/mappings</value>
+		</property> 
+				 -->
+
+		<property name="hibernateProperties">
+			<props>
+				<!-- sqlserver方言
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
+				<!-- mysql方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 显示sql语句 -->
+				<prop key="hibernate.show_sql">false</prop>
+				<!-- 格式化sql语句 -->
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		
+		<!-- 
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
+				</entry>
+			</map>
+		</property>
+		 -->
+	</bean>
+	
+    <!--Jedis连接池的相关配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--新版是maxTotal，旧版是maxActive-->
+        <property name="maxTotal">
+            <value>600</value>
+        </property>
+        <property name="maxIdle">
+            <value>300</value>
+        </property>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index = "0">
+            <ref bean="jedisPoolConfig" />
+        </constructor-arg>
+        <constructor-arg index = "1">
+            <value>127.0.0.1</value>
+        </constructor-arg>
+        <constructor-arg index = "2">
+             <value>6379</value>
+        </constructor-arg>
+        <constructor-arg index = "3">
+           <value>30000</value>
+        </constructor-arg>
+        <constructor-arg index = "4">
+            <value>foobared</value>
+        </constructor-arg>
+    </bean>
+    
+    <!-- Redis处理Service-->
+	<bean id="jedisUtil" class="com.bjrun.util.JedisUtil">
+		<property name="jedisPool" ref="jedisPool"></property>
+	</bean>
+
+	<bean id="userDao" class="com.bjrun.mobile.dao.user.impl.UserDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="userService" class="com.bjrun.mobile.service.user.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+		<property name="signDao" ref="signDao"></property>
+		<property name="signAuditFlag"  value="true"></property>
+		<property name="jedisUtil" ref="jedisUtil"></property>
+	</bean>
+	
+	<bean id="userManager" class="com.bjrun.mobile.action.user.UserManagerAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="signService" ref="signService"></property>
+		<property name="allFileService" ref="allFileService"></property>
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!-- 日报action-->
+	<bean id="dailyAction" class="com.bjrun.daily.action.DailyManagerAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+	</bean>
+	
+	<bean id="signDao" class="com.bjrun.mobile.dao.sign.impl.SignDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="signService" class="com.bjrun.mobile.service.sign.impl.SignServiceImpl">
+		<property name="signDao" ref="signDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="wxAppDao" ref="wxAppDao"></property>
+		<property name="signInterval"  value="50"></property>
+		<property name="jedisUtil" ref="jedisUtil"></property>
+	</bean>
+	
+	<bean id="wxAppDao" class="com.bjrun.mobile.dao.wxApp.impl.WxAppDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="wxAppService" class="com.bjrun.mobile.service.wxApp.impl.WxAppServiceImpl">
+		<property name="wxAppDao" ref="wxAppDao"></property>
+	</bean>
+	
+	<!-- 消息推送 service-->
+	<bean id="msgService" class="com.bjrun.message.service.impl.MessageServiceImpl">
+		<property name="msgDao" ref="msgDao"></property>
+	</bean>
+	
+	<!-- 消息推送 dao-->
+	<bean id="msgDao" class="com.bjrun.message.dao.impl.MessageDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="allFileService" class="cn.com.img.service.impl.AllFileServiceImpl">
+	   <property name="signService" ref="signService"></property>
+	</bean>
+	
+	<bean id="agreeDeclare" class="com.bjrun.mobile.action.declare.AgreeDeclareAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="hotelOrderDao" class="com.bjrun.hotelOrder.dao.impl.HotelOrderDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="hotelOrderService" class="com.bjrun.hotelOrder.service.impl.HotelOrderServiceImpl">
+		<property name="hotelOrderDao" ref="hotelOrderDao"></property>
+	</bean>
+	
+	<bean id="hotelOrderManger" class="com.bjrun.hotelOrder.action.HotelOrderAction" scope="prototype">
+		<property name="hotelOrderService" ref="hotelOrderService"></property>
+	</bean>
+
+	<!-- 定时任务 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean = "syncUserSignRules"/>
+				<ref bean = "syncUserSignInfo"/>
+                <ref bean = "cleanUserSignInfo"/>
+				<ref bean = "batchProcessAutoSign"/>
+                                  
+                <ref bean="doTime"/>
+	<!--  
+                <ref bean="autoPunchTask"/>
+                <ref bean="createHotelFileTask"/>
+             -->
+            </list>
+        </property>
+    </bean>
+
+    <!-- 作业任务 -->
+    <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="jobTask"/>   
+	<property name="cronExpression" value="0 0 10 * * ?"/>
+    </bean>
+
+    <!-- 定义作业任务 【服务协议】-->
+    <!-- 设备一数据定时插入(小时) -->
+    <bean id="jobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="timerTask"/>
+        <property name="targetMethod" value="sendDeclareMsg"/>
+    </bean>
+
+    <!-- 定义一个定时bean -->
+    <bean id="timerTask" class="com.bjrun.util.timer.DeclareTask">
+    	<property name="userDao" ref="userDao"></property>
+    </bean>
+
+	<bean id="createHotelFileTask" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	     <property name="jobDetail">
+	         <ref bean="createHotelFile" />
+	     </property>
+	     <property name="cronExpression">
+	         <value> 0 0 1 * * ?</value>
+	     </property>
+	</bean>    
+	<bean id="createHotelFile" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="hotelOrderService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>createAllFile</value>
+	    </property>
+	</bean>
+	
+	<!-- 定时任务：手机自动打卡 -->
+    <bean id="autoPunchTask" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail">
+	        <ref bean="autoPunchJob" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 8 * * * ?</value>
+	    </property>
+	</bean>  
+	  
+	<bean id="autoPunchJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="signService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>autoPunch</value>
+	    </property>
+	</bean>
+	
+	<!-- 定时任务：同步用户打开规则 -->
+    <bean id="syncUserSignRules" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail">
+	        <ref bean="syncSignRulesJob" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 0 8 * * ?</value>
+	    </property>
+	</bean>    
+	<bean id="syncSignRulesJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="signService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>syncSignRules</value>
+	    </property>
+	</bean>
+
+	<!-- 定时任务：同步用户打卡记录 -->
+    <bean id="syncUserSignInfo" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail">
+	        <ref bean="syncUserSignInfoJob" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 0/20 7-20 * * ?</value>
+	    </property>
+	</bean>    
+	<bean id="syncUserSignInfoJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="signService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>syncSignInfo</value>
+	    </property>
+	</bean>	
+	
+	<!-- 定时任务：清除用户打卡缓存记录 -->
+    <bean id="cleanUserSignInfo" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail">
+	        <ref bean="cleanUserSignInfoJob" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 0 1,22 * * ?</value>
+	    </property>
+	</bean>    
+	<bean id="cleanUserSignInfoJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="signService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>cleanUpSignData</value>
+	    </property>
+	</bean>
+	
+	<!-- 定时任务：后台自动检测任务临时 -->
+    <bean id="batchProcessAutoSign" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail">
+	        <ref bean="batchProcessAutoSignJob" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 10-30/10 9,12,13,18 * * ?</value>
+	    </property>
+	</bean>    
+	<bean id="batchProcessAutoSignJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+	    <property name="targetObject">
+	        <ref bean="signService" />
+	    </property>
+	    <property name="targetMethod">
+	        <value>batchProcessAutoSign</value>
+	    </property>
+	</bean>	
+	
+	<!-- 400基本功能（上传，查看，确认，评价） -->
+	<bean id="clientQuestion" class="com.bjrun.clientQuestion.action.MobileGetClientAction" scope="prototype">
+	    <property name="userService" ref="userService"></property>
+	    <property name="wxAppService" ref="wxAppService"></property>
+	    <property name="appMsdLogService" ref="appMsdLogService"></property>
+	</bean>
+	
+	<!-- 400文件上传 -->
+	<bean id="MobileFile" class="com.bjrun.clientQuestion.action.MobileFileAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!-- 400推送手机消息提醒 -->
+	<bean id="SendMessage" class="com.bjrun.clientQuestion.action.SendMessageAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="appMsdLogService" ref="appMsdLogService"></property>
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!-- 9999基本功能（上传，查看，确认，评价） -->
+	<bean id="acceptanceForm" class="com.bjrun.acceptanceForm.action.AcceptanceFormAction" scope="prototype">
+	    <property name="userService" ref="userService"></property>
+	    <property name="wxAppService" ref="wxAppService"></property>
+	    <property name="appMsdLogService" ref="appMsdLogService"></property>
+	</bean>
+	
+	<!-- 9999文件上传 -->
+	<bean id="acceptanceFile" class="com.bjrun.acceptanceForm.action.AcceptanceFileAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!-- 9999推送手机消息提醒 -->
+	<bean id="sendAcceptMessage" class="com.bjrun.acceptanceForm.action.SendAcceptMessageAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="appMsdLogService" ref="appMsdLogService"></property>
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<bean id="appMsdLogDao" class="com.bjrun.clientQuestion.dao.impl.AppMsdLogDaoImpl" >
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="appMsdLogService" class="com.bjrun.clientQuestion.service.impl.AppMsdLogServiceImpl">
+		<property name="appMsdLogDao" ref="appMsdLogDao"></property>
+	</bean>
+	
+	<!--消息接收-->
+	<bean id="msgReceive" class="com.bjrun.message.action.MsgReceiveAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!--通讯录变更-->
+	<bean id="addressBook" class="com.bjrun.addressBook.AddressBookAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<!--消息推送-->
+	<bean id="msgSend" class="com.bjrun.message.action.MsgSendAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+		<property name="msgService" ref="msgService"></property>
+	</bean>
+
+	<!--客户接待-->
+	<bean id="customerReceptionManager" class="com.bjrun.customerReception.action.CustReceptAction">
+	    <property name="userService" ref="userService"></property>
+	    <property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	
+	<!-- 项目招标 -->
+	<bean id="tenderAction" class="com.bjrun.tender.action.TenderAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	<!-- 代办数量 -->
+	<bean id="pendingAction" class="com.bjrun.pending.action.PendingAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	<!-- 我发出的工作流 -->
+	<bean id="mySendTaskAction" class="com.bjrun.myTask.action.MySendTaskAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	<!-- 待办action-->
+	<bean id="agencyAction" class="com.bjrun.task.action.AgencyProcessAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+	</bean>	
+	<!-- 考勤补登action-->
+	<bean id="attendanceAction" class="com.bjrun.attendance.action.AttendanceAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+	</bean>	
+	<!-- 请假 -->
+	<bean id="leaveAction" class="com.bjrun.leave.action.LeaveAction" scope="prototype">
+		<property name="wxAppService" ref="wxAppService"></property>
+	</bean>
+	<!-- 考勤管理-->
+	<bean id="manageAttend" class="com.bjrun.attendance.action.ManageAttendAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+	</bean>
+	<!-- 合同信息action-->
+	<bean id="contractAction" class="com.bjrun.customerService.action.ContractAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+	</bean>	
+	<!-- 项目周报-->
+	<bean id="customServerAction" class="com.bjrun.customerService.action.CustomServerAction" scope="prototype">	
+		<property name="wxAppService" ref="wxAppService"></property>	
+		<property name="userService" ref="userService"></property>
+	</bean>	
+</beans>

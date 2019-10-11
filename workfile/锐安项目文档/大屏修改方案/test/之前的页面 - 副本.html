@@ -1,0 +1,116 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+   <!--<link rel="stylesheet" href="${ctxStatic}/css/css-reset.css"/>
+   <link rel="stylesheet" type="text/css" href="${ctxStatic}/css/main.css"/>
+  -->  
+</head>
+<body>
+<div class="sponsor-box">
+        <h2 class="title-text" style="text-indent: 30px;">出资人情况<span class="title-text-line"></span></h2>
+        <div class="sponsor-main">
+            <!--环形图-->
+            <div class="stock-box">
+<!--                 <div id="echarts-05" class="echarts-box"></div> -->
+                <div id="stockDiv" class="echarts-line echart01">
+	                 <iframe id="stockFrame" name="stockFrame" 
+	                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+	                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        		</div>
+            </div>
+            <!--资产图-->
+            <div class="property-box">
+<!--                 <div id="echarts-06" class="echarts-box"></div> -->
+				<div id="propertyDiv" class="echarts-line echart01">
+	                 <iframe id="propertyFrame" name="propertyFrame" 
+	                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+	                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        		</div>
+            </div>
+        </div>
+    </div>
+	<div class="qiyefenbu-box">
+    <h2 class="title-text" style="text-indent: 30px;">所属企业分布<span class="title-text-line"></span></h2>
+    <div class="qyfb-content">
+        <div class="map-container">
+            <ul id="map" class="nav-tab-box">
+            	<li class="active"><a href="##">中国地图</a></li>
+                <li><a href="##">世界地图</a></li>
+            </ul>
+            <div class="tabs-panel">
+                <div class="tabs-panel-item">
+                	<iframe id="mainFrame" name="mainFrame" src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true style="overflow:visible;" 
+                		scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+                </div>
+            </div>
+        </div>
+        <!--世界范围排行榜-->
+        
+        <div class="ranking-box">
+            <h2 class="title-text">企业数量排行榜<span class="title-text-line"></span></h2>
+            <ul id="rank" class="nav-tab-box">
+            	<li class="active"><a href="##">世界排行榜</a></li>
+                <li><a href="##">中国排行榜</a></li>
+            </ul>
+            <div class="ranking-table-box">
+                <table id="worldTable">
+                    <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>洲名</th>
+                        <th>数量</th>
+                        <th>占比变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--end-->
+    </div>
+</div>
+
+
+<!--echarts-->
+<div class="echarts-all-box">
+    <div class="echarts-item ">
+        <h2 class="echarts-item-title">所属企业级次分布<span class="title-text-line"></span></h2>
+<!--         <div id="echarts-01" class="echarts-line echart01"></div> -->
+        <div id="levelDiv" class="echarts-line echart01">
+                 <iframe id="levelFrame" name="levelFrame" 
+                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="echarts-item">
+        <h2 class="echarts-item-title">所属企业组织形式分布<span class="title-text-line"></span></h2>
+<!--         <div id="echarts-02" class="echarts-bar echart02"></div> -->
+        <div id="formDiv" class="echarts-line echart01">
+                 <iframe id="formFrame" name="formFrame" 
+                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="echarts-item">
+        <h2 class="echarts-item-title">所属企业性质分类分布<span class="title-text-line"></span></h2>
+<!--         <div id="echarts-03" class="echarts-bar echart03"></div> -->
+        <div id="categorgDiv" class="echarts-line echart01">
+                 <iframe id="categoryFrame" name="categoryFrame" 
+                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        </div>
+    </div>
+    <div class="echarts-item">
+        <h2 class="echarts-item-title">所属企业资本分布<span class="title-text-line"></span></h2>
+<!--         <div id="echarts-04" class="echarts-bar echart04"></div> -->
+        <div id="capitalDiv" class="echarts-line echart01">
+                 <iframe id="capitalFrame" name="capitalFrame" 
+                 src="http://localhost:37799/WebReport/ReportServer?op=fr_bi&cmd=bi_init&id=68&createBy=-999&hideTop=true" 
+                 style="overflow:visible;" scrolling="yes" frameborder="no" width="50%" height="100%"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>
