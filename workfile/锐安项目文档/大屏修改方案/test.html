@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>锐安管理驾驶舱</title>
+        <style type="text/css">
+                #content {
+                        width: 100%;
+                        height: 100%;
+                        float: left;
+                        margin-left: 0%;
+                        margin-top: 0%
+                }
+
+                #firstviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #secondviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        clear: right;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #thirdviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #fourthviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        clear: right;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+        </style>
+
+        <script type="text/javascript">
+
+                function createIframe(index, name, src) {
+                        var firstviewcontent = document.getElementById('firstviewcontent');
+                        var w = firstviewcontent.style.width;
+                        var h = firstviewcontent.style.height;
+                        var iframe = document.createElement("iframe");
+                        iframe.id = name;
+                        iframe.name = name;
+                        iframe.src = src;
+                        iframe.style.overflow = "visible";
+                        iframe.scrolling = "yes";
+                        iframe.frameborder = "no";
+                        iframe.width = "100%";
+                        iframe.height = "100%";
+                        document.getElementById(name + "content").appendChild(iframe);
+                }
+                window.onload = function () {
+                        var names = ["firstview", "secondview", "thirdview", "fourthview"];
+                        var srcs = ["http://192.168.0.104/webroot/decision/v5/design/report/share/b2340b55273446a386242e842e0a3f6b?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImIyMzQwYjU1MjczNDQ2YTM4NjI0MmU4NDJlMGEzZjZiIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.T0qybHQEQJy9Fxi8AuUucZ7VnV-q6eg6_2okTHlrAoE" , 
+						            "http://192.168.0.104/webroot/decision/v5/design/report/share/dd72d79ee0e646039559ae91aeee5ebb?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImRkNzJkNzllZTBlNjQ2MDM5NTU5YWU5MWFlZWU1ZWJiIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.60JuUet4qR3yVosV76YxaRPlQiJDXXXPtC9M3KfhR4g" ,
+						            "http://192.168.0.104/webroot/decision/v5/design/report/share/ca6dcfa4bf7741dcbab1e5e7c70c32a0?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImNhNmRjZmE0YmY3NzQxZGNiYWIxZTVlN2M3MGMzMmEwIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.cEa3HI3RL49OZefUXRSDM8VulE2-BbX6Ztg1IVN4ZHs" , 
+						            "http://192.168.0.104/webroot/decision/v5/design/report/share/ee8c11cd3f104074aaa81d06a7c8df20?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImVlOGMxMWNkM2YxMDQwNzRhYWE4MWQwNmE3YzhkZjIwIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.oIeo2wnMgu0HqMgjUT_POtwnLtOX6L794q00CqxaAb4"
+								   ];
+
+                        for (index = 0; index < names.length; index++) {
+                                createIframe(index, names[index], srcs[index]);
+                        }
+                };
+
+             /**   
+			        window.setTimeout(function () {
+                        window.location.reload();
+                }, 600000);	
+			**/
+				
+				
+				window.setInterval(function () {
+                        document.getElementById('firstview').src="http://192.168.0.104/webroot/decision/v5/design/report/share/b2340b55273446a386242e842e0a3f6b?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImIyMzQwYjU1MjczNDQ2YTM4NjI0MmU4NDJlMGEzZjZiIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.T0qybHQEQJy9Fxi8AuUucZ7VnV-q6eg6_2okTHlrAoE"
+                }, 600000); 
+				
+
+                window.setInterval(function () {
+				time= dateFtt("hhmm",new Date())
+				console.log(time);
+				if(time=='1011'||time=='1013'||time=='1016'||time=='1018'){
+				console.log("到达时间需要刷新");
+				 document.getElementById('secondview').src="http://192.168.0.104/webroot/decision/v5/design/report/share/dd72d79ee0e646039559ae91aeee5ebb?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImRkNzJkNzllZTBlNjQ2MDM5NTU5YWU5MWFlZWU1ZWJiIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.60JuUet4qR3yVosV76YxaRPlQiJDXXXPtC9M3KfhR4g"
+				}
+				}, 60000); 
+                window.setInterval(function () {
+                        document.getElementById('thirdview').src="http://192.168.0.104/webroot/decision/v5/design/report/share/ca6dcfa4bf7741dcbab1e5e7c70c32a0?link=eyJhbGciOiJIUzI1NiJ9.eyJyZXBvcnRJZCI6ImNhNmRjZmE0YmY3NzQxZGNiYWIxZTVlN2M3MGMzMmEwIiwidXNlcklkIjoiYjVmMGMyZWUtNjQwZi00MDM5LWE0ZDQtOTE4YjU1MzU0ODk4IiwianRpIjoiand0In0.cEa3HI3RL49OZefUXRSDM8VulE2-BbX6Ztg1IVN4ZHs"
+                }, 28800000); 
+				
+				/**************************************时间格式化处理************************************/
+function dateFtt(fmt,date) 
+{ //author: meizz 
+ var o = { 
+ "M+" : date.getMonth()+1,     //月份 
+ "d+" : date.getDate(),     //日 
+ "h+" : date.getHours(),     //小时 
+ "m+" : date.getMinutes(),     //分 
+ "s+" : date.getSeconds(),     //秒 
+ "q+" : Math.floor((date.getMonth()+3)/3), //季度 
+ "S" : date.getMilliseconds()    //毫秒 
+ }; 
+ if(/(y+)/.test(fmt)) 
+ fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+ for(var k in o) 
+ if(new RegExp("("+ k +")").test(fmt)) 
+ fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length))); 
+ return fmt; 
+}
+        </script>
+</head>
+
+<body style="height: 100%;margin:0px;  overflow:-Scroll;overflow-y:hidden;overflow-x:hidden">
+        <div id="content">
+                <div id="firstviewcontent"></div>
+                <div id="secondviewcontent"></div>
+                <div id="thirdviewcontent"></div>
+                <div id="fourthviewcontent"></div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>锐安管理驾驶舱</title>
+        <style type="text/css">
+                #content {
+                        width: 100%;
+                        height: 100%;
+                        float: left;
+                        margin-left: 0%;
+                        margin-top: 0%
+                }
+
+                #firstviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #secondviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        clear: right;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #thirdviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+
+                #fourthviewcontent {
+                        width: 50%;
+                        height: 50%;
+                        float: left;
+                        clear: right;
+                        box-sizing: border-box;
+                        border: 0px solid #f0f0f0
+                }
+        </style>
+
+        <script type="text/javascript">
+
+                function createIframe(index, name, src) {
+                        var firstviewcontent = document.getElementById('firstviewcontent');
+                        var w = firstviewcontent.style.width;
+                        var h = firstviewcontent.style.height;
+                        var iframe = document.createElement("iframe");
+                        iframe.id = name;
+                        iframe.name = name;
+                        iframe.src = src;
+                        iframe.style.overflow = "visible";
+                        iframe.scrolling = "yes";
+                        iframe.frameborder = "no";
+                        iframe.width = "100%";
+                        iframe.height = "100%";
+                        document.getElementById(name + "content").appendChild(iframe);
+                }
+                window.onload = function () {
+                        var names = ["firstview", "secondview", "thirdview", "fourthview"];
+                        var srcs = ["http://baidu.com", "http://hao123.com", "http://jd.com", "http://taobao.com"];
+
+                        for (index = 0; index < names.length; index++) {
+                                createIframe(index, names[index], srcs[index]);
+                        }
+                };
+                
+                window.setInterval(function () {
+                        document.getElementById('firstview').src="http://baidu.com"
+                }, 20000);	
+				window.setInterval(function () {
+                        document.getElementById('secondview').src="http://hao123.com"
+                }, 50000);	
+				window.setInterval(function () {
+                        document.getElementById('thirdview').src="http://jd.com"
+                }, 15000);	
+        </script>
+</head>
+
+<body style="height: 100%;margin:0px;  overflow:-Scroll;overflow-y:hidden;overflow-x:hidden">
+        <div id="content">
+                <div id="firstviewcontent"></div>
+                <div id="secondviewcontent"></div>
+                <div id="thirdviewcontent"></div>
+                <div id="fourthviewcontent"></div>
+        </div>
+</body>
+
+</html>
