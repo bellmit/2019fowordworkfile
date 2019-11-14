@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>服务器及账户信息</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="服务器及账户信息">服务器及账户信息</h1>
+<h2 id="办公网用户信息">办公网用户信息</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">用户名</th>
+<th style="text-align:left">密码</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">yjt01</td>
+<td style="text-align:left">123456</td>
+<td style="text-align:left">用于开发移动端内网相关功能</td>
+</tr>
+<tr>
+<td style="text-align:left">yjt02</td>
+<td style="text-align:left">123456</td>
+<td style="text-align:left">用于开发BIetl相关功能</td>
+</tr>
+<tr>
+<td style="text-align:left">yjt03</td>
+<td style="text-align:left">123456</td>
+<td style="text-align:left">用于开发BI报表相关功能</td>
+</tr>
+<tr>
+<td style="text-align:left">yjt04</td>
+<td style="text-align:left">123456</td>
+<td style="text-align:left">用于开发移动端外网相关功能</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bi使用服务器">BI使用服务器</h2>
+<blockquote>
+<p>BI应用正式环境(centos)</p>
+<blockquote>
+<p><strong>地址：</strong> 192.168.0.104<br>
+<strong>用户名：</strong> root<br>
+<strong>密码：</strong> bjrun@2018<br>
+<strong>容器路径:</strong> /FBI/FBI51/apache-tomcat-9.0.12</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>BI应用测试环境(centos)</p>
+<blockquote>
+<p><strong>地址：</strong> 192.168.0.105<br>
+<strong>用户名：</strong> root<br>
+<strong>密码：</strong> bjrun@2018<br>
+<strong>容器路径:</strong> /FBI/apache-tomcat-9.0.12</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>正式环境kettle(windows)</p>
+<blockquote>
+<p><strong>地址：</strong> 192.168.0.170<br>
+<strong>用户名：</strong> administrator<br>
+<strong>密码：</strong> Admin@123<br>
+<strong>etl文件路径:</strong> D:/ETL/ACT_ETL</p>
+</blockquote>
+</blockquote>
+<h2 id="bi数据库">BI数据库</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据库说明</th>
+<th style="text-align:left">数据库ip地址</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">端口</th>
+<th style="text-align:left">用户名</th>
+<th style="text-align:left">密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">老家园测试</td>
+<td style="text-align:left">192.168.0.88</td>
+<td style="text-align:center">mysql</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:left">root</td>
+<td style="text-align:left"><a href="http://www.run.com">www.run.com</a>@123</td>
+</tr>
+<tr>
+<td style="text-align:center">新家园测试</td>
+<td style="text-align:left">192.168.0.131</td>
+<td style="text-align:center">mysql</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:left">root</td>
+<td style="text-align:left">admin123</td>
+</tr>
+<tr>
+<td style="text-align:center">BI测试</td>
+<td style="text-align:left">192.168.0.105</td>
+<td style="text-align:center">oracle</td>
+<td style="text-align:center">1521</td>
+<td style="text-align:left">run</td>
+<td style="text-align:left">admin123</td>
+</tr>
+<tr>
+<td style="text-align:center">老家园正式</td>
+<td style="text-align:left">192.168.0.28</td>
+<td style="text-align:center">mysql</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:left">BI</td>
+<td style="text-align:left">admin123</td>
+</tr>
+<tr>
+<td style="text-align:center">新家园正式</td>
+<td style="text-align:left">192.168.0.174</td>
+<td style="text-align:center">mysql</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:left">BIUser</td>
+<td style="text-align:left">Meiguihua@77</td>
+</tr>
+<tr>
+<td style="text-align:center">oracle正式</td>
+<td style="text-align:left">192.168.0.103</td>
+<td style="text-align:center">oracle</td>
+<td style="text-align:center">1521</td>
+<td style="text-align:left">run</td>
+<td style="text-align:left">admin123</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="移动端使用服务器">移动端使用服务器</h2>
+<blockquote>
+<p>外网测试环境(windows)</p>
+<blockquote>
+<p><strong>地址：</strong> 111.204.211.204<br>
+<strong>用户名：</strong> Administrator<br>
+<strong>密码：</strong> /*-+LlyFwzx@$^*</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>新家园测试环境(centos)</p>
+<blockquote>
+<p><strong>地址：</strong> 192.168.0.143<br>
+<strong>用户名：</strong> root<br>
+<strong>密码：</strong> beacon</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>老家园测试环境(centos)</p>
+<blockquote>
+<p><strong>地址：</strong> 192.168.0.88<br>
+<strong>用户名：</strong> root<br>
+<strong>密码：</strong> bjrun@2014yunwei</p>
+</blockquote>
+</blockquote>
+<h2 id="移动端使用mysql数据库">移动端使用mysql数据库</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据库说明</th>
+<th style="text-align:left">数据库ip地址</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">端口</th>
+<th style="text-align:left">用户名</th>
+<th style="text-align:left">密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">外网应用数据库</td>
+<td style="text-align:left">202.189.0.20</td>
+<td style="text-align:center">mysql</td>
+<td style="text-align:center">3306</td>
+<td style="text-align:left">root</td>
+<td style="text-align:left">chongzhuang@2020sql</td>
+</tr>
+</tbody>
+</table>
+<h2 id="svn账号">svn账号</h2>
+<blockquote>
+<p>外网:</p>
+</blockquote>
+<ul>
+<li>svn地址 <a href="https://run-xiaoruidaka:1443/svn/projects/RunErpSystem">https://run-xiaoruidaka:1443/svn/projects/RunErpSystem</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">账户</th>
+<th style="text-align:left">密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">test1</td>
+<td style="text-align:left">123456</td>
+</tr>
+<tr>
+<td style="text-align:left">test2</td>
+<td style="text-align:left">123456</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>内网:</p>
+</blockquote>
+<ul>
+<li>svn地址 <a href="https://192.168.0.67/svn/ERP/code/Projects">https://192.168.0.67/svn/ERP/code/Projects</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">账户</th>
+<th style="text-align:left">密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">huazheng1</td>
+<td style="text-align:left">123456</td>
+</tr>
+<tr>
+<td style="text-align:left">huazheng2</td>
+<td style="text-align:left">123456</td>
+</tr>
+<tr>
+<td style="text-align:left">huazheng3</td>
+<td style="text-align:left">123456</td>
+</tr>
+</tbody>
+</table>
+
+    </body>
+    </html>

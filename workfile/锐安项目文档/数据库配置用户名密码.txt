@@ -1,0 +1,67 @@
+办公网用户
+yjt01 123456 用于开发移动端内网相关功能
+yjt02 123456 用于开发BIetl相关功能
+yjt03 123456 用于开发BI报表相关功能
+yjt04 123456 用于开发移动端外网相关功能
+
+
+
+BI使用服务器
+BI应用正式环境 192.168.0.104  root  bjrun@2018
+容器路径:/FBI/FBI51/apache-tomcat-9.0.12
+
+BI应用测试环境 192.168.0.105  root  bjrun@2018
+容器路径:/FBI/apache-tomcat-9.0.12
+
+正式环境kettle ：192.168.0.170 用户 administrator 密码 Admin@123
+D:/ETL/ACT_ETL
+
+BI数据库
+
+老家园测试：192.168.0.88    root   www.run.com@123
+新家园测试：192.168.0.131   root   admin123
+Oracle测试：192.168.0.105   run    admin123
+
+老家园正式：192.168.0.28    BI     admin123
+新家园正式：192.168.0.174   BIUser Meiguihua@77
+oracle正式：192.168.0.103   run    admin123
+
+
+移动端使用服务器
+外网测试环境
+111.204.211.204    Administrator    /*-+LlyFwzx@$^*
+
+
+内网
+新家园测试环境 192.168.0.143  root  beacon
+
+老家园测试环境 192.168.0.88   root  bjrun@2014yunwei
+
+
+移动端使用mysql数据库
+ip:port 202.189.0.20:3306 
+账号：root
+密码：chongzhuang@2020sql
+
+svn账号
+
+外网: 
+svn地址 https://run-xiaoruidaka:1443/svn/projects/RunErpSystem
+svn账号1
+test1  123456
+svn账号2
+test2  123456
+
+
+
+内网：
+svn地址 
+https://192.168.0.67/svn/ERP/code
+/Projects
+svn账号1
+huazheng1  666666
+svn账号2
+huazheng2  666666
+svn账号3
+huazheng3  666666
+
